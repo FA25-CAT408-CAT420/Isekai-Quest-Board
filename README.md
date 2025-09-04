@@ -1,0 +1,2 @@
+# Isekai Quest Board
+Game
