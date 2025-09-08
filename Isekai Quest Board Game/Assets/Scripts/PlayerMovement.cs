@@ -9,10 +9,20 @@ public class PlayerMovement : MonoBehaviour
     public GameManager gm;
 
     [Header("Targeting")]
-    public List<GameObject> yourEnemiesInRange = new List<GameObject>();
-
-    public GameObject targetedEnemy;
+    public List<EnemyBase> yourEnemiesInRange = new List<EnemyBase>();
     int enemyIndex = 0;
+    [SerializeField, HideInInspector]
+    private EnemyBase targetedEnemy;
+    
+
+    [Header("Attacking")]
+    public float attackSpeed = 5f;
+    public float attackTimer = 0f;
+    public float dmgMultiplier = 1f;
+    public float dmgLowEnd = 1f;
+    public float dmgHighEnd = 3;
+    public int critDC = 20;
+    public float critMultiplier = 1.5f;
 
     // Start is called before the first frame update
     void Start()
@@ -29,32 +39,55 @@ public class PlayerMovement : MonoBehaviour
 
         rb.velocity = new Vector3(moveHorizontal, moveVertical).normalized * speed;
 
-        if (gm == null){
+        if (gm == null)
+        {
             gm = FindObjectOfType<GameManager>();
             Debug.Log("Game Manager Assigned.");
         }
-
         PurgeEnemies();
-        
-        if (yourEnemiesInRange.Count <= 0){
-            targetedEnemy = null;
+        EnemyTargeting();
+        Attack();
+
+    }
+    public void EnemyTargeting()
+    {
+        if (yourEnemiesInRange.Count <= 0)
+        {
+            if (targetedEnemy != null)
+            {
+                targetedEnemy.isTargeted = false;
+                targetedEnemy = null;
+            }
             enemyIndex = 0;
+            return;
         }
-        else {
-            if (Input.GetKeyDown(KeyCode.RightBracket)) {
+        
+        else
+        {
+            enemyIndex = Mathf.Clamp(enemyIndex, 0, yourEnemiesInRange.Count - 1);
+            targetedEnemy = yourEnemiesInRange[enemyIndex];
+
+            if (Input.GetKeyDown(KeyCode.RightBracket))
+            {
                 enemyIndex = (enemyIndex + 1) % yourEnemiesInRange.Count;
-            } 
-            else if (Input.GetKeyDown(KeyCode.LeftBracket)) {
+            }
+            else if (Input.GetKeyDown(KeyCode.LeftBracket))
+            {
                 enemyIndex--;
-                if (enemyIndex < 0) {
+                if (enemyIndex < 0)
+                {
                     enemyIndex = yourEnemiesInRange.Count - 1;
                 }
             }
-            targetedEnemy = yourEnemiesInRange[enemyIndex];
-        }
+
+            for (int i = 0; i < yourEnemiesInRange.Count; i++)
+            {
+                yourEnemiesInRange[i].isTargeted = i == enemyIndex;
+            }
+        } 
     }
 
-    public void AddYourEnemyToList(GameObject enemy)
+    public void AddYourEnemyToList(EnemyBase enemy)
     {
         if (!yourEnemiesInRange.Contains(enemy))
         {
@@ -63,29 +96,71 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void RemoveYourEnemyFromList(GameObject enemy)
+    public void RemoveYourEnemyFromList(EnemyBase enemy)
     {
         if (yourEnemiesInRange.Contains(enemy))
         {
+            enemy.isTargeted = false;
+            int deletedIndex = yourEnemiesInRange.IndexOf(enemy);
             yourEnemiesInRange.Remove(enemy);
             Debug.Log("Enemy removed: " + enemy.name);
+
+            if (yourEnemiesInRange.Count == 0)
+            {
+                enemyIndex = 0;
+                targetedEnemy = null;
+            }
+            else if (deletedIndex <= enemyIndex)
+            {
+                // Move target back by 1 if the removed enemy was before or at current index
+                enemyIndex = Mathf.Clamp(enemyIndex - 1, 0, yourEnemiesInRange.Count - 1);
+                targetedEnemy = yourEnemiesInRange[enemyIndex];
+            }
         }
     }
 
     public void PurgeEnemies()
     {
         yourEnemiesInRange.RemoveAll(item => item == null);
+        enemyIndex = Mathf.Clamp(enemyIndex, 0, yourEnemiesInRange.Count - 1);
     }
 
-    public void OnTriggerEnter2D(Collider2D other){
-        if (other.gameObject.tag == "Soul"){
+    public void Attack()
+    {
+        if (targetedEnemy != null)
+        {
+            attackTimer += Time.deltaTime;
+            if (attackTimer >= attackSpeed)
+            {
+                int critRate = Random.Range(1, critDC + 1);
+                float attackDamage = Random.Range(dmgLowEnd, dmgHighEnd) * dmgMultiplier;
+                if (critRate == critDC)
+                {
+                    attackDamage *= critMultiplier;
+                }
+
+                targetedEnemy.health -= attackDamage;
+                attackTimer = 0f;
+            }
+        }
+        else if (targetedEnemy == null)
+        {
+            attackTimer = 0f;
+        }
+    }
+
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Soul")
+        {
             gm.soulPoints++;
             Destroy(other.gameObject);
         }
 
         if (other.gameObject.tag == "Enemy")
         {
-            AddYourEnemyToList(other.gameObject);
+            EnemyBase eb = other.GetComponent<EnemyBase>();
+            AddYourEnemyToList(eb);
         }
     }
 
@@ -93,7 +168,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.tag == "Enemy")
         {
-            RemoveYourEnemyFromList(other.gameObject);
+            EnemyBase eb = other.GetComponent<EnemyBase>();
+            RemoveYourEnemyFromList(eb);
         }
     }
 }
