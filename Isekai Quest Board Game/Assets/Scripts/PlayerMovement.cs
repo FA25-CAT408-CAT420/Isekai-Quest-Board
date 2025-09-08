@@ -15,10 +15,14 @@ public class PlayerMovement : MonoBehaviour
     private EnemyBase targetedEnemy;
     
 
+    [Header("Leveling")]
+    public int level = 1;
+    public int spellSlotOneLvl = 1;
+    public float dmgPerLvlMult = 1f;
+
     [Header("Attacking")]
     public float attackSpeed = 5f;
     public float attackTimer = 0f;
-    public float dmgMultiplier = 1f;
     public float dmgLowEnd = 1f;
     public float dmgHighEnd = 3;
     public int critDC = 20;
@@ -47,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
         PurgeEnemies();
         EnemyTargeting();
         Attack();
+        SpecialAttackOne();
 
     }
     public void EnemyTargeting()
@@ -132,11 +137,17 @@ public class PlayerMovement : MonoBehaviour
             attackTimer += Time.deltaTime;
             if (attackTimer >= attackSpeed)
             {
+                float dmgPerLvlMult = 1f;
                 int critRate = Random.Range(1, critDC + 1);
-                float attackDamage = Random.Range(dmgLowEnd, dmgHighEnd) * dmgMultiplier;
+                float attackDamage = Random.Range(dmgLowEnd, dmgHighEnd) * (dmgPerLvlMult += dmgPerLvlMult + (0.15f * level));
                 if (critRate == critDC)
                 {
                     attackDamage *= critMultiplier;
+                    attackDamage = Mathf.Floor(attackDamage);
+                }
+                else
+                {
+                    attackDamage = Mathf.Floor(attackDamage);
                 }
 
                 targetedEnemy.health -= attackDamage;
@@ -146,6 +157,33 @@ public class PlayerMovement : MonoBehaviour
         else if (targetedEnemy == null)
         {
             attackTimer = 0f;
+        }
+    }
+
+    public void SpecialAttackBase(int spellLevel, int diceAmount, int diceType)
+    {
+        int specCritRate = Random.Range(1, critDC + 1);
+        float spellMult = 2f * (0.5f * spellLevel);
+        float specAtkDamage = (diceAmount * spellMult) * diceType;
+        if (specCritRate == critDC)
+        {
+            specAtkDamage *= critMultiplier;
+            specAtkDamage = Mathf.Floor(specAtkDamage);
+        }
+        else
+        {
+            specAtkDamage = Mathf.Floor(specAtkDamage);
+        }
+
+        targetedEnemy.health -= specAtkDamage;
+    }
+
+    public void SpecialAttackOne()
+    {
+        //fireball
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            SpecialAttackBase(spellSlotOneLvl, 1, 10);
         }
     }
 
