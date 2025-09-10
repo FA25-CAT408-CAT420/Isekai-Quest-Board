@@ -18,7 +18,7 @@ public class EnemyAi : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //If the player is too far away from the minimum distance than the enemy will move towards player
+        //If the player is too far away from the minimum distance than the enemy will move towards player and has line of sight
         if (Vector2.Distance(transform.position, player.transform.position) > minimumDistance && hasLineOfSight)
         {
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
@@ -30,6 +30,7 @@ public class EnemyAi : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //Creates a Ray Cast towards the Player so the enemy has a "Line of sight" 
         RaycastHit2D ray = Physics2D.Raycast(transform.position, player.transform.position - transform.position);
         if (ray.collider != null)
         {
