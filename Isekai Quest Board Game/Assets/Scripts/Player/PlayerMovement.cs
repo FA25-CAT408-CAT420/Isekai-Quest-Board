@@ -1,19 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed = 5f;
+    [Header("Movement")]
+    
     private Rigidbody2D rb;
     public GameManager gm;
+    public InputAction playerMovement;
+    Vector2 moveDirection = Vector2.zero;
+    public InputAction playerSpecial;
+    Vector2 dpadDirection = Vector2.zero;
 
     [Header("Targeting")]
     public List<EnemyBase> yourEnemiesInRange = new List<EnemyBase>();
     int enemyIndex = 0;
     [SerializeField, HideInInspector]
     private EnemyBase targetedEnemy;
-    
+
+    [Header("Stats")]
+    public float HP = 50f;
+    public float speed = 5f;
 
     [Header("Leveling")]
     public int level = 1;
@@ -27,33 +35,105 @@ public class PlayerMovement : MonoBehaviour
     public float dmgHighEnd = 3;
     public int critDC = 20;
     public float critMultiplier = 1.5f;
+    public int pBonus = 5;
+    public int toHit;
 
+    [Header("Special")]
+    public List<SpecialAttacks> specials = new List<SpecialAttacks>();
+    public SpecialAttacks specialBeta;
+
+    void OnEnable()
+    {
+        playerMovement.Enable();
+        playerSpecial.Enable();
+    }
+
+    void OnDisable()
+    {
+        playerMovement.Disable();
+        playerSpecial.Disable();
+    }
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        
+        specials.Add(specialBeta);
     }
 
     // Update is called once per frame
     void Update()
     {
-        float moveHorizontal = Input.GetAxisRaw("Horizontal");
-        float moveVertical = Input.GetAxisRaw("Vertical");
-
-        rb.velocity = new Vector3(moveHorizontal, moveVertical).normalized * speed;
-
         if (gm == null)
         {
             gm = FindObjectOfType<GameManager>();
             Debug.Log("Game Manager Assigned.");
         }
-        PurgeEnemies();
-        EnemyTargeting();
-        Attack();
-        SpecialAttackOne();
+        if (HP > 0)
+        {
+            PlayerActions();
+            PurgeEnemies();
+            EnemyTargeting();
+            PlayerStates();
+            if (targetedEnemy != null)
+            {
+                SpecialInput();
+            }
+            else return;
+        }
+        else
+        {
 
+        }
     }
+    private void FixedUpdate()
+    {
+        rb.velocity = moveDirection.normalized * speed;
+    }
+    public enum State
+    {
+        Freeroam,
+        Battle,
+        Flee,
+    }
+
+    void PlayerStates()
+    {
+        switch (state)
+        {
+            default:
+            case State.Freeroam:
+                //TBD
+                //Debug.Log("State = FREEROAM");
+
+                if (Input.GetKeyDown(KeyCode.JoystickButton0) && yourEnemiesInRange.Count > 0)
+                {
+                    Debug.Log("Battle Start");
+                    state = State.Battle;
+                }
+                else if (yourEnemiesInRange.Count <= 0)
+                {
+                    state = State.Freeroam;
+                }
+                break;
+            case State.Battle:
+                Attack();
+                Debug.Log("State = BATTLE");
+                if (yourEnemiesInRange.Count <= 0)
+                {
+                    state = State.Freeroam;
+                }
+                break;
+            case State.Flee:
+                //time for enemies to un-aggro
+                break;
+        }
+    }
+    void PlayerActions()
+    {
+        moveDirection = playerMovement.ReadValue<Vector2>();
+        dpadDirection = playerSpecial.ReadValue<Vector2>();
+    }
+    private State state;
     public void EnemyTargeting()
     {
         if (yourEnemiesInRange.Count <= 0)
@@ -66,7 +146,7 @@ public class PlayerMovement : MonoBehaviour
             enemyIndex = 0;
             return;
         }
-        
+
         else
         {
             enemyIndex = Mathf.Clamp(enemyIndex, 0, yourEnemiesInRange.Count - 1);
@@ -89,7 +169,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 yourEnemiesInRange[i].isTargeted = i == enemyIndex;
             }
-        } 
+        }
     }
 
     public void AddYourEnemyToList(EnemyBase enemy)
@@ -137,21 +217,30 @@ public class PlayerMovement : MonoBehaviour
             attackTimer += Time.deltaTime;
             if (attackTimer >= attackSpeed)
             {
-                float dmgPerLvlMult = 1f;
-                int critRate = Random.Range(1, critDC + 1);
-                float attackDamage = Random.Range(dmgLowEnd, dmgHighEnd) * (dmgPerLvlMult += dmgPerLvlMult + (0.15f * level));
-                if (critRate == critDC)
+                toHit = Random.Range(1, 20 + pBonus);
+                Debug.Log("Hit = " + toHit);
+                if (toHit >= targetedEnemy.AC)
                 {
-                    attackDamage *= critMultiplier;
-                    attackDamage = Mathf.Floor(attackDamage);
+                    float dmgPerLvlMult = 1f;
+                    int critRate = Random.Range(1, critDC + 1);
+                    float attackDamage = Random.Range(dmgLowEnd, dmgHighEnd) * (dmgPerLvlMult += dmgPerLvlMult + (0.15f * level));
+                    if (critRate == critDC)
+                    {
+                        attackDamage *= critMultiplier;
+                        attackDamage = Mathf.Floor(attackDamage);
+                    }
+                    else
+                    {
+                        attackDamage = Mathf.Floor(attackDamage);
+                    }
+
+                    targetedEnemy.health -= attackDamage;
+                    attackTimer = 0f;
                 }
                 else
                 {
-                    attackDamage = Mathf.Floor(attackDamage);
+                    Debug.Log("MISS.");
                 }
-
-                targetedEnemy.health -= attackDamage;
-                attackTimer = 0f;
             }
         }
         else if (targetedEnemy == null)
@@ -160,31 +249,30 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void SpecialAttackBase(int spellLevel, int diceAmount, int diceType)
+    public void SpecialInput()
     {
-        int specCritRate = Random.Range(1, critDC + 1);
-        float spellMult = 2f * (0.5f * spellLevel);
-        float specAtkDamage = (diceAmount * spellMult) * diceType;
-        if (specCritRate == critDC)
+        float specialDMG = 0f;
+        if (dpadDirection.y > 0)
         {
-            specAtkDamage *= critMultiplier;
-            specAtkDamage = Mathf.Floor(specAtkDamage);
+            Debug.Log("DPAD UP Pressed");
+            specialDMG = specials[0].SpecialAttack();
         }
-        else
+        else if (dpadDirection.x > 0)
         {
-            specAtkDamage = Mathf.Floor(specAtkDamage);
+            Debug.Log("DPAD RIGHT Pressed");
+            // specialDMG = specials[0].SpecialAttack();
         }
-
-        targetedEnemy.health -= specAtkDamage;
-    }
-
-    public void SpecialAttackOne()
-    {
-        //fireball
-        if (Input.GetKeyDown(KeyCode.E))
+        else if (dpadDirection.y < 0)
         {
-            SpecialAttackBase(spellSlotOneLvl, 1, 10);
+            Debug.Log("DPAD DOWN Pressed");
+            // specialDMG = specials[0].SpecialAttack();
         }
+        else if (dpadDirection.x < 0)
+        {
+            Debug.Log("DPAD LEFT Pressed");
+            // specialDMG = specials[0].SpecialAttack();
+        }
+        targetedEnemy.health -= specialDMG;
     }
 
     public void OnTriggerEnter2D(Collider2D other)
@@ -200,6 +288,12 @@ public class PlayerMovement : MonoBehaviour
             EnemyBase eb = other.GetComponent<EnemyBase>();
             AddYourEnemyToList(eb);
         }
+
+        // if (other.gameObject.tag == "Special")
+        // {
+        //     EnemyBase eb = other.GetComponent<EnemyBase>();
+        //     AddYourEnemyToList(eb);
+        // }
     }
 
     public void OnTriggerExit2D(Collider2D other)

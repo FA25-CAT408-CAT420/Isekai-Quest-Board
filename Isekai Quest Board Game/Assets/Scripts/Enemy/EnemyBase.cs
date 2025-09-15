@@ -9,6 +9,7 @@ public class EnemyBase : MonoBehaviour
     public Material normalMat;
     public Material outlineMat;
     public bool isTargeted = false;
+    public int AC = 10;
     // Start is called before the first frame update
     void Start()
     {
