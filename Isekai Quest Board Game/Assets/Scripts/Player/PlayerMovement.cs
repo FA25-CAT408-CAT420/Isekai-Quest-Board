@@ -18,6 +18,8 @@ public class PlayerMovement : MonoBehaviour
     private InputAction specialDown;
     private InputAction specialLeft;
     private InputAction specialRight;
+    private InputAction targetNext;
+    private InputAction targetPrev;
 
     [Header("Targeting")]
     public List<EnemyBase> yourEnemiesInRange = new List<EnemyBase>();
@@ -65,11 +67,15 @@ public class PlayerMovement : MonoBehaviour
         specialDown = playerControls.Player.SpecialDown;
         specialLeft = playerControls.Player.SpecialLeft;
         specialRight = playerControls.Player.SpecialRight;
+        targetNext = playerControls.Player.TargetNext;
+        targetPrev = playerControls.Player.TargetPrev;
 
         specialUp.Enable();
         specialDown.Enable();
         specialLeft.Enable();
         specialRight.Enable();
+        targetNext.Enable();
+        targetPrev.Enable();
     }
 
     void OnDisable()
@@ -77,11 +83,13 @@ public class PlayerMovement : MonoBehaviour
         move.Disable();
 
         interact.Disable();
-        
+
         specialUp.Disable();
         specialDown.Disable();
         specialLeft.Disable();
         specialRight.Disable();
+        targetNext.Disable();
+        targetPrev.Disable();
     }
     // Start is called before the first frame update
     void Start()
@@ -254,11 +262,11 @@ public class PlayerMovement : MonoBehaviour
             enemyIndex = Mathf.Clamp(enemyIndex, 0, yourEnemiesInRange.Count - 1);
             targetedEnemy = yourEnemiesInRange[enemyIndex];
 
-            if (Input.GetKeyDown(KeyCode.RightBracket))
+            if (targetNext.WasPressedThisFrame())
             {
                 enemyIndex = (enemyIndex + 1) % yourEnemiesInRange.Count;
             }
-            else if (Input.GetKeyDown(KeyCode.LeftBracket))
+            else if (targetPrev.WasPressedThisFrame())
             {
                 enemyIndex--;
                 if (enemyIndex < 0)

@@ -98,6 +98,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TargetNext"",
+                    ""type"": ""Button"",
+                    ""id"": ""e5bdfb48-e4f1-4b10-acd2-e3eaa1f75377"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TargetPrev"",
+                    ""type"": ""Button"",
+                    ""id"": ""645da174-9aed-4425-ba42-834924eacdc4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -373,6 +391,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a79fb283-1126-4d4e-83a7-b1fd85ec8799"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""TargetPrev"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8881b403-12d2-417f-8c42-8a7b384485ed"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""TargetNext"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -988,6 +1028,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_SpecialLeft = m_Player.FindAction("SpecialLeft", throwIfNotFound: true);
         m_Player_SpecialRight = m_Player.FindAction("SpecialRight", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+        m_Player_TargetNext = m_Player.FindAction("TargetNext", throwIfNotFound: true);
+        m_Player_TargetPrev = m_Player.FindAction("TargetPrev", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1070,6 +1112,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SpecialLeft;
     private readonly InputAction m_Player_SpecialRight;
     private readonly InputAction m_Player_Interact;
+    private readonly InputAction m_Player_TargetNext;
+    private readonly InputAction m_Player_TargetPrev;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1082,6 +1126,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @SpecialLeft => m_Wrapper.m_Player_SpecialLeft;
         public InputAction @SpecialRight => m_Wrapper.m_Player_SpecialRight;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
+        public InputAction @TargetNext => m_Wrapper.m_Player_TargetNext;
+        public InputAction @TargetPrev => m_Wrapper.m_Player_TargetPrev;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1115,6 +1161,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @TargetNext.started += instance.OnTargetNext;
+            @TargetNext.performed += instance.OnTargetNext;
+            @TargetNext.canceled += instance.OnTargetNext;
+            @TargetPrev.started += instance.OnTargetPrev;
+            @TargetPrev.performed += instance.OnTargetPrev;
+            @TargetPrev.canceled += instance.OnTargetPrev;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1143,6 +1195,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @TargetNext.started -= instance.OnTargetNext;
+            @TargetNext.performed -= instance.OnTargetNext;
+            @TargetNext.canceled -= instance.OnTargetNext;
+            @TargetPrev.started -= instance.OnTargetPrev;
+            @TargetPrev.performed -= instance.OnTargetPrev;
+            @TargetPrev.canceled -= instance.OnTargetPrev;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1341,6 +1399,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnSpecialLeft(InputAction.CallbackContext context);
         void OnSpecialRight(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnTargetNext(InputAction.CallbackContext context);
+        void OnTargetPrev(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
