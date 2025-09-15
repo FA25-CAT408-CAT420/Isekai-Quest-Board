@@ -2,16 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 public class PlayerMovement : MonoBehaviour
 {
-    [Header("Movement")]
+    [Header("Inputs")]
     
     private Rigidbody2D rb;
     public GameManager gm;
-    public InputAction playerMovement;
+    public PlayerInputActions playerControls;
     Vector2 moveDirection = Vector2.zero;
-    public InputAction playerSpecial;
     Vector2 dpadDirection = Vector2.zero;
+    private InputAction interact;
+    private InputAction move;
+    private InputAction specialUp;
+    private InputAction specialDown;
+    private InputAction specialLeft;
+    private InputAction specialRight;
 
     [Header("Targeting")]
     public List<EnemyBase> yourEnemiesInRange = new List<EnemyBase>();
@@ -42,16 +48,40 @@ public class PlayerMovement : MonoBehaviour
     public List<SpecialAttacks> specials = new List<SpecialAttacks>();
     public SpecialAttacks specialBeta;
 
+    private void Awake()
+    {
+        playerControls = new PlayerInputActions();
+    }
     void OnEnable()
     {
-        playerMovement.Enable();
-        playerSpecial.Enable();
+        move = playerControls.Player.Move;
+        move.Enable();
+
+        interact = playerControls.Player.Interact;
+        interact.Enable();
+        interact.performed += Interact;
+
+        specialUp = playerControls.Player.SpecialUp;
+        specialDown = playerControls.Player.SpecialDown;
+        specialLeft = playerControls.Player.SpecialLeft;
+        specialRight = playerControls.Player.SpecialRight;
+
+        specialUp.Enable();
+        specialDown.Enable();
+        specialLeft.Enable();
+        specialRight.Enable();
     }
 
     void OnDisable()
     {
-        playerMovement.Disable();
-        playerSpecial.Disable();
+        move.Disable();
+
+        interact.Disable();
+        
+        specialUp.Disable();
+        specialDown.Disable();
+        specialLeft.Disable();
+        specialRight.Disable();
     }
     // Start is called before the first frame update
     void Start()
@@ -82,13 +112,89 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-
+            SceneManager.LoadScene("DeathScene");
         }
     }
     private void FixedUpdate()
     {
         rb.velocity = moveDirection.normalized * speed;
     }
+
+    private void Interact(InputAction.CallbackContext context)
+    {
+        Debug.Log("Interacted");
+    }
+
+    void PlayerActions()
+    {
+        moveDirection = move.ReadValue<Vector2>();
+    }
+    public void SpecialInput()
+    {
+        float specialDMG = 0f;
+        if (specialUp.WasPressedThisFrame())
+        {
+            Debug.Log("DPAD UP Pressed");
+            specialDMG = specials[0].SpecialAttack();
+        }
+        else if (specialRight.WasPressedThisFrame())
+        {
+            Debug.Log("DPAD RIGHT Pressed");
+            //specialDMG = specials[1].SpecialAttack();
+        }
+        else if (specialDown.WasPressedThisFrame())
+        {
+            Debug.Log("DPAD DOWN Pressed");
+            //specialDMG = specials[2].SpecialAttack();
+        }
+        else if (specialLeft.WasPressedThisFrame())
+        {
+            Debug.Log("DPAD LEFT Pressed");
+            //specialDMG = specials[3].SpecialAttack();
+        }
+        targetedEnemy.health -= specialDMG;
+    }
+
+    
+    public void Attack()
+    {
+        if (targetedEnemy != null)
+        {
+            attackTimer += Time.deltaTime;
+            if (attackTimer >= attackSpeed)
+            {
+                toHit = Random.Range(1, 20 + pBonus);
+                Debug.Log("Hit = " + toHit);
+                if (toHit >= targetedEnemy.AC)
+                {
+                    float dmgPerLvlMult = 1f;
+                    int critRate = Random.Range(1, critDC + 1);
+                    float attackDamage = Random.Range(dmgLowEnd, dmgHighEnd) * (dmgPerLvlMult += dmgPerLvlMult + (0.15f * level));
+                    if (critRate == critDC)
+                    {
+                        attackDamage *= critMultiplier;
+                        attackDamage = Mathf.Floor(attackDamage);
+                    }
+                    else
+                    {
+                        attackDamage = Mathf.Floor(attackDamage);
+                    }
+
+                    targetedEnemy.health -= attackDamage;
+                    attackTimer = 0f;
+                }
+                else
+                {
+                    Debug.Log("MISS.");
+                }
+            }
+        }
+        else if (targetedEnemy == null)
+        {
+            attackTimer = 0f;
+        }
+    }
+
     public enum State
     {
         Freeroam,
@@ -128,11 +234,7 @@ public class PlayerMovement : MonoBehaviour
                 break;
         }
     }
-    void PlayerActions()
-    {
-        moveDirection = playerMovement.ReadValue<Vector2>();
-        dpadDirection = playerSpecial.ReadValue<Vector2>();
-    }
+
     private State state;
     public void EnemyTargeting()
     {
@@ -210,70 +312,7 @@ public class PlayerMovement : MonoBehaviour
         enemyIndex = Mathf.Clamp(enemyIndex, 0, yourEnemiesInRange.Count - 1);
     }
 
-    public void Attack()
-    {
-        if (targetedEnemy != null)
-        {
-            attackTimer += Time.deltaTime;
-            if (attackTimer >= attackSpeed)
-            {
-                toHit = Random.Range(1, 20 + pBonus);
-                Debug.Log("Hit = " + toHit);
-                if (toHit >= targetedEnemy.AC)
-                {
-                    float dmgPerLvlMult = 1f;
-                    int critRate = Random.Range(1, critDC + 1);
-                    float attackDamage = Random.Range(dmgLowEnd, dmgHighEnd) * (dmgPerLvlMult += dmgPerLvlMult + (0.15f * level));
-                    if (critRate == critDC)
-                    {
-                        attackDamage *= critMultiplier;
-                        attackDamage = Mathf.Floor(attackDamage);
-                    }
-                    else
-                    {
-                        attackDamage = Mathf.Floor(attackDamage);
-                    }
 
-                    targetedEnemy.health -= attackDamage;
-                    attackTimer = 0f;
-                }
-                else
-                {
-                    Debug.Log("MISS.");
-                }
-            }
-        }
-        else if (targetedEnemy == null)
-        {
-            attackTimer = 0f;
-        }
-    }
-
-    public void SpecialInput()
-    {
-        float specialDMG = 0f;
-        if (dpadDirection.y > 0)
-        {
-            Debug.Log("DPAD UP Pressed");
-            specialDMG = specials[0].SpecialAttack();
-        }
-        else if (dpadDirection.x > 0)
-        {
-            Debug.Log("DPAD RIGHT Pressed");
-            // specialDMG = specials[0].SpecialAttack();
-        }
-        else if (dpadDirection.y < 0)
-        {
-            Debug.Log("DPAD DOWN Pressed");
-            // specialDMG = specials[0].SpecialAttack();
-        }
-        else if (dpadDirection.x < 0)
-        {
-            Debug.Log("DPAD LEFT Pressed");
-            // specialDMG = specials[0].SpecialAttack();
-        }
-        targetedEnemy.health -= specialDMG;
-    }
 
     public void OnTriggerEnter2D(Collider2D other)
     {
@@ -289,11 +328,10 @@ public class PlayerMovement : MonoBehaviour
             AddYourEnemyToList(eb);
         }
 
-        // if (other.gameObject.tag == "Special")
-        // {
-        //     EnemyBase eb = other.GetComponent<EnemyBase>();
-        //     AddYourEnemyToList(eb);
-        // }
+        if (other.gameObject.tag == "Debug")
+        {
+            HP = 0;
+        }
     }
 
     public void OnTriggerExit2D(Collider2D other)
