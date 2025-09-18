@@ -5,8 +5,8 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 public class PlayerMovement : MonoBehaviour
 {
+    public static PlayerMovement Instance;
     [Header("Inputs")]
-    
     private Rigidbody2D rb;
     public GameManager gm;
     public PlayerInputActions playerControls;
@@ -53,6 +53,16 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         playerControls = new PlayerInputActions();
+
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
     void OnEnable()
     {
@@ -121,6 +131,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             SceneManager.LoadScene("DeathScene");
+            Destroy(gameObject);
         }
     }
     private void FixedUpdate()
@@ -131,6 +142,11 @@ public class PlayerMovement : MonoBehaviour
     private void Interact(InputAction.CallbackContext context)
     {
         Debug.Log("Interacted");
+        if (yourEnemiesInRange.Count > 0)
+        {
+            Debug.Log("Battle Start");
+            state = State.Battle;
+        }
     }
 
     void PlayerActions()
@@ -217,17 +233,6 @@ public class PlayerMovement : MonoBehaviour
             default:
             case State.Freeroam:
                 //TBD
-                //Debug.Log("State = FREEROAM");
-
-                if (Input.GetKeyDown(KeyCode.JoystickButton0) && yourEnemiesInRange.Count > 0)
-                {
-                    Debug.Log("Battle Start");
-                    state = State.Battle;
-                }
-                else if (yourEnemiesInRange.Count <= 0)
-                {
-                    state = State.Freeroam;
-                }
                 break;
             case State.Battle:
                 Attack();

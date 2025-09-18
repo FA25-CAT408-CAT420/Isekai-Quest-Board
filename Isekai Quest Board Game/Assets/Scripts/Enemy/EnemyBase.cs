@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class EnemyBase : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class EnemyBase : MonoBehaviour
     public Material outlineMat;
     public bool isTargeted = false;
     public int AC = 10;
+    public TextMeshProUGUI displayHealth;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +22,7 @@ public class EnemyBase : MonoBehaviour
     void Update()
     {
         Health();
+        DisplayHealth();
         TargetOutline();
     }
 
@@ -29,6 +32,11 @@ public class EnemyBase : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void DisplayHealth()
+    {
+        displayHealth.text = "Health:" + health;
     }
 
     public void TargetOutline()

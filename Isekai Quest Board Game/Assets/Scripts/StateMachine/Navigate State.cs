@@ -8,8 +8,9 @@ public class NavigateState : State
     public float moveSpeed;
     public float threshold = 0.1f;
     //public State animation;
-    
-    public override void Enter(){
+
+    public override void Enter()
+    {
         //Set(animation, true);
     }
 
