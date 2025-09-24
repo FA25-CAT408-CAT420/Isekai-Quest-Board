@@ -6,7 +6,7 @@ public class NavigateState : State
 {
     public Vector2 destination;
     public float moveSpeed;
-    public float threshold = 0.1f;
+    public float threshold = 0.5f;
     //public State animation;
 
     public override void Enter()
@@ -23,6 +23,6 @@ public class NavigateState : State
 
     public override void FixedDo(){
         Vector2 direction = (destination - (Vector2)core.transform.position).normalized;
-        rb.velocity = new Vector2(direction.x = moveSpeed, rb.velocity.y);
+        rb.velocity = new Vector2(direction.x * moveSpeed, rb.velocity.y);
     }
 }

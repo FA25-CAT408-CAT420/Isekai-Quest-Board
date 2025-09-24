@@ -8,7 +8,7 @@ public abstract class EnemyCore : MonoBehaviour
     //reference to the rigidbody
     public Rigidbody2D rb;
     //reference to the player for all enemies
-    private GameObject player;
+    public GameObject player;
     // To manage enemy Health
     [SerializeField]public float Health;
     //Every enemy will be targetable
@@ -30,6 +30,15 @@ public abstract class EnemyCore : MonoBehaviour
         foreach (State state in allChildrenStates) {
             state.SetCore(this);
         }
+    }
+
+    private void OnDrawGizmos() {
+#if UNITY_EDITOR
+        if (Application.isPlaying && state != null) {
+            List<State> states = machine.GetActiveStateBranch();
+            UnityEditor.Handles.Label(transform.position, "Active States: "+ string.Join(">", states));
+        }
+#endif
     }
 }
 

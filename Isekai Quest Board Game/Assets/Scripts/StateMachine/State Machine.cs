@@ -16,5 +16,19 @@ public class StateMachine
             state.Enter();
         }
     }
+
+
+    public List<State> GetActiveStateBranch(List<State> list = null) {
+        if (list == null) {
+            list = new List<State>();
+        }
+
+        if (state == null) {
+            return list;
+        }else {
+            list.Add(state);
+            return state.machine.GetActiveStateBranch(list);
+        }
+    }
 }
 

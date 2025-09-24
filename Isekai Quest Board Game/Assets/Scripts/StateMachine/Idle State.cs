@@ -9,6 +9,7 @@ public class IdleState : State
    }
 
    public override void Do() {
+      isComplete = true;
    }
 
    public override void Exit(){

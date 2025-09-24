@@ -11,7 +11,7 @@ public class PatrolState : State
 
    void GoToNextDestination(){
     float randomSpot = Random.Range(anchor1.position.x, anchor2.position.x);
-    navigate.destination = new Vector2(randomSpot, core.transform.position.y);
+    navigate.destination = new Vector2(randomSpot, core.transform.position.y); 
     Set(navigate, true);
    }
 
@@ -26,7 +26,7 @@ public class PatrolState : State
             rb.velocity = new Vector2(0, rb.velocity.y);
         }
     } else {
-        if (machine.state.time > 1){
+        if (machine.state.time > 1.5) {
             GoToNextDestination();
         }
     }
