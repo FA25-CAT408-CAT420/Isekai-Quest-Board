@@ -9,7 +9,7 @@ public class AggroState : State
 
     public IdleState idle;
 
-    public AttackState Attack;
+    //public AttackState Attack;
 
     public Transform target;
 
@@ -27,8 +27,10 @@ public class AggroState : State
 
         if (state == navigate) {
             if (InRange(target.position)) {
-                Set(Attack, true);
+                Set(idle, true);
+                target.gameObject.SetActive(false);
                 return;
+                
             } else if (!InVision(target.position)) {
                 Set(idle, true);
             } else {
@@ -36,7 +38,7 @@ public class AggroState : State
                 Set(navigate, true);
             }
         }else {
-            if (state.time > 2) {
+            if (state.time > 1) {
                 isComplete = true;
             }
         }
