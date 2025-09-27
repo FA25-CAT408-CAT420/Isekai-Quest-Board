@@ -500,6 +500,7 @@ GameObject:
   - component: {fileID: 718136360}
   - component: {fileID: 718136359}
   - component: {fileID: 718136361}
+  - component: {fileID: 718136362}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Player
@@ -609,6 +610,33 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 2}
   m_Direction: 0
+--- !u!50 &718136362
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 718136358}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &722962582
 GameObject:
   m_ObjectHideFlags: 0
@@ -664,7 +692,7 @@ GameObject:
   m_Component:
   - component: {fileID: 779170400}
   - component: {fileID: 779170401}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Aggro
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -698,11 +726,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30cec34d18cce7e459e3730502aa9807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  navigate: {fileID: 1092958744}
-  idle: {fileID: 2085266593}
-  target: {fileID: 718136360}
-  minimumDistance: 0.2
-  vision: 0.1
+  mSpeed: 2
+  minimumDistance: 3
+  player: {fileID: 718136358}
+  hasLineOfSight: 0
 --- !u!1 &1092958742
 GameObject:
   m_ObjectHideFlags: 0
@@ -1001,7 +1028,7 @@ MonoBehaviour:
   Health: 0
   isTargeted: 0
   patrol: {fileID: 1092958745}
-  Aggro: {fileID: 0}
+  aggro: {fileID: 779170401}
 --- !u!50 &1707014380
 Rigidbody2D:
   serializedVersion: 4

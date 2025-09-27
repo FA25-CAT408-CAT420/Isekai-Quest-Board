@@ -6,31 +6,16 @@ public class EnemyAi : EnemyCore
 {
     public PatrolState patrol;
 
-    public AggroState Aggro;
+    public AggroState aggro;
 
     void Start(){
         SetUpInstances();
-        Set(patrol);
+        Set(aggro);
 
     }
 
     void Update(){
-        if (state.isComplete) {
-            if (state == Aggro){
-                Set(patrol);
-            } else {
-                Set(Aggro);
-            }
 
-        }
-
- /*       if (state == patrol) {
-            Aggro.CheckForTarget();
-            if (Aggro.target != null) {
-                Set(Aggro);
-            }
-        }
-*/
         state.DoBranch();
     }
 

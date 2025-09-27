@@ -4,68 +4,49 @@ using UnityEngine;
 
 public class AggroState : State
 {
-
-    public NavigateState navigate;
-
-    public IdleState idle;
-
-    //public AttackState Attack;
-
-    public Transform target;
-
-    public float minimumDistance;
-
-    public float vision; 
+    [SerializeField] private float mSpeed;
+    [SerializeField] private float minimumDistance;
+    public GameObject player;
+    public bool hasLineOfSight = false; 
 
     public override void Enter() {
-        navigate.destination = target.position;
-        Set(navigate, true);
+
+        LookingForPlayer();
+    
 
     }
 
     public override void Do() {
-
-        if (state == navigate) {
-            if (InRange(target.position)) {
-                Set(idle, true);
-                target.gameObject.SetActive(false);
-                return;
-                
-            } else if (!InVision(target.position)) {
-                Set(idle, true);
-            } else {
-                navigate.destination = target.position;
-                Set(navigate, true);
-            }
-        }else {
-            if (state.time > 1) {
-                isComplete = true;
-            }
-        }
-
-        if (target == null) {
-            isComplete = true;
-            return;
-        }
+        PlayerIsFound();
     }
 
     public override void Exit() {
 
     }
 
-    public bool InRange(Vector2 targetPos) {
-        return Vector2.Distance(core.transform.position, targetPos) < minimumDistance; 
-    }
+    public void LookingForPlayer() {
 
-    public bool InVision(Vector2 targetPos) {
-        return Vector2.Distance(core.transform.position, targetPos) < vision;
-    }
+        RaycastHit2D ray = Physics2D.Raycast(transform.position, player.transform.position - transform.position);
 
-    public Transform CheckForTarget() {
-        if (InVision(target.position)) {
-            return target;
+        if (ray.collider != null)
+        {
+            hasLineOfSight = ray.collider.CompareTag("Player");
+
+            if(hasLineOfSight)
+            {
+                Debug.DrawRay(transform.position, player.transform.position - transform.position, Color.red);
+            }
+            else
+            {
+                Debug.DrawRay(transform.position, player.transform.position - transform.position, Color.green);
+            }
         }
+    }
 
-        return null;
+    public void PlayerIsFound() {
+        if (Vector2.Distance(transform.position, player.transform.position) > minimumDistance && hasLineOfSight)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, mSpeed * Time.deltaTime);
+        } 
     }
 }
