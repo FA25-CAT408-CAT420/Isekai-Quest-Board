@@ -45,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
     public float critMultiplier = 1.5f;
     public int pBonus = 5;
     public int toHit;
+    public bool isTargeting = false;
 
     [Header("Special")]
     public List<SpecialAttacks> specials = new List<SpecialAttacks>();
@@ -120,7 +121,17 @@ public class PlayerMovement : MonoBehaviour
         {
             PlayerActions();
             PurgeEnemies();
-            EnemyTargeting();
+            
+            if (targetNext.WasPressedThisFrame() && isTargeting == false)
+            {
+                isTargeting = true;
+                EnemyTargeting();
+            }
+            else if (yourEnemiesInRange.Count <= 0)
+            {
+                isTargeting = false;
+            }
+
             PlayerStates();
             if (targetedEnemy != null)
             {
