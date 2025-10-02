@@ -4,49 +4,48 @@ using UnityEngine;
 
 public class AggroState : State
 {
-    [SerializeField] private float mSpeed;
-    [SerializeField] private float minimumDistance;
-    public GameObject player;
-    public bool hasLineOfSight = false; 
+    public CombatState combat;
+    public NavigateState navigate;
+    public IdleState idle;
+    public float minimumDistance;
+    public Transform target;
+    public float vision = 1f;
 
     public override void Enter() {
-
-        LookingForPlayer();
+        navigate.destination = target.position; 
+        Set(navigate, true);
     
-
     }
 
     public override void Do() {
-        PlayerIsFound();
+
+        if (machine.state == navigate) {
+            if (CloseEnough(target.position)) {
+                Set(combat, true);
+                rb.velocity = new Vector2(0,0);
+            } else {
+                navigate.destination = target.position;
+                Set(navigate, true);
+            }
+        } else {
+            if (target == null) {
+            isComplete = true;
+        }
+        }
     }
 
     public override void Exit() {
 
     }
 
-    public void LookingForPlayer() {
-
-        RaycastHit2D ray = Physics2D.Raycast(transform.position, player.transform.position - transform.position);
-
-        if (ray.collider != null)
-        {
-            hasLineOfSight = ray.collider.CompareTag("Player");
-
-            if(hasLineOfSight)
-            {
-                Debug.DrawRay(transform.position, player.transform.position - transform.position, Color.red);
-            }
-            else
-            {
-                Debug.DrawRay(transform.position, player.transform.position - transform.position, Color.green);
-            }
-        }
+    public bool CloseEnough(Vector2 targetPos){
+        return Vector2.Distance(core.transform.position, targetPos) < minimumDistance;
     }
-
-    public void PlayerIsFound() {
-        if (Vector2.Distance(transform.position, player.transform.position) > minimumDistance && hasLineOfSight)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, player.transform.position, mSpeed * Time.deltaTime);
-        } 
+    public Transform CheckForTarget(){
+        if (Vector2.Distance(core.transform.position, target.position) < vision){
+        return target;
+    } else {
+    return null;
+    }
     }
 }

@@ -23,6 +23,6 @@ public class NavigateState : State
 
     public override void FixedDo(){
         Vector2 direction = (destination - (Vector2)core.transform.position).normalized;
-        rb.velocity = new Vector2(direction.x * moveSpeed, rb.velocity.y);
+        rb.velocity = new Vector2(direction.x, direction.y * moveSpeed);
     }
 }
