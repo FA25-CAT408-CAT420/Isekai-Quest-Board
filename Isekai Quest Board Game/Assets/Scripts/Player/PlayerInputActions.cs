@@ -100,6 +100,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Run"",
+                    ""type"": ""Button"",
+                    ""id"": ""d0d436b5-5980-4d9e-afe4-11e2b3096c75"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""TargetNext"",
                     ""type"": ""Button"",
                     ""id"": ""e5bdfb48-e4f1-4b10-acd2-e3eaa1f75377"",
@@ -413,6 +422,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""TargetNext"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e1f2561d-c5f9-4f51-a14e-351c4550df04"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1048,6 +1068,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_SpecialLeft = m_Player.FindAction("SpecialLeft", throwIfNotFound: true);
         m_Player_SpecialRight = m_Player.FindAction("SpecialRight", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+        m_Player_Run = m_Player.FindAction("Run", throwIfNotFound: true);
         m_Player_TargetNext = m_Player.FindAction("TargetNext", throwIfNotFound: true);
         m_Player_TargetPrev = m_Player.FindAction("TargetPrev", throwIfNotFound: true);
         // UI
@@ -1133,6 +1154,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SpecialLeft;
     private readonly InputAction m_Player_SpecialRight;
     private readonly InputAction m_Player_Interact;
+    private readonly InputAction m_Player_Run;
     private readonly InputAction m_Player_TargetNext;
     private readonly InputAction m_Player_TargetPrev;
     public struct PlayerActions
@@ -1147,6 +1169,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @SpecialLeft => m_Wrapper.m_Player_SpecialLeft;
         public InputAction @SpecialRight => m_Wrapper.m_Player_SpecialRight;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
+        public InputAction @Run => m_Wrapper.m_Player_Run;
         public InputAction @TargetNext => m_Wrapper.m_Player_TargetNext;
         public InputAction @TargetPrev => m_Wrapper.m_Player_TargetPrev;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -1182,6 +1205,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @Run.started += instance.OnRun;
+            @Run.performed += instance.OnRun;
+            @Run.canceled += instance.OnRun;
             @TargetNext.started += instance.OnTargetNext;
             @TargetNext.performed += instance.OnTargetNext;
             @TargetNext.canceled += instance.OnTargetNext;
@@ -1216,6 +1242,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @Run.started -= instance.OnRun;
+            @Run.performed -= instance.OnRun;
+            @Run.canceled -= instance.OnRun;
             @TargetNext.started -= instance.OnTargetNext;
             @TargetNext.performed -= instance.OnTargetNext;
             @TargetNext.canceled -= instance.OnTargetNext;
@@ -1428,6 +1457,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnSpecialLeft(InputAction.CallbackContext context);
         void OnSpecialRight(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnRun(InputAction.CallbackContext context);
         void OnTargetNext(InputAction.CallbackContext context);
         void OnTargetPrev(InputAction.CallbackContext context);
     }

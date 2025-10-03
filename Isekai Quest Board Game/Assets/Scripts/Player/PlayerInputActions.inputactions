@@ -78,6 +78,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Run",
+                    "type": "Button",
+                    "id": "d0d436b5-5980-4d9e-afe4-11e2b3096c75",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "TargetNext",
                     "type": "Button",
                     "id": "e5bdfb48-e4f1-4b10-acd2-e3eaa1f75377",
@@ -391,6 +400,17 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "TargetNext",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e1f2561d-c5f9-4f51-a14e-351c4550df04",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Run",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

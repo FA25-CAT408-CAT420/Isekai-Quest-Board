@@ -10,9 +10,8 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     public GameManager gm;
     public PlayerInputActions playerControls;
-    Vector2 moveDirection = Vector2.zero;
-    Vector2 dpadDirection = Vector2.zero;
     private InputAction interact;
+    private InputAction run;
     private InputAction move;
     private InputAction specialUp;
     private InputAction specialDown;
@@ -20,6 +19,15 @@ public class PlayerMovement : MonoBehaviour
     private InputAction specialRight;
     private InputAction targetNext;
     private InputAction targetPrev;
+
+    [Header("Movement")]
+    Vector2 moveDirection = Vector2.zero;
+    Vector2 dpadDirection = Vector2.zero;
+    public float gridSize = 1f;
+    public float walkSpeed = 15f;
+    public float runSpeed = 25f;
+    public float currentSpeed = 15; 
+    private bool isMoving = false;
 
     [Header("Targeting")]
     public List<EnemyBase> yourEnemiesInRange = new List<EnemyBase>();
@@ -29,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Stats")]
     public float HP = 50f;
-    public float speed = 5f;
+
 
     [Header("Leveling")]
     public int level = 1;
@@ -74,6 +82,11 @@ public class PlayerMovement : MonoBehaviour
         interact.Enable();
         interact.performed += Interact;
 
+        run = playerControls.Player.Run;
+        run.Enable();
+        run.performed += Run;
+        run.canceled += StopRun;
+
         specialUp = playerControls.Player.SpecialUp;
         specialDown = playerControls.Player.SpecialDown;
         specialLeft = playerControls.Player.SpecialLeft;
@@ -94,6 +107,7 @@ public class PlayerMovement : MonoBehaviour
         move.Disable();
 
         interact.Disable();
+        run.Disable();
 
         specialUp.Disable();
         specialDown.Disable();
@@ -107,6 +121,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         specials.Add(specialBeta);
+        currentSpeed = walkSpeed;
     }
 
     // Update is called once per frame
@@ -147,7 +162,8 @@ public class PlayerMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        rb.velocity = moveDirection.normalized * speed;
+
+        //rb.velocity = moveDirection.normalized * speed;
     }
 
     private void Interact(InputAction.CallbackContext context)
@@ -160,10 +176,58 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void Run(InputAction.CallbackContext context)
+    {
+        currentSpeed = runSpeed;
+    }
+    
+    private void StopRun(InputAction.CallbackContext context)
+    {
+        currentSpeed = walkSpeed;
+    }
+
     void PlayerActions()
     {
-        moveDirection = move.ReadValue<Vector2>();
+        if (!isMoving){
+            moveDirection = move.ReadValue<Vector2>();
+
+            if (moveDirection != Vector2.zero)
+            {
+                if (Mathf.Abs(moveDirection.x) > Mathf.Abs(moveDirection.y))
+                    moveDirection = new Vector2(Mathf.Sign(moveDirection.x), 0);
+                else
+                    moveDirection = new Vector2(0, Mathf.Sign(moveDirection.y));
+
+                StartCoroutine(MoveRoutine(moveDirection));
+            }
+        }
     }
+
+    private System.Collections.IEnumerator MoveRoutine(Vector2 direction)
+    {
+        isMoving = true;
+
+        Vector3 startPos = new Vector3(
+        Mathf.Round(transform.position.x / gridSize) * gridSize,
+        Mathf.Round(transform.position.y / gridSize) * gridSize,
+        transform.position.z
+        );
+        Vector3 endPos = startPos + (Vector3)(direction * gridSize);
+
+        float elapsed = 0f;
+        float moveTime = gridSize / (currentSpeed * 10);
+
+        while (elapsed < moveTime)
+        {
+            rb.MovePosition(Vector3.Lerp(startPos, endPos, elapsed / moveTime));
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        rb.MovePosition(endPos);
+        isMoving = false;
+    }
+
     public void SpecialInput()
     {
         float specialDMG = 0f;
