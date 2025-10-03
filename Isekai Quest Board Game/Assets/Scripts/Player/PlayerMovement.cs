@@ -1,433 +1,112 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
+
 public class PlayerMovement : MonoBehaviour
 {
-    public static PlayerMovement Instance;
     [Header("Inputs")]
-    private Rigidbody2D rb;
-    public GameManager gm;
     public PlayerInputActions playerControls;
-    private InputAction interact;
-    private InputAction run;
     private InputAction move;
-    private InputAction specialUp;
-    private InputAction specialDown;
-    private InputAction specialLeft;
-    private InputAction specialRight;
-    private InputAction targetNext;
-    private InputAction targetPrev;
+    private InputAction run;
 
     [Header("Movement")]
-    Vector2 moveDirection = Vector2.zero;
-    Vector2 dpadDirection = Vector2.zero;
     public float gridSize = 1f;
     public float walkSpeed = 15f;
     public float runSpeed = 25f;
-    public float currentSpeed = 15; 
+    public float currentSpeed;
+    private Vector2 moveDirection;
     private bool isMoving = false;
+    private Rigidbody2D rb;
 
-    [Header("Targeting")]
-    public List<EnemyBase> yourEnemiesInRange = new List<EnemyBase>();
-    int enemyIndex = 0;
-    [SerializeField, HideInInspector]
-    private EnemyBase targetedEnemy;
-
-    [Header("Stats")]
-    public float HP = 50f;
-
-
-    [Header("Leveling")]
-    public int level = 1;
-    public int spellSlotOneLvl = 1;
-    public float dmgPerLvlMult = 1f;
-
-    [Header("Attacking")]
-    public float attackSpeed = 5f;
-    public float attackTimer = 0f;
-    public float dmgLowEnd = 1f;
-    public float dmgHighEnd = 3;
-    public int critDC = 20;
-    public float critMultiplier = 1.5f;
-    public int pBonus = 5;
-    public int toHit;
-    public bool isTargeting = false;
-
-    [Header("Special")]
-    public List<SpecialAttacks> specials = new List<SpecialAttacks>();
-    public SpecialAttacks specialBeta;
+    public SpriteRenderer spriteRenderer;
+    public Animator anim;
+    private Vector2 lastMoveDirection = Vector2.zero;
 
     private void Awake()
     {
         playerControls = new PlayerInputActions();
-
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
     }
-    void OnEnable()
+
+    private void OnEnable()
     {
         move = playerControls.Player.Move;
-        move.Enable();
-
-        interact = playerControls.Player.Interact;
-        interact.Enable();
-        interact.performed += Interact;
-
         run = playerControls.Player.Run;
+
+        move.Enable();
         run.Enable();
-        run.performed += Run;
-        run.canceled += StopRun;
 
-        specialUp = playerControls.Player.SpecialUp;
-        specialDown = playerControls.Player.SpecialDown;
-        specialLeft = playerControls.Player.SpecialLeft;
-        specialRight = playerControls.Player.SpecialRight;
-        targetNext = playerControls.Player.TargetNext;
-        targetPrev = playerControls.Player.TargetPrev;
-
-        specialUp.Enable();
-        specialDown.Enable();
-        specialLeft.Enable();
-        specialRight.Enable();
-        targetNext.Enable();
-        targetPrev.Enable();
+        run.performed += ctx => currentSpeed = runSpeed;
+        run.canceled += ctx => currentSpeed = walkSpeed;
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
         move.Disable();
-
-        interact.Disable();
         run.Disable();
 
-        specialUp.Disable();
-        specialDown.Disable();
-        specialLeft.Disable();
-        specialRight.Disable();
-        targetNext.Disable();
-        targetPrev.Disable();
+        run.performed -= ctx => currentSpeed = runSpeed;
+        run.canceled -= ctx => currentSpeed = walkSpeed;
     }
-    // Start is called before the first frame update
-    void Start()
+
+    private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        specials.Add(specialBeta);
         currentSpeed = walkSpeed;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (gm == null)
-        {
-            gm = FindObjectOfType<GameManager>();
-            Debug.Log("Game Manager Assigned.");
-        }
-        if (HP > 0)
-        {
-            PlayerActions();
-            PurgeEnemies();
-            
-            if (targetNext.WasPressedThisFrame() && isTargeting == false)
-            {
-                isTargeting = true;
-                EnemyTargeting();
-            }
-            else if (yourEnemiesInRange.Count <= 0)
-            {
-                isTargeting = false;
-            }
+        Animator();
 
-            PlayerStates();
-            if (targetedEnemy != null)
-            {
-                SpecialInput();
-            }
-            else return;
-        }
-        else
-        {
-            SceneManager.LoadScene("DeathScene");
-            Destroy(gameObject);
-        }
-    }
-    private void FixedUpdate()
-    {
-
-        //rb.velocity = moveDirection.normalized * speed;
-    }
-
-    private void Interact(InputAction.CallbackContext context)
-    {
-        Debug.Log("Interacted");
-        if (yourEnemiesInRange.Count > 0)
-        {
-            Debug.Log("Battle Start");
-            state = State.Battle;
-        }
-    }
-
-    private void Run(InputAction.CallbackContext context)
-    {
-        currentSpeed = runSpeed;
-    }
-    
-    private void StopRun(InputAction.CallbackContext context)
-    {
-        currentSpeed = walkSpeed;
-    }
-
-    void PlayerActions()
-    {
         if (!isMoving){
-            moveDirection = move.ReadValue<Vector2>();
+            HandleMovement();
+        }
+        anim.SetBool("Moving", isMoving);
+    }
 
-            if (moveDirection != Vector2.zero)
+    private void Animator(){
+        if (moveDirection.x < -0.1f)
+        {
+            spriteRenderer.flipX = true; 
+        }
+        else if (moveDirection.x > 0.1f)
+        {
+            spriteRenderer.flipX = false;
+        }
+    }
+    private void HandleMovement()
+    {
+        moveDirection = move.ReadValue<Vector2>();
+
+        if (moveDirection.magnitude > 0.1f) // dead zone
+        {
+            if (Mathf.Abs(moveDirection.x) > Mathf.Abs(moveDirection.y))
             {
-                if (Mathf.Abs(moveDirection.x) > Mathf.Abs(moveDirection.y))
-                    moveDirection = new Vector2(Mathf.Sign(moveDirection.x), 0);
-                else
-                    moveDirection = new Vector2(0, Mathf.Sign(moveDirection.y));
-
-                StartCoroutine(MoveRoutine(moveDirection));
+                moveDirection = new Vector2(Mathf.Sign(moveDirection.x), 0);
             }
+            else
+            {
+                moveDirection = new Vector2(0, Mathf.Sign(moveDirection.y));
+            }
+
+            var targetPos = transform.position;
+            targetPos += (Vector3)moveDirection;
+
+            anim.SetFloat("X", moveDirection.x);
+            anim.SetFloat("Y", moveDirection.y * -1);
+
+            StartCoroutine(Move(targetPos));
         }
     }
 
-    private System.Collections.IEnumerator MoveRoutine(Vector2 direction)
+    IEnumerator Move(Vector3 targetPos)
     {
         isMoving = true;
-
-        Vector3 startPos = new Vector3(
-        Mathf.Round(transform.position.x / gridSize) * gridSize,
-        Mathf.Round(transform.position.y / gridSize) * gridSize,
-        transform.position.z
-        );
-        Vector3 endPos = startPos + (Vector3)(direction * gridSize);
-
-        float elapsed = 0f;
-        float moveTime = gridSize / (currentSpeed * 10);
-
-        while (elapsed < moveTime)
-        {
-            rb.MovePosition(Vector3.Lerp(startPos, endPos, elapsed / moveTime));
-            elapsed += Time.deltaTime;
+        while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon){
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, currentSpeed * Time.deltaTime);
             yield return null;
         }
-
-        rb.MovePosition(endPos);
+        transform.position = targetPos;
         isMoving = false;
-    }
-
-    public void SpecialInput()
-    {
-        float specialDMG = 0f;
-        if (specialUp.WasPressedThisFrame())
-        {
-            Debug.Log("DPAD UP Pressed");
-            specialDMG = specials[0].SpecialAttack();
-        }
-        else if (specialRight.WasPressedThisFrame())
-        {
-            Debug.Log("DPAD RIGHT Pressed");
-            //specialDMG = specials[1].SpecialAttack();
-        }
-        else if (specialDown.WasPressedThisFrame())
-        {
-            Debug.Log("DPAD DOWN Pressed");
-            //specialDMG = specials[2].SpecialAttack();
-        }
-        else if (specialLeft.WasPressedThisFrame())
-        {
-            Debug.Log("DPAD LEFT Pressed");
-            //specialDMG = specials[3].SpecialAttack();
-        }
-        targetedEnemy.health -= specialDMG;
-    }
-
-    
-    public void Attack()
-    {
-        if (targetedEnemy != null)
-        {
-            attackTimer += Time.deltaTime;
-            if (attackTimer >= attackSpeed)
-            {
-                toHit = Random.Range(1, 20 + pBonus);
-                Debug.Log("Hit = " + toHit);
-                if (toHit >= targetedEnemy.AC)
-                {
-                    float dmgPerLvlMult = 1f;
-                    int critRate = Random.Range(1, critDC + 1);
-                    float attackDamage = Random.Range(dmgLowEnd, dmgHighEnd) * (dmgPerLvlMult += dmgPerLvlMult + (0.15f * level));
-                    if (critRate == critDC)
-                    {
-                        attackDamage *= critMultiplier;
-                        attackDamage = Mathf.Floor(attackDamage);
-                    }
-                    else
-                    {
-                        attackDamage = Mathf.Floor(attackDamage);
-                    }
-
-                    targetedEnemy.health -= attackDamage;
-                    attackTimer = 0f;
-                }
-                else
-                {
-                    Debug.Log("MISS.");
-                }
-            }
-        }
-        else if (targetedEnemy == null)
-        {
-            attackTimer = 0f;
-        }
-    }
-
-    public enum State
-    {
-        Freeroam,
-        Battle,
-        Flee,
-    }
-
-    void PlayerStates()
-    {
-        switch (state)
-        {
-            default:
-            case State.Freeroam:
-                //TBD
-                break;
-            case State.Battle:
-                Attack();
-                Debug.Log("State = BATTLE");
-                if (yourEnemiesInRange.Count <= 0)
-                {
-                    state = State.Freeroam;
-                }
-                break;
-            case State.Flee:
-                //time for enemies to un-aggro
-                break;
-        }
-    }
-
-    private State state;
-    public void EnemyTargeting()
-    {
-        if (yourEnemiesInRange.Count <= 0)
-        {
-            if (targetedEnemy != null)
-            {
-                targetedEnemy.isTargeted = false;
-                targetedEnemy = null;
-            }
-            enemyIndex = 0;
-            return;
-        }
-
-        else
-        {
-            enemyIndex = Mathf.Clamp(enemyIndex, 0, yourEnemiesInRange.Count - 1);
-            targetedEnemy = yourEnemiesInRange[enemyIndex];
-
-            if (targetNext.WasPressedThisFrame())
-            {
-                enemyIndex = (enemyIndex + 1) % yourEnemiesInRange.Count;
-            }
-            else if (targetPrev.WasPressedThisFrame())
-            {
-                enemyIndex--;
-                if (enemyIndex < 0)
-                {
-                    enemyIndex = yourEnemiesInRange.Count - 1;
-                }
-            }
-
-            for (int i = 0; i < yourEnemiesInRange.Count; i++)
-            {
-                yourEnemiesInRange[i].isTargeted = i == enemyIndex;
-            }
-        }
-    }
-
-    public void AddYourEnemyToList(EnemyBase enemy)
-    {
-        if (!yourEnemiesInRange.Contains(enemy))
-        {
-            yourEnemiesInRange.Add(enemy);
-            Debug.Log("Enemy added: " + enemy.name);
-        }
-    }
-
-    public void RemoveYourEnemyFromList(EnemyBase enemy)
-    {
-        if (yourEnemiesInRange.Contains(enemy))
-        {
-            enemy.isTargeted = false;
-            int deletedIndex = yourEnemiesInRange.IndexOf(enemy);
-            yourEnemiesInRange.Remove(enemy);
-            Debug.Log("Enemy removed: " + enemy.name);
-
-            if (yourEnemiesInRange.Count == 0)
-            {
-                enemyIndex = 0;
-                targetedEnemy = null;
-            }
-            else if (deletedIndex <= enemyIndex)
-            {
-                // Move target back by 1 if the removed enemy was before or at current index
-                enemyIndex = Mathf.Clamp(enemyIndex - 1, 0, yourEnemiesInRange.Count - 1);
-                targetedEnemy = yourEnemiesInRange[enemyIndex];
-            }
-        }
-    }
-
-    public void PurgeEnemies()
-    {
-        yourEnemiesInRange.RemoveAll(item => item == null);
-        enemyIndex = Mathf.Clamp(enemyIndex, 0, yourEnemiesInRange.Count - 1);
-    }
-
-
-
-    public void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "Soul")
-        {
-            gm.soulPoints++;
-            Destroy(other.gameObject);
-        }
-
-        if (other.gameObject.tag == "Enemy")
-        {
-            EnemyBase eb = other.GetComponent<EnemyBase>();
-            AddYourEnemyToList(eb);
-        }
-
-        if (other.gameObject.tag == "Debug")
-        {
-            HP = 0;
-        }
-    }
-
-    public void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "Enemy")
-        {
-            EnemyBase eb = other.GetComponent<EnemyBase>();
-            RemoveYourEnemyFromList(eb);
-        }
     }
 }

@@ -5016,10 +5016,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1047097579}
-  - component: {fileID: 1047097577}
   - component: {fileID: 1047097576}
   - component: {fileID: 1047097575}
   - component: {fileID: 1047097580}
+  - component: {fileID: 1047097577}
+  - component: {fileID: 1047097582}
+  - component: {fileID: 1047097581}
   m_Layer: 0
   m_Name: PLAYER
   m_TagString: Player
@@ -5070,7 +5072,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 32, y: 32}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!50 &1047097576
 Rigidbody2D:
@@ -5111,28 +5113,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb85add9e73aa87418e87cf621b94b91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gm: {fileID: 0}
   gridSize: 32
-  walkSpeed: 15
-  runSpeed: 25
+  walkSpeed: 5
+  runSpeed: 10
   currentSpeed: 0
-  yourEnemiesInRange: []
-  targetedEnemy: {fileID: 0}
-  HP: 50
-  level: 1
-  spellSlotOneLvl: 1
-  dmgPerLvlMult: 1
-  attackSpeed: 5
-  attackTimer: 0
-  dmgLowEnd: 1
-  dmgHighEnd: 3
-  critDC: 20
-  critMultiplier: 1.5
-  pBonus: 5
-  toHit: 0
-  isTargeting: 0
-  specials: []
-  specialBeta: {fileID: 11400000, guid: 10b585f780f0e0f4baf92427d46e0f12, type: 2}
+  spriteRenderer: {fileID: 1494897564}
+  anim: {fileID: 1494897565}
 --- !u!4 &1047097579
 Transform:
   m_ObjectHideFlags: 0
@@ -5179,6 +5165,43 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1047097581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1047097574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 194f74fd4aedaa0428907b965c395a67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  specials: []
+  specialBeta: {fileID: 0}
+  attackSpeed: 5
+  dmgLowEnd: 1
+  dmgHighEnd: 3
+  critDC: 20
+  critMultiplier: 1.5
+  pBonus: 5
+  level: 1
+  yourEnemiesInRange: []
+  targetedEnemy: {fileID: 0}
+  isTargeting: 0
+--- !u!114 &1047097582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1047097574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9dad6b65b0bea44185921f48d3850e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HP: 50
 --- !u!1 &1097904433
 GameObject:
   m_ObjectHideFlags: 0
@@ -6311,8 +6334,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1494897563}
   - component: {fileID: 1494897564}
+  - component: {fileID: 1494897565}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Player_Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6374,7 +6398,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 191e1a1c047842a47bed5c72230d2875, type: 3}
+  m_Sprite: {fileID: 1843918705, guid: e9928e7a27b64ac45b5db0be1c908c07, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -6385,6 +6409,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1494897565
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494897562}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a8f894a27cd894346aec5ac558e5af86, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1498225729
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6825,7 +6870,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1654246556}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 266.5, y: -73, z: -6.002007}
+  m_LocalPosition: {x: 1, y: 1, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6867,7 +6912,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 7.17
+  m_Radius: 0.5
 --- !u!1 &1675300945
 GameObject:
   m_ObjectHideFlags: 0
@@ -8215,7 +8260,7 @@ Transform:
   m_GameObject: {fileID: 2123358710}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 32, y: 32, z: 32}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 161540648}
