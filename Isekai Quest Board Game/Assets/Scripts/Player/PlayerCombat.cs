@@ -7,13 +7,14 @@ public class PlayerCombat : MonoBehaviour
     [Header("Combat")]
     public List<SpecialAttacks> specials = new List<SpecialAttacks>();
     public SpecialAttacks specialBeta;
-    public float attackSpeed = 5f;
     public float dmgLowEnd = 1f;
     public float dmgHighEnd = 3f;
     public int critDC = 20;
     public float critMultiplier = 1.5f;
     public int pBonus = 5;
     public int level = 1;
+    public float cooldown = 2;
+    private float timer;
 
     [Header("Targeting")]
     public List<EnemyBase> yourEnemiesInRange = new List<EnemyBase>();
@@ -31,6 +32,8 @@ public class PlayerCombat : MonoBehaviour
     private InputAction targetPrev;
 
     public PlayerInputActions playerControls;
+
+    public Animator anim;
 
     private void Awake()
     {
@@ -71,6 +74,10 @@ public class PlayerCombat : MonoBehaviour
 
     private void Update()
     {
+        if (timer > 0){
+            timer -= Time.deltaTime;
+        }
+
         if (targetNext.WasPressedThisFrame() && !isTargeting)
         {
             isTargeting = true;
@@ -99,23 +106,15 @@ public class PlayerCombat : MonoBehaviour
 
     public void Attack()
     {
-        if (targetedEnemy != null)
-        {
-            attackTimer += Time.deltaTime;
-            if (attackTimer >= attackSpeed)
-            {
-                int toHit = Random.Range(1, 20 + pBonus);
-                if (toHit >= targetedEnemy.AC)
-                {
-                    float dmgPerLvlMult = 1f;
-                    int critRate = Random.Range(1, critDC + 1);
-                    float attackDamage = Random.Range(dmgLowEnd, dmgHighEnd) * (dmgPerLvlMult + (0.15f * level));
-                    if (critRate == critDC) attackDamage *= critMultiplier;
-                    targetedEnemy.health -= Mathf.Floor(attackDamage);
-                }
-                attackTimer = 0f;
-            }
+        if (timer <= 0){
+            anim.SetBool("Attacking", true);
+            timer = cooldown;
         }
+        
+    }
+
+    public void FinishedAttacking(){
+        anim.SetBool("Attacking", false);
     }
 
     public void EnemyTargeting()

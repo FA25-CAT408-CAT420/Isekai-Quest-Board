@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public PlayerInputActions playerControls;
     private InputAction move;
     private InputAction run;
+    private InputAction attack;
 
     [Header("Movement")]
     public float gridSize = 1f;
@@ -22,6 +23,9 @@ public class PlayerMovement : MonoBehaviour
     public Animator anim;
     private Vector2 lastMoveDirection = Vector2.zero;
 
+    [Header("Scripts")]
+    public PlayerCombat PlayerCombat;
+
     private void Awake()
     {
         playerControls = new PlayerInputActions();
@@ -31,9 +35,11 @@ public class PlayerMovement : MonoBehaviour
     {
         move = playerControls.Player.Move;
         run = playerControls.Player.Run;
+        attack = playerControls.Player.Attack;
 
         move.Enable();
         run.Enable();
+        attack.Enable();
 
         run.performed += ctx => currentSpeed = runSpeed;
         run.canceled += ctx => currentSpeed = walkSpeed;
@@ -43,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
     {
         move.Disable();
         run.Disable();
+        attack.Disable();
 
         run.performed -= ctx => currentSpeed = runSpeed;
         run.canceled -= ctx => currentSpeed = walkSpeed;
@@ -62,6 +69,10 @@ public class PlayerMovement : MonoBehaviour
             HandleMovement();
         }
         anim.SetBool("Moving", isMoving);
+
+        if(attack.WasPressedThisFrame()){
+            PlayerCombat.Attack();
+        }
     }
 
     private void Animator(){

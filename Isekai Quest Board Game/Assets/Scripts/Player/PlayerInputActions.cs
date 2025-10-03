@@ -46,9 +46,27 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Fire"",
+                    ""name"": ""Run"",
                     ""type"": ""Button"",
-                    ""id"": ""b5b9b31f-68ce-4cef-a262-6412c56c5e05"",
+                    ""id"": ""d0d436b5-5980-4d9e-afe4-11e2b3096c75"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""666bb191-27c8-42b4-9e15-79cd40c54955"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""cdddc91d-4c76-40f9-b629-2b68fa8b3985"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -85,24 +103,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""name"": ""SpecialRight"",
                     ""type"": ""Button"",
                     ""id"": ""2889b988-2c3b-47db-bc0e-a0182acb0938"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Interact"",
-                    ""type"": ""Button"",
-                    ""id"": ""666bb191-27c8-42b4-9e15-79cd40c54955"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Run"",
-                    ""type"": ""Button"",
-                    ""id"": ""d0d436b5-5980-4d9e-afe4-11e2b3096c75"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -295,61 +295,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""143bb1cd-cc10-4eca-a2f0-a3664166fe91"",
-                    ""path"": ""<Gamepad>/rightTrigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Fire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""05f6913d-c316-48b2-a6bb-e225f14c7960"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Fire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""886e731e-7071-4ae4-95c0-e61739dad6fd"",
-                    ""path"": ""<Touchscreen>/primaryTouch/tap"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Touch"",
-                    ""action"": ""Fire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""ee3d0cd2-254e-47a7-a8cb-bc94d9658c54"",
-                    ""path"": ""<Joystick>/trigger"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Joystick"",
-                    ""action"": ""Fire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""8255d333-5683-4943-a58a-ccb207ff1dce"",
-                    ""path"": ""<XRController>/{PrimaryAction}"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""XR"",
-                    ""action"": ""Fire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""d4b68808-7b16-4555-825a-a78f6fa9cbc5"",
                     ""path"": ""<Gamepad>/dpad/up"",
                     ""interactions"": """",
@@ -394,17 +339,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""10678303-a158-4abd-bf6f-3a4f3ca9035c"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Interact"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""a79fb283-1126-4d4e-83a7-b1fd85ec8799"",
                     ""path"": ""<Gamepad>/leftTrigger"",
                     ""interactions"": """",
@@ -422,6 +356,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""TargetNext"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""393e0921-09d2-4c4c-bbf9-ad62b20ab231"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""10678303-a158-4abd-bf6f-3a4f3ca9035c"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -1062,13 +1018,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
-        m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
+        m_Player_Run = m_Player.FindAction("Run", throwIfNotFound: true);
+        m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+        m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_SpecialUp = m_Player.FindAction("SpecialUp", throwIfNotFound: true);
         m_Player_SpecialDown = m_Player.FindAction("SpecialDown", throwIfNotFound: true);
         m_Player_SpecialLeft = m_Player.FindAction("SpecialLeft", throwIfNotFound: true);
         m_Player_SpecialRight = m_Player.FindAction("SpecialRight", throwIfNotFound: true);
-        m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
-        m_Player_Run = m_Player.FindAction("Run", throwIfNotFound: true);
         m_Player_TargetNext = m_Player.FindAction("TargetNext", throwIfNotFound: true);
         m_Player_TargetPrev = m_Player.FindAction("TargetPrev", throwIfNotFound: true);
         // UI
@@ -1148,13 +1104,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Look;
-    private readonly InputAction m_Player_Fire;
+    private readonly InputAction m_Player_Run;
+    private readonly InputAction m_Player_Interact;
+    private readonly InputAction m_Player_Attack;
     private readonly InputAction m_Player_SpecialUp;
     private readonly InputAction m_Player_SpecialDown;
     private readonly InputAction m_Player_SpecialLeft;
     private readonly InputAction m_Player_SpecialRight;
-    private readonly InputAction m_Player_Interact;
-    private readonly InputAction m_Player_Run;
     private readonly InputAction m_Player_TargetNext;
     private readonly InputAction m_Player_TargetPrev;
     public struct PlayerActions
@@ -1163,13 +1119,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public PlayerActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Look => m_Wrapper.m_Player_Look;
-        public InputAction @Fire => m_Wrapper.m_Player_Fire;
+        public InputAction @Run => m_Wrapper.m_Player_Run;
+        public InputAction @Interact => m_Wrapper.m_Player_Interact;
+        public InputAction @Attack => m_Wrapper.m_Player_Attack;
         public InputAction @SpecialUp => m_Wrapper.m_Player_SpecialUp;
         public InputAction @SpecialDown => m_Wrapper.m_Player_SpecialDown;
         public InputAction @SpecialLeft => m_Wrapper.m_Player_SpecialLeft;
         public InputAction @SpecialRight => m_Wrapper.m_Player_SpecialRight;
-        public InputAction @Interact => m_Wrapper.m_Player_Interact;
-        public InputAction @Run => m_Wrapper.m_Player_Run;
         public InputAction @TargetNext => m_Wrapper.m_Player_TargetNext;
         public InputAction @TargetPrev => m_Wrapper.m_Player_TargetPrev;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -1187,9 +1143,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
-            @Fire.started += instance.OnFire;
-            @Fire.performed += instance.OnFire;
-            @Fire.canceled += instance.OnFire;
+            @Run.started += instance.OnRun;
+            @Run.performed += instance.OnRun;
+            @Run.canceled += instance.OnRun;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
+            @Attack.started += instance.OnAttack;
+            @Attack.performed += instance.OnAttack;
+            @Attack.canceled += instance.OnAttack;
             @SpecialUp.started += instance.OnSpecialUp;
             @SpecialUp.performed += instance.OnSpecialUp;
             @SpecialUp.canceled += instance.OnSpecialUp;
@@ -1202,12 +1164,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @SpecialRight.started += instance.OnSpecialRight;
             @SpecialRight.performed += instance.OnSpecialRight;
             @SpecialRight.canceled += instance.OnSpecialRight;
-            @Interact.started += instance.OnInteract;
-            @Interact.performed += instance.OnInteract;
-            @Interact.canceled += instance.OnInteract;
-            @Run.started += instance.OnRun;
-            @Run.performed += instance.OnRun;
-            @Run.canceled += instance.OnRun;
             @TargetNext.started += instance.OnTargetNext;
             @TargetNext.performed += instance.OnTargetNext;
             @TargetNext.canceled += instance.OnTargetNext;
@@ -1224,9 +1180,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
-            @Fire.started -= instance.OnFire;
-            @Fire.performed -= instance.OnFire;
-            @Fire.canceled -= instance.OnFire;
+            @Run.started -= instance.OnRun;
+            @Run.performed -= instance.OnRun;
+            @Run.canceled -= instance.OnRun;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
+            @Attack.started -= instance.OnAttack;
+            @Attack.performed -= instance.OnAttack;
+            @Attack.canceled -= instance.OnAttack;
             @SpecialUp.started -= instance.OnSpecialUp;
             @SpecialUp.performed -= instance.OnSpecialUp;
             @SpecialUp.canceled -= instance.OnSpecialUp;
@@ -1239,12 +1201,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @SpecialRight.started -= instance.OnSpecialRight;
             @SpecialRight.performed -= instance.OnSpecialRight;
             @SpecialRight.canceled -= instance.OnSpecialRight;
-            @Interact.started -= instance.OnInteract;
-            @Interact.performed -= instance.OnInteract;
-            @Interact.canceled -= instance.OnInteract;
-            @Run.started -= instance.OnRun;
-            @Run.performed -= instance.OnRun;
-            @Run.canceled -= instance.OnRun;
             @TargetNext.started -= instance.OnTargetNext;
             @TargetNext.performed -= instance.OnTargetNext;
             @TargetNext.canceled -= instance.OnTargetNext;
@@ -1451,13 +1407,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
-        void OnFire(InputAction.CallbackContext context);
+        void OnRun(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
         void OnSpecialUp(InputAction.CallbackContext context);
         void OnSpecialDown(InputAction.CallbackContext context);
         void OnSpecialLeft(InputAction.CallbackContext context);
         void OnSpecialRight(InputAction.CallbackContext context);
-        void OnInteract(InputAction.CallbackContext context);
-        void OnRun(InputAction.CallbackContext context);
         void OnTargetNext(InputAction.CallbackContext context);
         void OnTargetPrev(InputAction.CallbackContext context);
     }
