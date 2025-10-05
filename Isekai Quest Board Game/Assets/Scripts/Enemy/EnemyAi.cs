@@ -14,19 +14,22 @@ public class EnemyAi : EnemyCore
 
     }
 
-    void Update(){
-        if (state.isComplete) {
-            if (state == aggro) {
+    void Update()
+    {
+        if (state.isComplete) 
+        {
+            if (state == aggro)
+             {
                 Set(patrol);
-        }
+            }
     }
-    if (state == patrol) {
+    if (state == patrol) 
+    {
         aggro.CheckForTarget();
-        if (aggro.target != null) {
-            Set(patrol);
-        } else {
-            Set(patrol);
-        }
+        if (aggro.target != null)
+         {
+            Set(aggro);
+         }
     }
         state.DoBranch();
 }
