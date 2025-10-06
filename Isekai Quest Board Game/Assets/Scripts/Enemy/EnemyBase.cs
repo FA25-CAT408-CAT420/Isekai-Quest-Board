@@ -5,7 +5,10 @@ using TMPro;
 
 public class EnemyBase : MonoBehaviour
 {
-    public float health = 5f;
+    public int currentHealth;
+    public int maxHealth;
+
+
     public SpriteRenderer sr;
     public Material normalMat;
     public Material outlineMat;
@@ -15,20 +18,27 @@ public class EnemyBase : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        currentHealth = maxHealth;
         sr = GetComponent<SpriteRenderer>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        Health();
         DisplayHealth();
         TargetOutline();
     }
 
-    public void Health()
+    public void ChangeHealth(int amount)
     {
-        if (health <= 0)
+        currentHealth += amount;
+
+        if (currentHealth >= maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        else if (currentHealth <= 0)
         {
             Destroy(gameObject);
         }
@@ -36,7 +46,7 @@ public class EnemyBase : MonoBehaviour
 
     public void DisplayHealth()
     {
-        displayHealth.text = "Health:" + health;
+        displayHealth.text = "Health:" + currentHealth;
     }
 
     public void TargetOutline()

@@ -17,14 +17,18 @@ public class PlayerMovement : MonoBehaviour
     public float currentSpeed;
     private Vector2 moveDirection;
     private bool isMoving = false;
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
 
     public SpriteRenderer spriteRenderer;
     public Animator anim;
     private Vector2 lastMoveDirection = Vector2.zero;
 
     [Header("Scripts")]
-    public PlayerCombat PlayerCombat;
+    public PlayerCombat playerCombat;
+
+    [Header("AttackPoint")]
+    public Vector2 pos1;
+    public int pos2;
 
     private void Awake()
     {
@@ -71,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
         anim.SetBool("Moving", isMoving);
 
         if(attack.WasPressedThisFrame()){
-            PlayerCombat.Attack();
+            playerCombat.Attack();
         }
     }
 
@@ -94,10 +98,14 @@ public class PlayerMovement : MonoBehaviour
             if (Mathf.Abs(moveDirection.x) > Mathf.Abs(moveDirection.y))
             {
                 moveDirection = new Vector2(Mathf.Sign(moveDirection.x), 0);
+                Debug.Log(moveDirection);
+                pos1 = moveDirection;
             }
             else
             {
                 moveDirection = new Vector2(0, Mathf.Sign(moveDirection.y));
+                Debug.Log(moveDirection);
+                pos1 = moveDirection;
             }
 
             var targetPos = transform.position;
@@ -108,6 +116,8 @@ public class PlayerMovement : MonoBehaviour
 
             StartCoroutine(Move(targetPos));
         }
+
+        
     }
 
     IEnumerator Move(Vector3 targetPos)

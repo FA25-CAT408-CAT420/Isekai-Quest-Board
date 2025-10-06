@@ -4,6 +4,15 @@ using UnityEngine.InputSystem;
 
 public class PlayerCombat : MonoBehaviour
 {
+    [Header("Scripts")]
+    public PlayerMovement playerMovement;
+
+    [Header("Hitboxing")]
+    public Transform attackPoint;
+    public float weaponRange = 1;
+    public LayerMask enemyLayer;
+    public int damage = 1;
+
     [Header("Combat")]
     public List<SpecialAttacks> specials = new List<SpecialAttacks>();
     public SpecialAttacks specialBeta;
@@ -74,7 +83,9 @@ public class PlayerCombat : MonoBehaviour
 
     private void Update()
     {
-        if (timer > 0){
+        attackPoint.position = playerMovement.rb.position + playerMovement.pos1;
+        if (timer > 0)
+        {
             timer -= Time.deltaTime;
         }
 
@@ -88,32 +99,51 @@ public class PlayerCombat : MonoBehaviour
             isTargeting = false;
         }
 
-        if (targetedEnemy != null)
-            SpecialInput();
+        // if (targetedEnemy != null)
+        //     SpecialInput();
     }
 
-    public void SpecialInput()
-    {
-        float specialDMG = 0f;
-        if (specialUp.WasPressedThisFrame()) specialDMG = specials[0].SpecialAttack();
-        else if (specialRight.WasPressedThisFrame()) specialDMG = specials[1].SpecialAttack();
-        else if (specialDown.WasPressedThisFrame()) specialDMG = specials[2].SpecialAttack();
-        else if (specialLeft.WasPressedThisFrame()) specialDMG = specials[3].SpecialAttack();
+    // public void SpecialInput()
+    // {
+    //     float specialDMG = 0f;
+    //     if (specialUp.WasPressedThisFrame()) specialDMG = specials[0].SpecialAttack();
+    //     else if (specialRight.WasPressedThisFrame()) specialDMG = specials[1].SpecialAttack();
+    //     else if (specialDown.WasPressedThisFrame()) specialDMG = specials[2].SpecialAttack();
+    //     else if (specialLeft.WasPressedThisFrame()) specialDMG = specials[3].SpecialAttack();
 
-        if (targetedEnemy != null)
-            targetedEnemy.health -= specialDMG;
-    }
+    //     if (targetedEnemy != null)
+    //         targetedEnemy.currentHealth -= specialDMG;
+    // }
 
     public void Attack()
     {
-        if (timer <= 0){
+        if (timer <= 0)
+        {
             anim.SetBool("Attacking", true);
+
             timer = cooldown;
         }
-        
     }
 
-    public void FinishedAttacking(){
+public void DealDamage()
+{
+    Collider2D[] enemies = Physics2D.OverlapCircleAll(attackPoint.position, weaponRange, enemyLayer);
+
+    foreach (Collider2D enemy in enemies)
+    {
+        if (enemy.isTrigger) continue; // skip triggers
+
+        EnemyBase enemyBase = enemy.GetComponent<EnemyBase>();
+        if (enemyBase != null)
+        {
+            enemyBase.ChangeHealth(-damage);
+            break; // stop after first enemy damaged (if that's intended)
+        }
+    }
+}
+
+    public void FinishedAttacking()
+    {
         anim.SetBool("Attacking", false);
     }
 
@@ -148,5 +178,13 @@ public class PlayerCombat : MonoBehaviour
             enemy.isTargeted = false;
             yourEnemiesInRange.Remove(enemy);
         }
+    }
+    
+    private void OnDrawGizmosSelected()
+    {
+        if (attackPoint == null) return;
+
+        Gizmos.color = Color.red; // Circle color
+        Gizmos.DrawWireSphere(attackPoint.position, weaponRange);
     }
 }
