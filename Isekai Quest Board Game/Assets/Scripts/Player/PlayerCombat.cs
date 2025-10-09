@@ -24,6 +24,7 @@ public class PlayerCombat : MonoBehaviour
     public int level = 1;
     public float cooldown = 2;
     private float timer;
+    public int knockbackForce = 1;
 
     [Header("Targeting")]
     public List<EnemyBase> yourEnemiesInRange = new List<EnemyBase>();
@@ -129,17 +130,31 @@ public void DealDamage()
 {
     Collider2D[] enemies = Physics2D.OverlapCircleAll(attackPoint.position, weaponRange, enemyLayer);
 
-    foreach (Collider2D enemy in enemies)
-    {
-        if (enemy.isTrigger) continue; // skip triggers
-
-        EnemyBase enemyBase = enemy.GetComponent<EnemyBase>();
-        if (enemyBase != null)
+        foreach (Collider2D enemy in enemies)
         {
-            enemyBase.ChangeHealth(-damage);
-            break; // stop after first enemy damaged (if that's intended)
+            if (enemy.isTrigger) continue;
+
+            playerMovement.isBlocked = true;
+
+            // if (enemies.Length > 0)
+            // {
+            //     enemies[0].GetComponent<EnemyBase>().ChangeHealth(-damage);
+            //     enemies[0].GetComponent<EnemyKnockback>().Knockback(transform, knockbackForce);
+            // }
+            EnemyBase enemyBase = enemy.GetComponent<EnemyBase>();
+            EnemyKnockback enemyKnockback = enemy.GetComponent<EnemyKnockback>();
+            if (enemyBase != null)
+            {
+                enemyBase.ChangeHealth(-damage);
+                enemyKnockback.Knockback(transform, knockbackForce);
+                break;
+            }
         }
-    }
+
+        if (enemies == null)
+        {
+            playerMovement.isBlocked = false;
+        }
 }
 
     public void FinishedAttacking()

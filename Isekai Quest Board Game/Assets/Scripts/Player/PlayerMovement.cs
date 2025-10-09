@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveDirection;
     private bool isMoving = false;
     public Rigidbody2D rb;
+    public bool isBlocked = false;
 
     public SpriteRenderer spriteRenderer;
     public Animator anim;
@@ -89,10 +90,15 @@ public class PlayerMovement : MonoBehaviour
             spriteRenderer.flipX = false;
         }
     }
+    
+    //Takes in magnitude of players input and breaks it down to whole numbers. e.g. (1,0) (1,1)
     private void HandleMovement()
     {
+
+        //Players maginitude e.g(0.089, 2.095)
         moveDirection = move.ReadValue<Vector2>();
 
+        //Checks the magnitude and hard sets it to values based on 1
         if (moveDirection.magnitude > 0.1f) // dead zone
         {
             if (Mathf.Abs(moveDirection.x) > Mathf.Abs(moveDirection.y))
@@ -108,26 +114,42 @@ public class PlayerMovement : MonoBehaviour
                 pos1 = moveDirection;
             }
 
+            //takes player transform and adds players magnitute to transform coordinates
             var targetPos = transform.position;
             targetPos += (Vector3)moveDirection;
 
             anim.SetFloat("X", moveDirection.x);
             anim.SetFloat("Y", moveDirection.y * -1);
 
+            //Inputs new coordinates into coroutine to transform players position
             StartCoroutine(Move(targetPos));
         }
 
-        
+
     }
 
+    //transforms players position with math
     IEnumerator Move(Vector3 targetPos)
     {
         isMoving = true;
-        while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon){
-            transform.position = Vector3.MoveTowards(transform.position, targetPos, currentSpeed * Time.deltaTime);
-            yield return null;
+        Vector3 originalPosition = transform.position;
+
+        if (!isBlocked)
+        {
+            while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, targetPos, currentSpeed * Time.deltaTime);
+                yield return null;
+            }
+            transform.position = targetPos;
         }
-        transform.position = targetPos;
+        else if (isBlocked)
+        {
+            targetPos = originalPosition;
+            isBlocked = false;
+        }
+        
         isMoving = false;
     }
+    
 }
