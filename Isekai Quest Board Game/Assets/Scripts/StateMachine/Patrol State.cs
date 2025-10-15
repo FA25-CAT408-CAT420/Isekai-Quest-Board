@@ -1,32 +1,61 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
 public class PatrolState : State
 {
    public NavigateState navigate;
    public IdleState idle;
-   public Transform anchor1;
-   public Transform anchor2;
 
-   void GoToNextDestination(){
-    float randomSpot = Random.Range(anchor1.position.x, anchor2.position.x);
-    navigate.destination = new Vector2(randomSpot, core.transform.position.y); 
-    Set(navigate, true);
+   public float patrolRadiusInTiles = 5f;   // How far the enemy can wander from its starting point
+   public Vector2Int tileSize = new Vector2Int(32,32); // Tile dimentions
+   public Vector2 patrolCenter;
+
+   bool hasCenter = false;
+
+   void GoToNextDestination()
+   {
+        if (!hasCenter)
+        {
+            patrolCenter = core.transform.position;
+            hasCenter = true;
+        }
+
+        // Choose a random tile offset within the patrol radius
+        int offsetX = Random.Range(-Mathf.RoundToInt(patrolRadiusInTiles), Mathf.RoundToInt(patrolRadiusInTiles)+ 1);
+        int offsetY = Random.Range(-Mathf.RoundToInt(patrolRadiusInTiles), Mathf.RoundToInt(patrolRadiusInTiles)+ 1);
+        
+        Vector2 nextTile = patrolCenter + new Vector2(offsetX * tileSize.x, offsetY * tileSize.y);
+
+        // Snap to grid and send destination to navigate state
+        navigate.destination = SnapToTile(nextTile);
+
+        Set(navigate, true);
    }
 
-   public override void Enter(){
-    GoToNextDestination();
+   Vector2 SnapToTile(Vector2 worldPos)
+   {
+        float snappedX = Mathf.Round(worldPos.x / tileSize.x) * tileSize.x;
+        float snappedY = Mathf.Round(worldPos.y / tileSize.y) * tileSize.y;
+        return new Vector2(snappedX, snappedY);
+   }
+
+   public override void Enter()
+   {
+        GoToNextDestination();
    }
 
    public override void Do(){
     if (machine.state == navigate){
-        if (navigate.isComplete){
+        if (navigate.isComplete)
+        {
             Set(idle, true);
             rb.velocity = new Vector2(0, rb.velocity.y);
         }
     } else {
-        if (machine.state.time > 1.5) {
+        if (machine.state.time > 1.5) 
+        {
             GoToNextDestination();
         }
     }

@@ -23,14 +23,14 @@ public class EnemyAi : EnemyCore
                 Set(patrol);
              }
         }
-    /*if (state == patrol) 
+    if (state == patrol) 
     {
         aggro.CheckForTarget();
         if (aggro.target != null)
          {
             Set(aggro);
          }
-    }*/
+    }
         state.DoBranch();
 }
 

@@ -6,14 +6,15 @@ using Pathfinding;
 public class NavigateState : State
 {
     public Vector2 destination;
-    public float moveSpeed = 200f;
+    public float moveSpeed = 5f;
     public float nextWaypointDistance = 0.5f;
+    public Vector2Int tileSize = new Vector2Int(32,32);
     //public State animation;
 
     Seeker seeker;
     Path path;
     int currentWaypoint;
-    bool reachedEndOfPath;
+    private bool reachedEndOfPath;
 
     public override void Enter()
     {
@@ -21,7 +22,7 @@ public class NavigateState : State
 
         if (seeker != null)
         {
-            seeker.StartPath(rb.position, destination, OnPathComplete);
+            seeker.StartPath(SnapToTile(rb.position), SnapToTile(destination), OnPathComplete);
         }
 
         currentWaypoint =0;
@@ -51,32 +52,36 @@ public class NavigateState : State
             return;
         }
 
-         Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
-        Vector2 force = direction * moveSpeed * Time.deltaTime;
+        // Move toward next tile center
+        Vector2 targetPosition = SnapToTile(path.vectorPath[currentWaypoint]);
+        Vector2 newPosition = Vector2.MoveTowards(rb.position, targetPosition, moveSpeed * Time.deltaTime);
+        rb.MovePosition(newPosition);
 
-        rb.AddForce(force);
 
-        float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
+        // When close to the next tile, go to the next waypoint
+        float distance = Vector2.Distance(rb.position, targetPosition);
         if (distance < nextWaypointDistance)
         {
             currentWaypoint++;
         }
 
-        // Flip sprite
-        if (rb.velocity.x != 0)
+        // Face direction (horizontal only)
+        float dirX = targetPosition.x - rb.position.x;
+        if (Mathf.Abs(dirX) > 0.01f)
         {
-            core.transform.localScale = new Vector3(Mathf.Sign(rb.velocity.x), 1, 1);
+            core.transform.localScale = new Vector3(Mathf.Sign(dirX), 1, 1);
         }
-
-       /* if (Vector2.Distance(core.transform.position, destination) < threshold) {
-            isComplete = true;
-        }
-        core.transform.localScale = new Vector3(Mathf.Sign(rb.velocity.x), 1, 1);
-        */
     }
 
-    public override void FixedDo(){
-        Vector2 direction = (destination - (Vector2)core.transform.position).normalized;
-        rb.velocity = new Vector2(direction.x, direction.y * moveSpeed);
+     Vector2 SnapToTile(Vector2 pos)
+    {
+        float snappedX = Mathf.Round(pos.x / tileSize.x) * tileSize.x;
+        float snappedY = Mathf.Round(pos.y / tileSize.y) * tileSize.y;
+        return new Vector2(snappedX, snappedY);
+    }
+
+    public override void Exit()
+    {
+        rb.velocity = Vector2.zero;
     }
 }
