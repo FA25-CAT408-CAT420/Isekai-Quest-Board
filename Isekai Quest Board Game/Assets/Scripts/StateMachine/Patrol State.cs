@@ -18,7 +18,7 @@ public class PatrolState : State
    {
         if (!hasCenter)
         {
-            patrolCenter = core.transform.position;
+            patrolCenter = SnapToTile(core.transform.position);
             hasCenter = true;
         }
 
