@@ -8551,7 +8551,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destination: {x: 0, y: 0}
   moveSpeed: 20
-  nextWaypointDistance: 0.5
+  nextWaypointDistance: 0.3
   tileSize: {x: 1, y: 1}
 --- !u!114 &2012926821
 MonoBehaviour:
@@ -9182,6 +9182,10 @@ PrefabInstance:
     - target: {fileID: 7729226374097886412, guid: 170bb7d26c10f9047a2dade62894b04d, type: 3}
       propertyPath: m_BodyType
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7729226374097886412, guid: 170bb7d26c10f9047a2dade62894b04d, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8522549908244588971, guid: 170bb7d26c10f9047a2dade62894b04d, type: 3}
       propertyPath: m_Name
