@@ -8,7 +8,7 @@ public class NavigateState : State
     public Vector2 destination;
     public float moveSpeed = 5f;
     public float nextWaypointDistance = 0.5f;
-    public Vector2Int tileSize = new Vector2Int(32,32);
+    public Vector2 tileSize = new Vector2(1f,1f);
     //public State animation;
 
     Seeker seeker;

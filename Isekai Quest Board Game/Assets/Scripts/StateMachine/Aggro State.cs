@@ -6,13 +6,15 @@ public class AggroState : State
 {
     public CombatState combat;
     public NavigateState navigate;
-    public IdleState idle;
 
     public float minimumDistance;
     public VisionTrigger visionTrigger;
     public Transform target;
 
-    public override void Enter() {
+    public override void Enter()
+    {
+        CheckForTarget();
+
         if (target == null)
         {
             isComplete = true;
@@ -24,15 +26,29 @@ public class AggroState : State
     
     }
 
-    public override void Do() {
+    public override void Do()
+    {
+        CheckForTarget();
+
+        // If player leaves vision area go back to patrol
+        if (target == null)
+        {
+            rb.velocity = Vector2.zero;
+            isComplete = true;
+            return;
+        }
 
         if (machine.state == navigate) 
         {
-            if (CloseEnough(target.position)) 
+            float distance = Vector2.Distance(core.transform.position, target.position);
+
+            if (distance <= minimumDistance) 
             {
                 Set(combat, true);
                 rb.velocity = new Vector2(0,0);
-            } else {
+                return;
+            } else 
+            {
                 navigate.destination = target.position;
                 Set(navigate, true);
             }
@@ -40,26 +56,20 @@ public class AggroState : State
     }
 
 
-    public override void Exit() {
-
-    }
-
-    public bool CloseEnough(Vector2 targetPos){
-        return Vector2.Distance(core.transform.position, targetPos) < minimumDistance;
+    public override void Exit()
+    {
+        target = null;
     }
    
-    public Transform CheckForTarget()
+    public void CheckForTarget()
     {
         if (visionTrigger != null && visionTrigger.playerDetected)
         {
-            target = visionTrigger.detectedTarget; 
-            return target;
+            target = visionTrigger.detectedTarget;
         } 
         else 
         {
             target = null;
-            isComplete = true; 
-            return null;
         }
     }
 }
