@@ -7,7 +7,7 @@ public class NavigateState : State
 {
     public Vector2 destination;
     public float moveSpeed = 5f;
-    public float nextWaypointDistance = 0.5f;
+    public float nextWaypointDistance = 0.1f;
     public Vector2 tileSize = new Vector2(1f,1f);
     //public State animation;
 
@@ -20,13 +20,13 @@ public class NavigateState : State
     {
         seeker = core.GetComponent<Seeker>();
 
-        if (seeker != null)
-        {
-            seeker.StartPath(SnapToTile(rb.position), SnapToTile(destination), OnPathComplete);
-        }
-
-        currentWaypoint =0;
         reachedEndOfPath = false;
+        isComplete = false; 
+
+        // Start A* pathfinding from snapped positions
+        Vector2 start = SnapToTile(rb.position);
+        Vector2 end = SnapToTile(destination);
+        seeker.StartPath(start, end, OnPathComplete);
         //Set(animation, true);
     }
 
@@ -73,10 +73,10 @@ public class NavigateState : State
         }
     }
 
-     Vector2 SnapToTile(Vector2 pos)
+     Vector2 SnapToTile(Vector2 worldPos)
     {
-        float snappedX = Mathf.Round(pos.x / tileSize.x) * tileSize.x;
-        float snappedY = Mathf.Round(pos.y / tileSize.y) * tileSize.y;
+        float snappedX = Mathf.Round(worldPos.x / tileSize.x) * tileSize.x;
+        float snappedY = Mathf.Round(worldPos.y / tileSize.y) * tileSize.y;
         return new Vector2(snappedX, snappedY);
     }
 

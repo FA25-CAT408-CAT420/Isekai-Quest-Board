@@ -16,13 +16,7 @@ public class EnemyAi : EnemyCore
 
     void Update()
     {
-        if (state.isComplete) 
-        {
-            if (state == aggro)
-             {
-                Set(patrol);
-             }
-        }
+
     if (state == patrol) 
     {
         aggro.CheckForTarget();

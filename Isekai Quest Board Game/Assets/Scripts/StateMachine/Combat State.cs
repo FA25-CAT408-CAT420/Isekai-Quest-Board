@@ -5,11 +5,14 @@ using UnityEngine;
 public class CombatState : State
 {
 
-    void RandomAttack(){
+    void RandomAttack()
+    {
         
     }
 
-    public override void Enter() {
+    public override void Enter()
+    {
+        RandomAttack();
     }
 
     public override void Do() {
