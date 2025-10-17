@@ -18,21 +18,19 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveDirection;
     private bool isMoving = false;
     public Rigidbody2D rb;
+    private Vector3 originalPosition;
     public bool isBlocked = false;
 
     public SpriteRenderer spriteRenderer;
     public Animator anim;
-    private Vector2 lastMoveDirection = Vector2.zero;
 
     [Header("Scripts")]
     public PlayerCombat playerCombat;
 
     [Header("AttackPoint")]
     public Vector2 pos1;
-    public int pos2;
-
     public LayerMask wallLayer;
-    float rayDistance = 0.8f;
+    public float rayDistance = 0.7f;
 
     private void Awake()
     {
@@ -73,9 +71,11 @@ public class PlayerMovement : MonoBehaviour
     {
         Animator();
 
-        if (!isMoving){
+        if (!isMoving)
+        {
             HandleMovement();
         }
+
         anim.SetBool("Moving", isMoving);
 
         if (attack.WasPressedThisFrame())
@@ -83,91 +83,75 @@ public class PlayerMovement : MonoBehaviour
             playerCombat.Attack();
         }
 
-        RaycastHit2D ray = Physics2D.Raycast(transform.position, pos1, rayDistance, wallLayer);
-
-        if (ray.collider != null)
-        {
-            isBlocked = true;
-
-        }
-        else
-        {
-            isBlocked = false;
-        }
-        
         Debug.DrawRay(transform.position, pos1 * rayDistance, Color.red);
     }
 
-    private void Animator(){
+    private void Animator()
+    {
         if (moveDirection.x < -0.1f)
-        {
-            spriteRenderer.flipX = true; 
-        }
+            spriteRenderer.flipX = true;
         else if (moveDirection.x > 0.1f)
-        {
             spriteRenderer.flipX = false;
-        }
     }
-    
-    //Takes in magnitude of players input and breaks it down to whole numbers. e.g. (1,0) (1,1)
+
     private void HandleMovement()
     {
-
-        //Players maginitude e.g(0.089, 2.095)
         moveDirection = move.ReadValue<Vector2>();
 
-        //Checks the magnitude and hard sets it to values based on 1
-        if (moveDirection.magnitude > 0.1f) // dead zone
+        if (moveDirection.magnitude > 0.1f)
         {
+            // Cardinalize direction
             if (Mathf.Abs(moveDirection.x) > Mathf.Abs(moveDirection.y))
-            {
                 moveDirection = new Vector2(Mathf.Sign(moveDirection.x), 0);
-                Debug.Log(moveDirection);
-                pos1 = moveDirection;
-            }
             else
-            {
                 moveDirection = new Vector2(0, Mathf.Sign(moveDirection.y));
-                Debug.Log(moveDirection);
-                pos1 = moveDirection;
+
+            pos1 = moveDirection;
+
+            // Raycast in the direction we're about to move
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, moveDirection, rayDistance, wallLayer);
+            isBlocked = hit.collider != null;
+
+            if (isBlocked)
+            {
+                Debug.Log("Blocked movement in direction: " + moveDirection);
+                return; // don’t start coroutine
             }
 
-            //takes player transform and adds players magnitute to transform coordinates
-            var targetPos = transform.position;
-            targetPos += (Vector3)moveDirection;
-
+            Vector3 targetPos = transform.position + (Vector3)moveDirection;
             anim.SetFloat("X", moveDirection.x);
             anim.SetFloat("Y", moveDirection.y * -1);
+            originalPosition = transform.position;
 
-            //Inputs new coordinates into coroutine to transform players position
             StartCoroutine(Move(targetPos));
         }
-
-
     }
 
-    //transforms players position with math
     IEnumerator Move(Vector3 targetPos)
     {
         isMoving = true;
-        Vector3 originalPosition = transform.position;
 
-        if (!isBlocked)
+        while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon)
         {
-            while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon)
+            // Raycast mid-move in the same direction
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, moveDirection, rayDistance, wallLayer);
+            if (hit.collider != null)
             {
-                transform.position = Vector3.MoveTowards(transform.position, targetPos, currentSpeed * Time.deltaTime);
-                yield return null;
+                Debug.Log("Hit da wall.");
+                break; // Stop immediately when a wall is detected
             }
-            transform.position = targetPos;
+
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, currentSpeed * Time.deltaTime);
+            yield return null;
         }
-        else if (isBlocked)
-        {
-            transform.position = originalPosition;
-            isBlocked = false;
-        }
-        
+
+        //  Snap to current position (not targetPos) to avoid teleport past wall
+        transform.position = new Vector3(
+            Mathf.Round(transform.position.x),
+            Mathf.Round(transform.position.y),
+            Mathf.Round(transform.position.z)
+        );
+
         isMoving = false;
     }
-    
 }

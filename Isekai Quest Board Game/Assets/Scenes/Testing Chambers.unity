@@ -5424,10 +5424,10 @@ MonoBehaviour:
   anim: {fileID: 1047097583}
   playerCombat: {fileID: 1047097581}
   pos1: {x: 0, y: 0}
-  pos2: 0
   wallLayer:
     serializedVersion: 2
     m_Bits: 128
+  rayDistance: 0.5
 --- !u!4 &1047097579
 Transform:
   m_ObjectHideFlags: 0
@@ -5628,7 +5628,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.45
 --- !u!1 &1059218948
 GameObject:
   m_ObjectHideFlags: 0
