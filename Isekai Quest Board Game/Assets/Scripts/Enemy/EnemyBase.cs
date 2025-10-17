@@ -17,6 +17,7 @@ public class EnemyBase : MonoBehaviour
     public float damage = 5f;
 
     public PlayerHealth playerHealth;
+    public GameObject soul;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +43,7 @@ public class EnemyBase : MonoBehaviour
         }
         else if (currentHealth <= 0)
         {
+            Instantiate(soul, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
