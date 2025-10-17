@@ -14,7 +14,10 @@ public class EnemyBase : MonoBehaviour
     public Material outlineMat;
     public bool isTargeted = false;
     public int AC = 10;
-    public TextMeshProUGUI displayHealth;
+    public float damage = 5f;
+
+    public PlayerHealth playerHealth;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +29,6 @@ public class EnemyBase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        DisplayHealth();
         TargetOutline();
     }
 
@@ -44,11 +46,6 @@ public class EnemyBase : MonoBehaviour
         }
     }
 
-    public void DisplayHealth()
-    {
-        displayHealth.text = "Health:" + currentHealth;
-    }
-
     public void TargetOutline()
     {
         if (isTargeted)
@@ -58,6 +55,14 @@ public class EnemyBase : MonoBehaviour
         else if (!isTargeted)
         {
             sr.material = normalMat;
+        }
+    }
+
+    void OnCollisionEnter2D (Collision2D other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            playerHealth.HP -= damage;
         }
     }
 }

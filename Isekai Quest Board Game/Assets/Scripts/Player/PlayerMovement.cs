@@ -31,6 +31,9 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 pos1;
     public int pos2;
 
+    public LayerMask wallLayer;
+    float rayDistance = 0.8f;
+
     private void Awake()
     {
         playerControls = new PlayerInputActions();
@@ -75,9 +78,24 @@ public class PlayerMovement : MonoBehaviour
         }
         anim.SetBool("Moving", isMoving);
 
-        if(attack.WasPressedThisFrame()){
+        if (attack.WasPressedThisFrame())
+        {
             playerCombat.Attack();
         }
+
+        RaycastHit2D ray = Physics2D.Raycast(transform.position, pos1, rayDistance, wallLayer);
+
+        if (ray.collider != null)
+        {
+            isBlocked = true;
+
+        }
+        else
+        {
+            isBlocked = false;
+        }
+        
+        Debug.DrawRay(transform.position, pos1 * rayDistance, Color.red);
     }
 
     private void Animator(){
@@ -145,7 +163,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (isBlocked)
         {
-            targetPos = originalPosition;
+            transform.position = originalPosition;
             isBlocked = false;
         }
         

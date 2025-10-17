@@ -15,7 +15,7 @@ public class EnemyKnockback : MonoBehaviour
         //rb.velocity = direction * knockbackForce;
         Vector2 directionInt = new Vector2((int)direction.x, (int)direction.y);
         var targetPos = transform.position;
-        targetPos += (Vector3)directionInt;
+        targetPos += (Vector3)direction;
 
         StartCoroutine(Move(targetPos));
         Debug.Log("knockback applied.");
@@ -24,10 +24,15 @@ public class EnemyKnockback : MonoBehaviour
 
     IEnumerator Move(Vector3 targetPos)
     {
-        while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon){
+        while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon)
+        {
             transform.position = Vector3.MoveTowards(transform.position, targetPos, 5 * Time.deltaTime);
             yield return null;
         }
+
+        targetPos.x = Mathf.RoundToInt(targetPos.x);
+        targetPos.y = Mathf.RoundToInt(targetPos.y);
+        targetPos.z = Mathf.RoundToInt(targetPos.z);
         transform.position = targetPos;
     }
 }

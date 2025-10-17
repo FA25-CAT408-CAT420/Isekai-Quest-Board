@@ -25,6 +25,7 @@ public class PlayerCombat : MonoBehaviour
     public float cooldown = 2;
     private float timer;
     public int knockbackForce = 1;
+    public float takeDamage;
 
     [Header("Targeting")]
     public List<EnemyBase> yourEnemiesInRange = new List<EnemyBase>();
@@ -136,19 +137,22 @@ public void DealDamage()
 
             playerMovement.isBlocked = true;
 
-            // if (enemies.Length > 0)
-            // {
-            //     enemies[0].GetComponent<EnemyBase>().ChangeHealth(-damage);
-            //     enemies[0].GetComponent<EnemyKnockback>().Knockback(transform, knockbackForce);
-            // }
-            EnemyBase enemyBase = enemy.GetComponent<EnemyBase>();
-            EnemyKnockback enemyKnockback = enemy.GetComponent<EnemyKnockback>();
-            if (enemyBase != null)
+            if (enemies.Length > 0)
             {
-                enemyBase.ChangeHealth(-damage);
-                enemyKnockback.Knockback(transform, knockbackForce);
+                enemies[0].GetComponent<EnemyBase>().ChangeHealth(-damage);
+                enemies[0].GetComponent<EnemyKnockback>().Knockback(transform, knockbackForce);
                 break;
             }
+
+            // EnemyBase enemyBase = enemy.GetComponent<EnemyBase>();
+            // EnemyKnockback enemyKnockback = enemy.GetComponent<EnemyKnockback>();
+
+            // if (enemyBase != null)
+            // {
+            //     enemyBase.ChangeHealth(-damage);
+            //     enemyKnockback.Knockback(transform, knockbackForce);
+            //     break;
+            // }
         }
 
         if (enemies == null)
@@ -194,7 +198,7 @@ public void DealDamage()
             yourEnemiesInRange.Remove(enemy);
         }
     }
-    
+
     private void OnDrawGizmosSelected()
     {
         if (attackPoint == null) return;
@@ -202,4 +206,6 @@ public void DealDamage()
         Gizmos.color = Color.red; // Circle color
         Gizmos.DrawWireSphere(attackPoint.position, weaponRange);
     }
+    
+
 }
