@@ -25,23 +25,34 @@ public class AggroState : State
     }
 
     public override void Do()
+{
+    if (target == null)
     {
-        if (machine.state == navigate) 
-        {
-            float distance = Vector2.Distance(core.transform.position, target.position);
-
-            if (distance <= minimumDistance) 
-            {
-                Set(combat, true);
-                rb.velocity = new Vector2(0,0);
-                return;
-            } else 
-            {
-                navigate.destination = target.position;
-                Set(navigate, true);
-            }
-        }
+        isComplete = true;
+        return;
     }
+
+    float distance = Vector2.Distance(core.transform.position, target.position);
+
+    // If close enough switch to combat
+    if (distance <= minimumDistance)
+    {
+        Set(combat, true);
+        rb.velocity = Vector2.zero;
+        return;
+    }
+
+    // Update navigate destination dynamically
+    if (machine.state == navigate)
+    {
+        navigate.destination = target.position;
+    }
+    else
+    {
+        navigate.destination = target.position;
+        Set(navigate, true);
+    }
+}
 
 
     public override void Exit()
