@@ -9,6 +9,11 @@ public class PlayerMovement : MonoBehaviour
     private InputAction move;
     private InputAction run;
     private InputAction attack;
+    // specials
+    private InputAction specialUp;
+    private InputAction specialDown;
+    private InputAction specialLeft;
+    private InputAction specialRight;
 
     [Header("Movement")]
     public float gridSize = 1f;
@@ -16,10 +21,11 @@ public class PlayerMovement : MonoBehaviour
     public float runSpeed = 25f;
     public float currentSpeed;
     private Vector2 moveDirection;
-    private bool isMoving = false;
+    public bool isMoving = false;
     public Rigidbody2D rb;
     private Vector3 originalPosition;
     public bool isBlocked = false;
+    public Coroutine moveCoroutine;
 
     public SpriteRenderer spriteRenderer;
     public Animator anim;
@@ -30,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("AttackPoint")]
     public Vector2 pos1;
     public LayerMask wallLayer;
+    public LayerMask enemyLayer;
     public float rayDistance = 0.7f;
 
     private void Awake()
@@ -42,10 +49,21 @@ public class PlayerMovement : MonoBehaviour
         move = playerControls.Player.Move;
         run = playerControls.Player.Run;
         attack = playerControls.Player.Attack;
+        // specials
+        specialUp = playerControls.Player.SpecialUp;
+        specialDown = playerControls.Player.SpecialDown;
+        specialLeft = playerControls.Player.SpecialLeft;
+        specialRight = playerControls.Player.SpecialRight;
 
         move.Enable();
         run.Enable();
         attack.Enable();
+        
+        //special enable
+        specialUp.Enable();
+        specialDown.Enable();
+        specialLeft.Enable();
+        specialRight.Enable();
 
         run.performed += ctx => currentSpeed = runSpeed;
         run.canceled += ctx => currentSpeed = walkSpeed;
@@ -56,6 +74,12 @@ public class PlayerMovement : MonoBehaviour
         move.Disable();
         run.Disable();
         attack.Disable();
+
+        // special disable
+        specialUp.Disable();
+        specialDown.Disable();
+        specialLeft.Disable();
+        specialRight.Disable();
 
         run.performed -= ctx => currentSpeed = runSpeed;
         run.canceled -= ctx => currentSpeed = walkSpeed;
@@ -83,6 +107,24 @@ public class PlayerMovement : MonoBehaviour
             playerCombat.Attack();
         }
 
+        if (attack.WasPressedThisFrame())
+        {
+            playerCombat.Attack();
+        }
+
+        if (specialUp.WasPressedThisFrame()){
+            playerCombat.SpecialInput(0);
+        }
+        else if (specialDown.WasPressedThisFrame()){
+            playerCombat.SpecialInput(1);
+        }
+        else if (specialLeft.WasPressedThisFrame()){
+            playerCombat.SpecialInput(2);
+        }
+        else if (specialRight.WasPressedThisFrame()){
+            playerCombat.SpecialInput(3);
+        }
+
         Debug.DrawRay(transform.position, pos1 * rayDistance, Color.red);
     }
 
@@ -97,6 +139,7 @@ public class PlayerMovement : MonoBehaviour
     private void HandleMovement()
     {
         moveDirection = move.ReadValue<Vector2>();
+        
 
         if (moveDirection.magnitude > 0.1f)
         {
@@ -123,7 +166,7 @@ public class PlayerMovement : MonoBehaviour
             anim.SetFloat("Y", moveDirection.y * -1);
             originalPosition = transform.position;
 
-            StartCoroutine(Move(targetPos));
+            moveCoroutine = StartCoroutine(Move(targetPos));
         }
     }
 
@@ -153,5 +196,15 @@ public class PlayerMovement : MonoBehaviour
         );
 
         isMoving = false;
+    }
+
+    public void StopMovementCoroutine()
+    {
+        if (moveCoroutine != null)
+        {
+            StopCoroutine(moveCoroutine);
+            moveCoroutine = null;
+            isMoving = false; // make sure player can move again
+        }
     }
 }

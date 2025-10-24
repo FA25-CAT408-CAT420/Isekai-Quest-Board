@@ -7,7 +7,7 @@ public class EnemyBase : MonoBehaviour
 {
     public int currentHealth;
     public int maxHealth;
-
+    public int knockbackForce = 1;
 
     public SpriteRenderer sr;
     public Material normalMat;
@@ -65,6 +65,9 @@ public class EnemyBase : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             playerHealth.HP -= damage;
+            other.gameObject.GetComponent<PlayerMovement>().StopMovementCoroutine();
+            other.gameObject.GetComponent<PlayerKnockback>().ApplyKnockback(transform.position);
+            //other.gameObject.GetComponent<PlayerKnockback>().StopKnockbackCoroutine();
         }
     }
 }
