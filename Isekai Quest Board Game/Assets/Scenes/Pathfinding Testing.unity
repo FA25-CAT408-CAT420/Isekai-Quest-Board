@@ -4615,6 +4615,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9ad0dc9086301047a3b0d42d673aa1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 50712165}
+  attackCooldown: 1
+  attackRange: 1.5
+  attackOne: 5
+  attackTwo: 10
 --- !u!1 &614070125
 GameObject:
   m_ObjectHideFlags: 0
@@ -5644,7 +5649,10 @@ MonoBehaviour:
   anim: {fileID: 1047097583}
   playerCombat: {fileID: 1047097581}
   pos1: {x: 0, y: 0}
-  pos2: 0
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  rayDistance: 0.7
 --- !u!4 &1047097579
 Transform:
   m_ObjectHideFlags: 0
@@ -5720,6 +5728,7 @@ MonoBehaviour:
   level: 1
   cooldown: 0.5
   knockbackForce: 1
+  takeDamage: 0
   yourEnemiesInRange: []
   targetedEnemy: {fileID: 0}
   isTargeting: 0
@@ -8553,6 +8562,7 @@ MonoBehaviour:
   moveSpeed: 20
   nextWaypointDistance: 0.3
   tileSize: {x: 1, y: 1}
+  pathUpdateRate: 0.5
 --- !u!114 &2012926821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9111,6 +9121,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2074781533818356465, guid: 170bb7d26c10f9047a2dade62894b04d, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2074781533818356465, guid: 170bb7d26c10f9047a2dade62894b04d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2686989837845616766, guid: 170bb7d26c10f9047a2dade62894b04d, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -9155,6 +9173,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3765387310799841332, guid: 170bb7d26c10f9047a2dade62894b04d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4074098375432128618, guid: 170bb7d26c10f9047a2dade62894b04d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4381693003975085095, guid: 170bb7d26c10f9047a2dade62894b04d, type: 3}
       propertyPath: m_Radius
       value: 3
@@ -9162,6 +9188,14 @@ PrefabInstance:
     - target: {fileID: 4381693003975085095, guid: 170bb7d26c10f9047a2dade62894b04d, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580876974668041424, guid: 170bb7d26c10f9047a2dade62894b04d, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580876974668041424, guid: 170bb7d26c10f9047a2dade62894b04d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7508623993470401286, guid: 170bb7d26c10f9047a2dade62894b04d, type: 3}
       propertyPath: m_Layer

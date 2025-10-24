@@ -15,6 +15,8 @@ public class NavigateState : State
     Path path;
     int currentWaypoint;
     private bool reachedEndOfPath;
+    public float pathUpdateRate = 0.5f;
+    private float pathUpdateTimer;
 
     public override void Enter()
     {
@@ -43,6 +45,13 @@ public class NavigateState : State
     {
 
         if (path == null) return;
+
+        pathUpdateTimer += Time.deltaTime;
+        if (pathUpdateTimer >= pathUpdateRate)
+        {
+            pathUpdateTimer = 0f;
+            seeker.StartPath(rb.position, destination, OnPathComplete);
+        }
 
         if (currentWaypoint >= path.vectorPath.Count)
         {
