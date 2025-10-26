@@ -5,7 +5,7 @@ using UnityEngine;
 public class CombatState : State
 {
     public Transform target;
-    public float attackCooldown = 1.5f;
+    public float attackCooldown = 5f;
     public float attackRange = 1.5f; 
     public float attackOne = 5f;
     public float attackTwo = 10f;
@@ -31,7 +31,7 @@ public class CombatState : State
         lastAttackTime = Time.time;
     }
 
-    /*void DealDamage(float amount)
+    void DealDamage(float amount)
     {
         // Check if target has health component
         PlayerHealth health = target.GetComponent<PlayerHealth>();
@@ -43,7 +43,7 @@ public class CombatState : State
         {
             Debug.LogWarning("Target has no PlayerHealth component!");
         }
-    }*/
+    }
 
     public override void Enter()
     {

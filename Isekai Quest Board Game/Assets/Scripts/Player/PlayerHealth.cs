@@ -12,11 +12,11 @@ public class PlayerHealth : MonoBehaviour
             Die();
         }
     }
-    /* public void TakeDamage(float amount)
+     public void TakeDamage(float amount)
      {
          HP -= amount;
         
-    }*/
+    }
 
     private void Die()
     {

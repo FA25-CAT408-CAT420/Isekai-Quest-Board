@@ -11,8 +11,6 @@ public abstract class EnemyCore : MonoBehaviour
     public GameObject player;
     // To manage enemy Health
     [SerializeField]public float Health;
-    //Every enemy will be targetable
-    public bool isTargeted;
 
     public StateMachine machine;
 
