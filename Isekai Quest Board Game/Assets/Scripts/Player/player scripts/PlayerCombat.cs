@@ -25,6 +25,8 @@ public class PlayerCombat : MonoBehaviour
     public int level = 1;
     public float cooldown = 2;
     private float timer;
+    public float spellCooldown = 5;
+    private float spellTimer;
     public int knockbackForce = 1;
     public float takeDamage;
 
@@ -72,7 +74,12 @@ public class PlayerCombat : MonoBehaviour
     }
 
     private void Update()
-    {
+    {   
+        if (spellTimer > 0)
+        {
+            spellTimer -= Time.deltaTime;
+        }
+        
         attackPoint.position = playerMovement.rb.position + playerMovement.pos1;
         if (timer > 0)
         {
@@ -91,13 +98,16 @@ public class PlayerCombat : MonoBehaviour
     }
 
     public void SpecialInput(int index)
-    {   
+    {
         float mpCost = specials[index].CostCalculation();
         specials[index].Cost();
-        
-        if (playerHealth.MP >= mpCost){
+
+        if (playerHealth.MP >= mpCost && spellTimer <= 0)
+        {
             playerHealth.MP = playerHealth.MP - mpCost;
             specials[index].Spell();
+            
+            spellTimer = spellCooldown;
         }
     }
 

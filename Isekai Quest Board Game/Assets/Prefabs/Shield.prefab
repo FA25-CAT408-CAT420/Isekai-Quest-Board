@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1724440134539685503}
   - component: {fileID: 4607659794110227391}
   - component: {fileID: 4163431926977780926}
+  - component: {fileID: 5506327722435009356}
   - component: {fileID: 2633823500965444291}
   - component: {fileID: 7469255327022073415}
   m_Layer: 0
@@ -77,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -1594760579, guid: b6ddfd82dcc5e61419ff39841ec18842, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.27450982}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -108,6 +109,33 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!50 &5506327722435009356
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 791939737207746628}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 1
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!58 &2633823500965444291
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -123,7 +151,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -155,5 +183,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2390ec61d7dd799488c7a3ee8f01db9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerStat: {fileID: 0}
+  spellLvl: 1
+  baseMPCost: 0
   shieldPrefab: {fileID: 791939737207746628}
   player: {fileID: 0}
+  shieldTimer: 10
+  animator: {fileID: 4163431926977780926}

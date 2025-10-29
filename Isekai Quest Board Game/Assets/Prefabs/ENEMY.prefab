@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 1047186994207889396}
   - component: {fileID: 3376415733321534896}
   - component: {fileID: 2465618623496721558}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemyHUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,7 +162,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6140971090334114672}
   - component: {fileID: 9164926679471932402}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -303,7 +303,7 @@ GameObject:
   - component: {fileID: 2074781533818356465}
   - component: {fileID: 8945585916324172009}
   - component: {fileID: 460553548846527028}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -379,7 +379,7 @@ GameObject:
   - component: {fileID: 8694758132101334385}
   - component: {fileID: 2060279100415020458}
   - component: {fileID: 4114911610066152785}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -454,7 +454,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6539204951883171767}
   - component: {fileID: 5438726475441966702}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: EaseHealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -544,7 +544,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7134524805767482313}
   - component: {fileID: 2476254412925092310}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Healthbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -634,7 +634,7 @@ GameObject:
   - component: {fileID: 4580876974668041424}
   - component: {fileID: 1838867952987555639}
   - component: {fileID: 4417950486542893498}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -826,11 +826,10 @@ GameObject:
   - component: {fileID: 4905361859151889501}
   - component: {fileID: 7599089884731340252}
   - component: {fileID: 3765387310799841332}
-  - component: {fileID: 5765666774544237637}
   - component: {fileID: 7778338626954729866}
   - component: {fileID: 6629527838245940952}
   - component: {fileID: 5264771076443403143}
-  m_Layer: 2
+  m_Layer: 6
   m_Name: ENEMY
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -852,7 +851,7 @@ Transform:
   - {fileID: 2038510978641952779}
   - {fileID: 8728567453329287602}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5844879431339061661
 SpriteRenderer:
@@ -1041,17 +1040,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8522549908244588971}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6d12cda87f9a9845b2275b5530a9bb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 5
-  maxHealth: 12
+  maxHealth: 50
   knockbackForce: 1
-  sr: {fileID: 5844879431339061661}
-  normalMat: {fileID: 2100000, guid: d8605b7380b47c84192e1a22812ff588, type: 2}
-  outlineMat: {fileID: 2100000, guid: 2d3dfd1363ae48247bea314f520d062c, type: 2}
   isTargeted: 0
   AC: 10
   damage: 5
@@ -1064,19 +1060,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8522549908244588971}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e95365bc582d8484bb992849db42af3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5765666774544237637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8522549908244588971}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e95365bc582d8484bb992849db42af3b, type: 3}
   m_Name: 
@@ -1095,7 +1079,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 7729226374097886412}
   player: {fileID: 0}
-  Health: 10
+  Health: 50
   patrol: {fileID: 4510474276883219164}
   aggro: {fileID: 8430766804850217015}
 --- !u!114 &6629527838245940952

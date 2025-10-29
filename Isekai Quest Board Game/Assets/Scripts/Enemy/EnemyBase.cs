@@ -9,9 +9,9 @@ public class EnemyBase : MonoBehaviour
     public int maxHealth;
     public int knockbackForce = 1;
 
-    public SpriteRenderer sr;
-    public Material normalMat;
-    public Material outlineMat;
+    // public SpriteRenderer sr;
+    // public Material normalMat;
+    // public Material outlineMat;
     public bool isTargeted = false;
     public int AC = 10;
     public float damage = 5f;
@@ -23,14 +23,14 @@ public class EnemyBase : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
-        sr = GetComponent<SpriteRenderer>();
+        // sr = GetComponent<SpriteRenderer>();
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        TargetOutline();
+        // TargetOutline();
     }
 
     public void ChangeHealth(int amount)
@@ -48,26 +48,25 @@ public class EnemyBase : MonoBehaviour
         }
     }
 
-    public void TargetOutline()
-    {
-        if (isTargeted)
-        {
-            sr.material = outlineMat;
-        }
-        else if (!isTargeted)
-        {
-            sr.material = normalMat;
-        }
-    }
+    // public void TargetOutline()
+    // {
+    //     if (isTargeted)
+    //     {
+    //         sr.material = outlineMat;
+    //     }
+    //     else if (!isTargeted)
+    //     {
+    //         sr.material = normalMat;
+    //     }
+    // }
 
     void OnCollisionEnter2D (Collision2D other)
     {
         if (other.gameObject.tag == "Player")
         {
-            playerHealth.HP -= damage;
+            playerHealth.TakeDamage(damage);
             other.gameObject.GetComponent<PlayerMovement>().StopMovementCoroutine();
             other.gameObject.GetComponent<PlayerKnockback>().ApplyKnockback(transform.position);
-            //other.gameObject.GetComponent<PlayerKnockback>().StopKnockbackCoroutine();
         }
     }
 }

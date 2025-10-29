@@ -24,7 +24,9 @@ public class Spells : MonoBehaviour
         return baseMPCost * (2f * (0.5f * spellLvl));
     }
 
-    public virtual void Cost(){
-        
+    public virtual void Cost()
+    {
+        //Override Cost in proprietary spells
     }
+    
 }
