@@ -67,10 +67,6 @@ public class PlayerCombat : MonoBehaviour
 
     private void Start()
     {
-        specials.Add(specialBeta);
-        specials.Add(specialBeta);
-        specials.Add(specialBeta);
-        specials.Add(specialBeta);
     }
 
     private void Update()

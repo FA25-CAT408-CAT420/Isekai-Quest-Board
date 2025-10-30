@@ -40,6 +40,10 @@ public class GameManager : MonoBehaviour
     {
         soulCounter.text = soulPoints.ToString();
 
+        if (soulPoints < 0){
+            soulPoints = 0;
+        }
+
     }
 
     void OnEnable()

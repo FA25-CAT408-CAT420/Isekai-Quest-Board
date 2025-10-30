@@ -4,15 +4,26 @@ using UnityEngine;
 
 public class SpellAcquisition : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    private PlayerCombat playerCombat;
+    private GameManager gameManager;
+    public Spells spellData;
+    public int price = 5;
+
+    void Start(){
+        playerCombat = GameObject.FindWithTag("Player").GetComponent<PlayerCombat>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    public void Interacted(){
+        if (gameManager.soulPoints >= price) {
+            gameManager.soulPoints -= price;
+            Debug.Log("Spell destroyed: " + gameObject.name);
+            playerCombat.specials.Add(spellData);
+            Destroy(gameObject);
+        }
+        else {
+
+        }
         
     }
 }

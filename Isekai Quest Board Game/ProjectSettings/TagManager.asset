@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Special
   - Debug
+  - Spell
   layers:
   - Default
   - TransparentFX
