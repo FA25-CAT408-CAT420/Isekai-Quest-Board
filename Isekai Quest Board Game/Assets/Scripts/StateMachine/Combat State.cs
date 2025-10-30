@@ -5,7 +5,7 @@ using UnityEngine;
 public class CombatState : State
 {
     public Transform target;
-    public float attackCooldown = 5f;
+    public float attackCooldown = 20f;
     public float attackRange = 1.5f; 
     public float attackOne = 5f;
     public float attackTwo = 10f;
@@ -21,14 +21,17 @@ public class CombatState : State
             currentAttackName = "attackOne";
             //DealDamage(attackOne);
             Debug.Log("Slime did 5 damage");
+            lastAttackTime -= attackCooldown;
+            
         } else
         {
             currentAttackName = "attackTwo";
             //DealDamage(attackTwo);
             Debug.Log("Slime did 10 damage");
+            lastAttackTime -= attackCooldown;
         }
 
-        lastAttackTime = Time.time;
+        lastAttackTime = Time.deltaTime;
     }
 
     void DealDamage(float amount)
@@ -47,7 +50,7 @@ public class CombatState : State
 
     public override void Enter()
     {
-        lastAttackTime = -attackCooldown;
+        lastAttackTime -= attackCooldown;
 
         RandomAttack();
     }
@@ -70,7 +73,7 @@ public class CombatState : State
         }
 
         // If cooldown passed, attack again
-        if (Time.time >= lastAttackTime + attackCooldown)
+        if (Time.deltaTime >= lastAttackTime + attackCooldown)
         {
             RandomAttack();
         }
