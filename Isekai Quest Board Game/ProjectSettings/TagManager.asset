@@ -10,6 +10,10 @@ TagManager:
   - Special
   - Debug
   - Spell
+  - SpawnPoint
+  - Rooms
+  - CameraBounds
+  - ClosedRoom
   layers:
   - Default
   - TransparentFX
@@ -19,7 +23,7 @@ TagManager:
   - UI
   - Enemy
   - Walls
-  - 
+  - Cam
   - 
   - 
   - 
