@@ -5,10 +5,13 @@ using UnityEngine;
 public class CombatState : State
 {
     public Transform target;
-    public float attackCooldown = 20f;
+    public float attackCooldown = 50f;
     public float attackRange = 1.5f; 
     public float attackOne = 5f;
     public float attackTwo = 10f;
+
+    //private bool isAttacking = false;
+    //private float nextAttackTime = 0f;
     private float lastAttackTime;
     private string currentAttackName; 
 
@@ -53,6 +56,7 @@ public class CombatState : State
         lastAttackTime -= attackCooldown;
 
         RandomAttack();
+        Debug.Log("Enemy Chose attack: " + currentAttackName);
     }
 
     public override void Do()
@@ -72,12 +76,24 @@ public class CombatState : State
             return;
         }
 
+        /*if (!isAttacking && Time.deltaTime >= nextAttackTime)
+        {
+            StartCoroutine(PerformAttack());
+        }*/
+
         // If cooldown passed, attack again
         if (Time.deltaTime >= lastAttackTime + attackCooldown)
         {
             RandomAttack();
         }
     }
+
+    /*IEnumerator PerformAttack()
+    {
+        isAttacking = true;
+        RandomAttack ();
+
+    }*/
 
     public override void Exit() {
     }

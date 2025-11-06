@@ -9,6 +9,8 @@ public abstract class EnemyCore : MonoBehaviour
     public Rigidbody2D rb;
     //reference to the player for all enemies
     public GameObject player;
+    //Reference to Animator
+    public Animator anim;
     // To manage enemy Health
     [SerializeField]public float Health;
 
