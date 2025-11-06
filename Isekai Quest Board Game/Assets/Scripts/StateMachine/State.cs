@@ -12,6 +12,7 @@ public abstract class State : MonoBehaviour
     public float time => Time.time - startTime;
 
     protected Rigidbody2D rb => core.rb;
+    protected Animator anim => core.anim;
     protected EnemyCore core;
 
     public StateMachine machine;

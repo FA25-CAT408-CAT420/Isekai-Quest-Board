@@ -5,7 +5,7 @@ using UnityEngine;
 public class IdleState : State
 {
    public override void Enter() {
-    //animator.Play("Idle");
+    anim.SetBool("isWalking", false);
    }
 
    public override void Do() {
