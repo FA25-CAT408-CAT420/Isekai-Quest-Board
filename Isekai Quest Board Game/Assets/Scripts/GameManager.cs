@@ -38,7 +38,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        soulCounter.text = "TEMP SOUL COUNTER: " + soulPoints;
+        soulCounter.text = soulPoints.ToString();
+
+        if (soulPoints < 0){
+            soulPoints = 0;
+        }
 
     }
 
@@ -65,7 +69,8 @@ public class GameManager : MonoBehaviour
         }
         else if (GUI != null)
         {
-            soulCounter = GUI.transform.Find("Soul Counter").GetComponent<TextMeshProUGUI>();
+            soulCounter = GUI.transform.Find("SoulGroup/Soul Counter").GetComponent<TextMeshProUGUI>();
+
         }
 
         if (scene.name == "DeathScene")

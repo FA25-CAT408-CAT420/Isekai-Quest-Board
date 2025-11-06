@@ -6,13 +6,13 @@ public class AggroState : State
 {
     public CombatState combat;
     public NavigateState navigate;
-    public IdleState idle;
 
     public float minimumDistance;
     public VisionTrigger visionTrigger;
     public Transform target;
 
-    public override void Enter() {
+    public override void Enter()
+    {
         if (target == null)
         {
             isComplete = true;
@@ -24,28 +24,40 @@ public class AggroState : State
     
     }
 
-    public override void Do() {
-
-        if (machine.state == navigate) 
-        {
-            if (CloseEnough(target.position)) 
-            {
-                Set(combat, true);
-                rb.velocity = new Vector2(0,0);
-            } else {
-                navigate.destination = target.position;
-                Set(navigate, true);
-            }
-        }
+    public override void Do()
+{
+    if (target == null)
+    {
+        isComplete = true;
+        return;
     }
 
+    float distance = Vector2.Distance(core.transform.position, target.position);
 
-    public override void Exit() {
-
+    // If close enough switch to combat
+    if (distance <= minimumDistance)
+    {
+        Set(combat, true);
+        rb.velocity = Vector2.zero;
+        return;
     }
 
-    public bool CloseEnough(Vector2 targetPos){
-        return Vector2.Distance(core.transform.position, targetPos) < minimumDistance;
+    // Update navigate destination dynamically
+    if (machine.state == navigate)
+    {
+        navigate.destination = target.position;
+    }
+    else
+    {
+        navigate.destination = target.position;
+        Set(navigate, true);
+    }
+}
+
+
+    public override void Exit()
+    {
+        
     }
    
     public Transform CheckForTarget()

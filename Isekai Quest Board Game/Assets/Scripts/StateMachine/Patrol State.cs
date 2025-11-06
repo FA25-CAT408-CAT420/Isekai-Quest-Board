@@ -9,7 +9,7 @@ public class PatrolState : State
    public IdleState idle;
 
    public float patrolRadiusInTiles = 5f;   // How far the enemy can wander from its starting point
-   public Vector2Int tileSize = new Vector2Int(32,32); // Tile dimentions
+   public Vector2 tileSize = new Vector2(1f,1f); // Tile dimentions
    public Vector2 patrolCenter;
 
    bool hasCenter = false;
@@ -18,7 +18,7 @@ public class PatrolState : State
    {
         if (!hasCenter)
         {
-            patrolCenter = core.transform.position;
+            patrolCenter = SnapToTile(core.transform.position);
             hasCenter = true;
         }
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewSpecialAttack", menuName = "Special Attacks/Spell")]
+[CreateAssetMenu(fileName = "NewSpell", menuName = "Spell/Spell")]
 public class SpecialAttacks : ScriptableObject
 {
 
@@ -11,7 +11,7 @@ public class SpecialAttacks : ScriptableObject
     public int diceType = 4;
     public int spellCritDC = 20;
     public float spellCritMult = 1.5f;
-    public float SpecialAttack()
+    public float Spell()
     {
         int specCritRate = Random.Range(1, spellCritDC + 1);
         float spellMult = 2f * (0.5f * spellLevel);

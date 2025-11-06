@@ -9,6 +9,11 @@ TagManager:
   - Enemy
   - Special
   - Debug
+  - Spell
+  - SpawnPoint
+  - Rooms
+  - CameraBounds
+  - ClosedRoom
   layers:
   - Default
   - TransparentFX
@@ -17,8 +22,8 @@ TagManager:
   - Water
   - UI
   - Enemy
-  - 
-  - 
+  - Walls
+  - Cam
   - 
   - 
   - 

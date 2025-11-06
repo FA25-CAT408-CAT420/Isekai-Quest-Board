@@ -6,6 +6,7 @@ public class PlayerCombat : MonoBehaviour
 {
     [Header("Scripts")]
     public PlayerMovement playerMovement;
+    public PlayerHealth playerHealth;
 
     [Header("Hitboxing")]
     public Transform attackPoint;
@@ -14,8 +15,8 @@ public class PlayerCombat : MonoBehaviour
     public int damage = 1;
 
     [Header("Combat")]
-    public List<SpecialAttacks> specials = new List<SpecialAttacks>();
-    public SpecialAttacks specialBeta;
+    public List<Spells> specials = new List<Spells>();
+    public Spells specialBeta;
     public float dmgLowEnd = 1f;
     public float dmgHighEnd = 3f;
     public int critDC = 20;
@@ -24,7 +25,10 @@ public class PlayerCombat : MonoBehaviour
     public int level = 1;
     public float cooldown = 2;
     private float timer;
+    public float spellCooldown = 5;
+    private float spellTimer;
     public int knockbackForce = 1;
+    public float takeDamage;
 
     [Header("Targeting")]
     public List<EnemyBase> yourEnemiesInRange = new List<EnemyBase>();
@@ -34,10 +38,6 @@ public class PlayerCombat : MonoBehaviour
     private float attackTimer = 0f;
     private int enemyIndex = 0;
 
-    private InputAction specialUp;
-    private InputAction specialDown;
-    private InputAction specialLeft;
-    private InputAction specialRight;
     private InputAction targetNext;
     private InputAction targetPrev;
 
@@ -52,38 +52,30 @@ public class PlayerCombat : MonoBehaviour
 
     private void OnEnable()
     {
-        specialUp = playerControls.Player.SpecialUp;
-        specialDown = playerControls.Player.SpecialDown;
-        specialLeft = playerControls.Player.SpecialLeft;
-        specialRight = playerControls.Player.SpecialRight;
         targetNext = playerControls.Player.TargetNext;
         targetPrev = playerControls.Player.TargetPrev;
 
-        specialUp.Enable();
-        specialDown.Enable();
-        specialLeft.Enable();
-        specialRight.Enable();
         targetNext.Enable();
         targetPrev.Enable();
     }
 
     private void OnDisable()
     {
-        specialUp.Disable();
-        specialDown.Disable();
-        specialLeft.Disable();
-        specialRight.Disable();
         targetNext.Disable();
         targetPrev.Disable();
     }
 
     private void Start()
     {
-        specials.Add(specialBeta);
     }
 
     private void Update()
-    {
+    {   
+        if (spellTimer > 0)
+        {
+            spellTimer -= Time.deltaTime;
+        }
+        
         attackPoint.position = playerMovement.rb.position + playerMovement.pos1;
         if (timer > 0)
         {
@@ -99,22 +91,21 @@ public class PlayerCombat : MonoBehaviour
         {
             isTargeting = false;
         }
-
-        // if (targetedEnemy != null)
-        //     SpecialInput();
     }
 
-    // public void SpecialInput()
-    // {
-    //     float specialDMG = 0f;
-    //     if (specialUp.WasPressedThisFrame()) specialDMG = specials[0].SpecialAttack();
-    //     else if (specialRight.WasPressedThisFrame()) specialDMG = specials[1].SpecialAttack();
-    //     else if (specialDown.WasPressedThisFrame()) specialDMG = specials[2].SpecialAttack();
-    //     else if (specialLeft.WasPressedThisFrame()) specialDMG = specials[3].SpecialAttack();
+    public void SpecialInput(int index)
+    {
+        float mpCost = specials[index].CostCalculation();
+        specials[index].Cost();
 
-    //     if (targetedEnemy != null)
-    //         targetedEnemy.currentHealth -= specialDMG;
-    // }
+        if (playerHealth.MP >= mpCost && spellTimer <= 0)
+        {
+            playerHealth.MP = playerHealth.MP - mpCost;
+            specials[index].Spell();
+            
+            spellTimer = spellCooldown;
+        }
+    }
 
     public void Attack()
     {
@@ -136,19 +127,22 @@ public void DealDamage()
 
             playerMovement.isBlocked = true;
 
-            // if (enemies.Length > 0)
-            // {
-            //     enemies[0].GetComponent<EnemyBase>().ChangeHealth(-damage);
-            //     enemies[0].GetComponent<EnemyKnockback>().Knockback(transform, knockbackForce);
-            // }
-            EnemyBase enemyBase = enemy.GetComponent<EnemyBase>();
-            EnemyKnockback enemyKnockback = enemy.GetComponent<EnemyKnockback>();
-            if (enemyBase != null)
+            if (enemies.Length > 0)
             {
-                enemyBase.ChangeHealth(-damage);
-                enemyKnockback.Knockback(transform, knockbackForce);
+                enemies[0].GetComponent<EnemyBase>().ChangeHealth(-damage);
+                enemies[0].GetComponent<EnemyKnockback>().Knockback(transform, knockbackForce);
                 break;
             }
+
+            // EnemyBase enemyBase = enemy.GetComponent<EnemyBase>();
+            // EnemyKnockback enemyKnockback = enemy.GetComponent<EnemyKnockback>();
+
+            // if (enemyBase != null)
+            // {
+            //     enemyBase.ChangeHealth(-damage);
+            //     enemyKnockback.Knockback(transform, knockbackForce);
+            //     break;
+            // }
         }
 
         if (enemies == null)
@@ -156,6 +150,30 @@ public void DealDamage()
             playerMovement.isBlocked = false;
         }
 }
+
+// public void CastSpell()
+// {
+//     Collider2D[] enemies = Physics2D.OverlapCircleAll(attackPoint.position, weaponRange, enemyLayer);
+
+//         foreach (Collider2D enemy in enemies)
+//         {
+//             if (enemy.isTrigger) continue;
+
+//             playerMovement.isBlocked = true;
+
+//             if (enemies.Length > 0)
+//             {
+//                 enemies[0].GetComponent<EnemyBase>().ChangeHealth(-spellDamage);
+//                 enemies[0].GetComponent<EnemyKnockback>().Knockback(transform, knockbackForce);
+//                 break;
+//             }
+//         }
+
+//         if (enemies == null)
+//         {
+//             playerMovement.isBlocked = false;
+//         }
+// }
 
     public void FinishedAttacking()
     {
@@ -194,7 +212,7 @@ public void DealDamage()
             yourEnemiesInRange.Remove(enemy);
         }
     }
-    
+
     private void OnDrawGizmosSelected()
     {
         if (attackPoint == null) return;
@@ -202,4 +220,6 @@ public void DealDamage()
         Gizmos.color = Color.red; // Circle color
         Gizmos.DrawWireSphere(attackPoint.position, weaponRange);
     }
+    
+
 }
