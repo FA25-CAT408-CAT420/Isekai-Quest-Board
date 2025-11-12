@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class BossAi : EnemyCore
 {
-
-    public BossMovement bossMovement;
+    public BossPatrol bossPatrol;
+    public BossNavigation bossNavigation;
 
     // Start is called before the first frame update
     void Start()
     {
         SetUpInstances();
 
-        Set(bossMovement);
+        bossPatrol.SetCore(this);
+        bossNavigation.SetCore(this);
+
+        bossPatrol.bossNavigation = bossNavigation;
+        
+        Set(bossPatrol);
         
     }
 
