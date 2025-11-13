@@ -45,6 +45,11 @@ public class PlayerInteractions : MonoBehaviour
         if (other.gameObject.CompareTag("Spell")){
             nearbySpell = other;
         }
+
+        if (other.gameObject.CompareTag("LockedRoom")){
+            Debug.Log("HIT THE ROOM");
+            other.gameObject.GetComponent<SpawnLockedRoom>().Spawn();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)

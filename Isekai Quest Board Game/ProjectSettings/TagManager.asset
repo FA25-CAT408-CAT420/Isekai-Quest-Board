@@ -14,11 +14,8 @@ TagManager:
   - Rooms
   - CameraBounds
   - ClosedRoom
-<<<<<<< Updated upstream
   - Boss
-=======
-  - Ground
->>>>>>> Stashed changes
+  - LockedRoom
   layers:
   - Default
   - TransparentFX
