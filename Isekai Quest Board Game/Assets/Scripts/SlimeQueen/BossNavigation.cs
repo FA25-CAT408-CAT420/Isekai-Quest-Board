@@ -6,30 +6,30 @@ using Pathfinding;
 public class BossNavigation : State
 {
     public Vector2 destination;
-    public float moveSpeed = 4f;
-    public float nextWaypointDistance = 0.1f;
-    public Vector2 tileSize = new Vector2(1f, 1f);
-    public float pathUpdateRate = 0.5f;
+    public float moveSpeed = 5f;
+    public float nextWaypointDistance = 0.2f;
+    public Vector2 tileSize = new Vector2(2f,2f);
+    //public State animation;
 
-    private Seeker seeker;
-    private Path path;
-    private int currentWaypoint;
-    private float pathUpdateTimer;
+    Seeker seeker;
+    Path path;
+    int currentWaypoint;
     private bool reachedEndOfPath;
+    public float pathUpdateRate = 0.5f;
+    private float pathUpdateTimer;
 
     public override void Enter()
     {
         seeker = core.GetComponent<Seeker>();
 
         reachedEndOfPath = false;
-        isComplete = false;
-        path = null;
-        currentWaypoint = 0;
-        pathUpdateTimer = 0f;
+        isComplete = false; 
 
+        // Start A* pathfinding from snapped positions
         Vector2 start = SnapToTile(rb.position);
         Vector2 end = SnapToTile(destination);
         seeker.StartPath(start, end, OnPathComplete);
+        //Set(animation, true);
     }
 
     void OnPathComplete(Path p)
@@ -43,14 +43,14 @@ public class BossNavigation : State
 
     public override void Do()
     {
+
         if (path == null) return;
 
-        // Periodically refresh path
         pathUpdateTimer += Time.deltaTime;
         if (pathUpdateTimer >= pathUpdateRate)
         {
             pathUpdateTimer = 0f;
-            seeker.StartPath(SnapToTile(rb.position), SnapToTile(destination), OnPathComplete);
+            seeker.StartPath(rb.position, destination, OnPathComplete);
         }
 
         if (currentWaypoint >= path.vectorPath.Count)
@@ -61,17 +61,20 @@ public class BossNavigation : State
             return;
         }
 
-        Vector2 targetPosition = (Vector2)path.vectorPath[currentWaypoint];
+        // Move toward next tile center
+        Vector2 targetPosition = SnapToTile(path.vectorPath[currentWaypoint]);
         Vector2 newPosition = Vector2.MoveTowards(rb.position, targetPosition, moveSpeed * Time.deltaTime);
         rb.MovePosition(newPosition);
 
+
+        // When close to the next tile, go to the next waypoint
         float distance = Vector2.Distance(rb.position, targetPosition);
         if (distance < nextWaypointDistance)
         {
             currentWaypoint++;
         }
 
-        // Face direction horizontally
+        // Face direction (horizontal only)
         float dirX = targetPosition.x - rb.position.x;
         if (Mathf.Abs(dirX) > 0.01f)
         {
@@ -79,7 +82,7 @@ public class BossNavigation : State
         }
     }
 
-    private Vector2 SnapToTile(Vector2 worldPos)
+     Vector2 SnapToTile(Vector2 worldPos)
     {
         float snappedX = Mathf.Round(worldPos.x / tileSize.x) * tileSize.x;
         float snappedY = Mathf.Round(worldPos.y / tileSize.y) * tileSize.y;
