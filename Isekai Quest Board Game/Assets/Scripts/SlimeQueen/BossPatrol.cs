@@ -7,50 +7,99 @@ public class BossPatrol : State
 {
     public BossNavigation bossNavigation;
 
-public float patrolRadiusInTiles = 5f;   // How far the enemy can wander from its starting point
-   public Vector2 tileSize = new Vector2(2f,2f); // Tile dimentions
-   public Vector2 patrolCenter;
+    public float patrolRadiusInTiles = 8f;  // How far around the arena to move
+    public Vector2 tileSize = new Vector2(2f, 2f);
+    public float pauseDuration = 2f;
 
-   bool hasCenter = false;
+    private Vector2 arenaCenter;            // Center point to orbit around
+    private bool hasCenter = false;
+    private bool isWaiting;
+    private float waitTimer;
+    private bool isNavigating;
+    private Vector2 lastDestination;
 
-   void GoToNextDestination()
-   {
+    public override void Enter()
+    {
+        // Use starting position as arena center (or assign manually if needed)
         if (!hasCenter)
         {
-            patrolCenter = SnapToTile(core.transform.position);
+            arenaCenter = SnapToTile(core.transform.position);
             hasCenter = true;
         }
 
-        // Choose a random tile offset within the patrol radius
-        int offsetX = Random.Range(-Mathf.RoundToInt(patrolRadiusInTiles), Mathf.RoundToInt(patrolRadiusInTiles)+ 1);
-        int offsetY = Random.Range(-Mathf.RoundToInt(patrolRadiusInTiles), Mathf.RoundToInt(patrolRadiusInTiles)+ 1);
-        
-        Vector2 nextTile = patrolCenter + new Vector2(offsetX * tileSize.x, offsetY * tileSize.y);
+        bossNavigation.SetCore(core);  // Ensure both share the same core
+        isWaiting = false;
+        isNavigating = false;
+        waitTimer = 0f;
 
-        // Snap to grid and send destination to navigate state
-        bossNavigation.destination = SnapToTile(nextTile);
+        GoToNextTile();
+    }
 
+    public override void Do()
+    {
+        // Handle pause timing
+        if (isWaiting)
+        {
+            waitTimer -= Time.deltaTime;
+            if (waitTimer <= 0f)
+            {
+                isWaiting = false;
+                GoToNextTile();
+            }
+            return;
+        }
+
+        // While navigating, run its behavior
+        if (isNavigating)
+        {
+            state?.DoBranch();
+
+            if (bossNavigation.isComplete)
+            {
+                isNavigating = false;
+                StartPause();
+            }
+            return;
+        }
+    }
+
+    private void GoToNextTile()
+    {
+        if (isNavigating) return;
+
+        // Pick a random orbit destination around the arena center
+        float angle = Random.Range(0f, Mathf.PI * 2f);
+        Vector2 offset = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * patrolRadiusInTiles * tileSize;
+        Vector2 targetTile = SnapToTile(arenaCenter + offset);
+
+        // Avoid picking nearly the same tile twice
+        if (Vector2.Distance(targetTile, lastDestination) < 0.1f)
+            return;
+
+        lastDestination = targetTile;
+
+        bossNavigation.destination = targetTile;
         Set(bossNavigation, true);
-   }
+        isNavigating = true;
+    }
 
-   Vector2 SnapToTile(Vector2 worldPos)
-   {
+    private void StartPause()
+    {
+        isWaiting = true;
+        waitTimer = pauseDuration;
+        rb.velocity = Vector2.zero;
+    }
+
+    private Vector2 SnapToTile(Vector2 worldPos)
+    {
         float snappedX = Mathf.Round(worldPos.x / tileSize.x) * tileSize.x;
         float snappedY = Mathf.Round(worldPos.y / tileSize.y) * tileSize.y;
         return new Vector2(snappedX, snappedY);
-   }
+    }
 
-   public override void Enter()
-   {
-        GoToNextDestination();
-   }
-
-   public override void Do(){
-    if (machine.state == bossNavigation){
-        if (bossNavigation.isComplete)
-        {
-            GoToNextDestination();
-        }
-    } 
-   }
+    public override void Exit()
+    {
+        isWaiting = false;
+        isNavigating = false;
+    }
 }
