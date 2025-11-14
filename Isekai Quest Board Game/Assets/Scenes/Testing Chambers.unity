@@ -6623,17 +6623,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShieldSpellCollectible
       objectReference: {fileID: 0}
+    - target: {fileID: 1658548075303350686, guid: 3e2902cb62102734094e0a8bea145776, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7196936031753598364, guid: 3e2902cb62102734094e0a8bea145776, type: 3}
       propertyPath: m_RootOrder
       value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 7196936031753598364, guid: 3e2902cb62102734094e0a8bea145776, type: 3}
       propertyPath: m_LocalPosition.x
+<<<<<<< Updated upstream
       value: -5.05
       objectReference: {fileID: 0}
     - target: {fileID: 7196936031753598364, guid: 3e2902cb62102734094e0a8bea145776, type: 3}
       propertyPath: m_LocalPosition.y
       value: -1.79
+=======
+      value: 1.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 7196936031753598364, guid: 3e2902cb62102734094e0a8bea145776, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.66
+>>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 7196936031753598364, guid: 3e2902cb62102734094e0a8bea145776, type: 3}
       propertyPath: m_LocalPosition.z
