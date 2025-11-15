@@ -4,27 +4,19 @@ using UnityEngine;
 
 public class BossAi : EnemyCore
 {
-    public BossPatrol bossPatrol;
-    public BossNavigation bossNavigation;
+    public VentPopping ventPopping;
 
     // Start is called before the first frame update
     void Start()
     {
         SetUpInstances();
 
-        bossPatrol.SetCore(this);
-        bossNavigation.SetCore(this);
-
-        bossPatrol.bossNavigation = bossNavigation;
-        
-        Set(bossPatrol);
+        Set(ventPopping);
         
     }
 
     // Update is called once per frame
-    void Update()
-    {
-
+    void Update(){
         state.DoBranch();
         
     }
