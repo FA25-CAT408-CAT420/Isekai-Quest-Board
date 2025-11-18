@@ -48,12 +48,16 @@ public class PatrolState : State
 
    public override void Do(){
     if (machine.state == navigate){
+            anim.SetBool("Moving", true);
+
         if (navigate.isComplete)
         {
             Set(idle, true);
-            rb.velocity = new Vector2(0, rb.velocity.y);
+                anim.Play("IdleTree");
+                rb.velocity = new Vector2(0, rb.velocity.y);
         }
     } else {
+            anim.SetBool("Moving", false);
         if (machine.state.time > 1.5) 
         {
             GoToNextDestination();
