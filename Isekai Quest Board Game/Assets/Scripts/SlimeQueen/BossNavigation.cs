@@ -8,7 +8,7 @@ public class BossNavigation : State
     public Vector2 destination;
     public float moveSpeed = 4f;
     public float nextWaypointDistance = 0.1f;
-    public Vector2 tileSize = new Vector2(1f, 1f);
+    public Vector2 tileSize = new Vector2(2f, 2f);
     public float pathUpdateRate = 0.5f;
 
     private Seeker seeker;
