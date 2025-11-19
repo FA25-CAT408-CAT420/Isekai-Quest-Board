@@ -15,12 +15,14 @@ public class RoomSpawner : MonoBehaviour
     private bool spawned = false;
 
     public Transform cameraBounds;
+    public float waitTime = 4f;
     public enum Direction
     {
         TOP, RIGHT, BOTTOM, LEFT
     }
 
     void Start(){
+        Destroy(gameObject, waitTime);
         templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
         cameraBounds = GameObject.FindGameObjectWithTag("CameraBounds").transform;
         //Invoke calls a function with a time delay

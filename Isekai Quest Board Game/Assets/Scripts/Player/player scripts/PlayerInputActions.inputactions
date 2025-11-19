@@ -950,6 +950,17 @@
                 },
                 {
                     "name": "",
+                    "id": "cd378666-7ae2-4eb9-8a14-951b00c44116",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Restart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "d2f9be3c-5453-440a-a111-03c90634b3a6",
                     "path": "<Gamepad>/select",
                     "interactions": "",

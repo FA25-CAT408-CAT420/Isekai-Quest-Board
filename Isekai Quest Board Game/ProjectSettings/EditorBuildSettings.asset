@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Testing Chambers.unity
     guid: ef69e61040c4bb447b0e25e630bf8a15
   - enabled: 1
-    path: Assets/Scenes/DeathScene.unity
+    path: Assets/Scenes/Death Scene.unity
     guid: ff122ad730a0f4746b37d0cf89a482c4
   m_configObjects: {}

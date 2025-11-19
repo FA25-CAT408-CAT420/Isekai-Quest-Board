@@ -16,6 +16,7 @@ TagManager:
   - ClosedRoom
   - Boss
   - LockedRoom
+  - Transition
   layers:
   - Default
   - TransparentFX
