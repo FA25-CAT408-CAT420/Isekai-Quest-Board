@@ -9,7 +9,6 @@ public class NavigateState : State
     public float moveSpeed = 5f;
     public float nextWaypointDistance = 0.1f;
     public Vector2 tileSize = new Vector2(1f,1f);
-    //public State animation;
 
     Seeker seeker;
     Path path;
@@ -29,7 +28,7 @@ public class NavigateState : State
         Vector2 start = SnapToTile(rb.position);
         Vector2 end = SnapToTile(destination);
         seeker.StartPath(start, end, OnPathComplete);
-        //Set(animation, true);
+        
     }
 
     void OnPathComplete(Path p)

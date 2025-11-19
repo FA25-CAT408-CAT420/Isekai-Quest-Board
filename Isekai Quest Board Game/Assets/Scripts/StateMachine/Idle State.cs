@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class IdleState : State
 {
+    public NavigateState navigate;
+
    public override void Enter() {
-    anim.SetBool("isWalking", false);
-   }
+    anim.SetFloat("X", navigate.destination.x);
+    anim.SetFloat("Y", navigate.destination.y);
+    }
 
    public override void Do() {
       isComplete = true;
