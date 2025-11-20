@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     private TextMeshProUGUI soulCounter;
 
     public int soulPoints = 0;
+    public bool soulDropped = true;
 
     private PlayerInputActions inputActions;
     void Awake()
