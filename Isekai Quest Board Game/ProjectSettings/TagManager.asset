@@ -17,6 +17,8 @@ TagManager:
   - Boss
   - LockedRoom
   - Transition
+  - Ghost
+  - Camera
   layers:
   - Default
   - TransparentFX

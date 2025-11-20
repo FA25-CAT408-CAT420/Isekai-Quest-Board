@@ -12,9 +12,11 @@ public class GameManager : MonoBehaviour
     private TextMeshProUGUI soulCounter;
 
     public int soulPoints = 0;
-    public bool soulDropped = true;
+    public bool soulDropped = false;
+    public bool isDead = false;
 
     private PlayerInputActions inputActions;
+    private InputAction submit;
     void Awake()
     {
         if (Instance == null)
@@ -44,21 +46,25 @@ public class GameManager : MonoBehaviour
         if (soulPoints < 0){
             soulPoints = 0;
         }
-
     }
 
     void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-
+        submit = inputActions.UI.Submit;
+        submit.performed += OnSubmit;
+        
         inputActions.Enable();
+        submit.Enable();
     }
 
     void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
-
+        submit.performed -= OnSubmit;
+        
         inputActions.Disable();
+        submit.Disable();
     }
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
@@ -88,4 +94,14 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("Testing Chambers");
     }
+
+    private void OnSubmit(InputAction.CallbackContext context)
+    {
+        if (isDead)
+        {
+            SceneManager.LoadScene("Forest");
+        }
+        
+    }
+    
 }

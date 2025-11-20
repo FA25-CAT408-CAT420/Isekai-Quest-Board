@@ -35,7 +35,7 @@ public class RoomTemplates : MonoBehaviour
         if(waitTime <= 0 && spawnedSoul == false){
             for (int i = 0; i < rooms.Count; i++){
                 if(i == (rooms.Count - 1) / 2){
-                    Instantiate(enemy, rooms[i].transform.position, Quaternion.identity);
+                    Instantiate(soul, rooms[i].transform.position, Quaternion.identity);
                     spawnedSoul = true;
                 }
             }
