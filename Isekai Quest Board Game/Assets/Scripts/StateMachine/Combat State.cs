@@ -5,14 +5,13 @@ using UnityEngine;
 public class CombatState : State
 {
     public Transform target;
-    public float attackCooldown = 50f;
     public float attackRange = 1.5f; 
-    public float attackOne = 5f;
-    public float attackTwo = 10f;
+    public float attackOne = 0.5f;
+    public float attackTwo = 0.5f;
+    public float extraDelayAfterAttack = 3.0f;
 
-    //private bool isAttacking = false;
-    //private float nextAttackTime = 0f;
-    private float lastAttackTime;
+    private bool isAttacking = false;
+    private float nextAttackTime = 0f;
     private string currentAttackName; 
 
     void RandomAttack()
@@ -22,19 +21,17 @@ public class CombatState : State
         if (attackChoice == 0)
         {
             currentAttackName = "attackOne";
-            //DealDamage(attackOne);
+            anim.SetBool("Attacking", true);
+            DealDamage(attackOne);
             Debug.Log("Slime did 5 damage");
-            lastAttackTime -= attackCooldown;
             
         } else
         {
             currentAttackName = "attackTwo";
-            //DealDamage(attackTwo);
+            anim.SetBool("Attacking", true);
+            DealDamage(attackTwo);
             Debug.Log("Slime did 10 damage");
-            lastAttackTime -= attackCooldown;
         }
-
-        lastAttackTime = Time.deltaTime;
     }
 
     void DealDamage(float amount)
@@ -53,11 +50,9 @@ public class CombatState : State
 
     public override void Enter()
     {
-        lastAttackTime -= attackCooldown;
-
-        RandomAttack();
-        Debug.Log("Enemy Chose attack: " + currentAttackName);
-        anim.SetBool("Attacking", true);
+        isAttacking = false;
+        nextAttackTime = Time.time;
+        StartCoroutine(PerformAttack());
     }
 
     public override void Do()
@@ -74,29 +69,30 @@ public class CombatState : State
         if (distance > attackRange)
         {
             isComplete = true;
+            anim.SetBool("Attacking", false);
             return;
         }
 
-        /*if (!isAttacking && Time.deltaTime >= nextAttackTime)
+        if (!isAttacking && Time.time >= nextAttackTime)
         {
             StartCoroutine(PerformAttack());
-        }*/
-
-        // If cooldown passed, attack again
-        if (Time.deltaTime >= lastAttackTime + attackCooldown)
-        {
-            RandomAttack();
         }
+
     }
+        IEnumerator PerformAttack()
+        {
+            isAttacking = true;
+            RandomAttack();
 
-    /*IEnumerator PerformAttack()
-    {
-        isAttacking = true;
-        RandomAttack ();
+            AnimatorStateInfo animState = anim.GetCurrentAnimatorStateInfo(0);
+            float animDuration = animState.length;
 
-    }*/
+            yield return new WaitForSeconds(animDuration + extraDelayAfterAttack);
+
+            nextAttackTime = Time.time;
+            isAttacking = false;
+        }
 
     public override void Exit() {
-        anim.SetBool("Attacking", false);
     }
 }

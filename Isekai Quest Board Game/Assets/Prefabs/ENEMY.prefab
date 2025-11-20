@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1960778495935972212}
-  attackCooldown: 1
+  attackCooldown: 20
   attackRange: 1.5
   attackOne: 5
   attackTwo: 10
@@ -256,7 +256,7 @@ MonoBehaviour:
   navigate: {fileID: 9090385727989943832}
   minimumDistance: 1.5
   visionTrigger: {fileID: 5264771076443403143}
-  target: {fileID: 0}
+  target: {fileID: 1047097579, guid: 4b60f1d2e1d8ee144bea77966f00e1e5, type: 2}
 --- !u!1 &3598699131888061827
 GameObject:
   m_ObjectHideFlags: 0
@@ -852,7 +852,7 @@ Transform:
   - {fileID: 2038510978641952779}
   - {fileID: 8728567453329287602}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5844879431339061661
 SpriteRenderer:
