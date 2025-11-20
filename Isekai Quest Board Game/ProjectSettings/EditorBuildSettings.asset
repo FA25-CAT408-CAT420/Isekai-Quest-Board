@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Forest.unity
     guid: ebcec49f24e9c7842bb0878360785ba3
+  - enabled: 1
+    path: Assets/Scenes/Pathfinding Testing.unity
+    guid: ca5b06d89ba638d48bcc806c2258018a
   m_configObjects: {}
