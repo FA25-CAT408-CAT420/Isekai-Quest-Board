@@ -21,6 +21,7 @@ public class AggroState : State
 
         navigate.destination = target.position; 
         Set(navigate, true);
+        anim.SetBool("Moving", true);
     
     }
 
@@ -57,7 +58,7 @@ public class AggroState : State
 
     public override void Exit()
     {
-        
+        anim.SetBool("Moving", false);
     }
    
     public Transform CheckForTarget()
