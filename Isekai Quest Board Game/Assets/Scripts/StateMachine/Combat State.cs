@@ -57,6 +57,7 @@ public class CombatState : State
 
         RandomAttack();
         Debug.Log("Enemy Chose attack: " + currentAttackName);
+        anim.SetBool("Attacking", true);
     }
 
     public override void Do()
@@ -96,5 +97,6 @@ public class CombatState : State
     }*/
 
     public override void Exit() {
+        anim.SetBool("Attacking", false);
     }
 }
