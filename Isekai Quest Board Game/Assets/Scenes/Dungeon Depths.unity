@@ -2268,7 +2268,7 @@ MonoBehaviour:
   closedRoom: {fileID: 8561792802895291429, guid: feef65fe5ecce0946b17ca2ae8900def, type: 3}
   rooms: []
   waitTime: 3
-  enemy: {fileID: 8727586395356009664, guid: e462435eb5845f043986f7c2070ba912, type: 3}
+  enemy: {fileID: 3312001255666621676, guid: 2cec02bd43e68f8499abb0eb3d99b786, type: 3}
 --- !u!4 &770147360
 Transform:
   m_ObjectHideFlags: 0
