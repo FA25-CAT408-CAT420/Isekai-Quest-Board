@@ -8,7 +8,7 @@ public class CombatState : State
     public float attackRange = 1.5f; 
     public float attackOne = 0.5f;
     public float attackTwo = 0.5f;
-    public float extraDelayAfterAttack = 3.0f;
+    public float extraDelayAfterAttack = 2.5f;
 
     private bool isAttacking = false;
     private float nextAttackTime = 0f;
