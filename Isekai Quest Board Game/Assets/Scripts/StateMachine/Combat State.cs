@@ -4,54 +4,25 @@ using UnityEngine;
 
 public class CombatState : State
 {
-    public Transform target;
-    public float attackRange = 1.5f; 
-    public float attackOne = 0.5f;
-    public float attackTwo = 0.5f;
-    public float extraDelayAfterAttack = 2.5f;
+    public float lightAttackDamage = 10f;
+    public float heavyAttackDamage = 20f;
+
+    public float extraDelayAfterAttack = 1.0f;   // delay AFTER animation finishes
+    public float attackRange = 1.5f;
+
+    public Transform target;  // assigned from AggroState
 
     private bool isAttacking = false;
     private float nextAttackTime = 0f;
+
     private string currentAttackName; 
-
-    void RandomAttack()
-    {
-        int attackChoice = Random.Range(0,2); // 0 or 1
-
-        if (attackChoice == 0)
-        {
-            currentAttackName = "attackOne";
-            anim.SetBool("Attacking", true);
-            DealDamage(attackOne);
-            Debug.Log("Slime did 5 damage");
-            
-        } else
-        {
-            currentAttackName = "attackTwo";
-            anim.SetBool("Attacking", true);
-            DealDamage(attackTwo);
-            Debug.Log("Slime did 10 damage");
-        }
-    }
-
-    void DealDamage(float amount)
-    {
-        // Check if target has health component
-        PlayerHealth health = target.GetComponent<PlayerHealth>();
-        if (health != null)
-        {
-            health.TakeDamage(amount);
-        }
-        else
-        {
-            Debug.LogWarning("Target has no PlayerHealth component!");
-        }
-    }
 
     public override void Enter()
     {
         isAttacking = false;
         nextAttackTime = Time.time;
+
+        // Start attacking immediately on entering combat
         StartCoroutine(PerformAttack());
     }
 
@@ -65,33 +36,73 @@ public class CombatState : State
 
         float distance = Vector2.Distance(core.transform.position, target.position);
 
-        // Stop attacking if target is too far and go back to chase
+        // leave combat if player moves too far
         if (distance > attackRange)
         {
             isComplete = true;
-            anim.SetBool("Attacking", false);
             return;
         }
 
+        if (isAttacking)
+        {
+            anim.SetBool("Attacking", true);
+        }
+
+        // If we are allowed to attack again and not currently in an attack animation
         if (!isAttacking && Time.time >= nextAttackTime)
         {
             StartCoroutine(PerformAttack());
         }
-
     }
-        IEnumerator PerformAttack()
+
+    IEnumerator PerformAttack()
+    {
+        isAttacking = true;
+        RandomAttack(); // Play animation + apply damage
+
+        yield return null;
+
+        // Get the currently playing animation's length
+        AnimatorStateInfo animState = anim.GetCurrentAnimatorStateInfo(0);
+        float animDuration = animState.length;
+
+        // Wait for animation to finish + extra delay
+        yield return new WaitForSeconds(animDuration + extraDelayAfterAttack);
+
+        // Allow next attack
+        nextAttackTime = Time.time;
+        isAttacking = false;
+    }
+
+    void RandomAttack()
+    {
+        int choice = Random.Range(0, 2); // 0 or 1
+
+        if (choice == 0)
         {
-            isAttacking = true;
-            RandomAttack();
-
-            AnimatorStateInfo animState = anim.GetCurrentAnimatorStateInfo(0);
-            float animDuration = animState.length;
-
-            yield return new WaitForSeconds(animDuration + extraDelayAfterAttack);
-
-            nextAttackTime = Time.time;
-            isAttacking = false;
+            currentAttackName = "LightAttack";
+            DealDamage(lightAttackDamage);
         }
+        else
+        {
+            currentAttackName = "HeavyAttack";
+            DealDamage(heavyAttackDamage);
+        }
+    }
+
+    void DealDamage(float amount)
+    {
+        PlayerHealth health = target.GetComponent<PlayerHealth>();
+
+        if (health != null)
+        {
+            health.TakeDamage(amount);
+        }
+        else
+        {
+            Debug.LogWarning("CombatState: Target has no PlayerHealth component.");
+        }
+    }
 
     public override void Exit() {
     }
