@@ -45,6 +45,7 @@ public class CombatState : State
         if (!isAttacking && Time.time >= nextAttackTime)
         {
             StartCoroutine(PerformAttack());
+            anim.SetBool("Attacking", true);
         }
     }
 
@@ -55,9 +56,6 @@ public class CombatState : State
         // Randomly choose attack
         string attackTrigger = (Random.Range(0, 2) == 0) ? "LightAttack" : "HeavyAttack";
         float damage = (attackTrigger == "LightAttack") ? lightAttackDamage : heavyAttackDamage;
-
-        // Play animation
-        anim.SetBool("Attacking", true);
 
         // Wait 1 frame so animator updates
         yield return null;
