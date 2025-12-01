@@ -922,6 +922,7 @@ MonoBehaviour:
   GUI: {fileID: 240151622}
   soulPoints: 0
   soulDropped: 1
+  isDead: 0
 --- !u!4 &377654143
 Transform:
   m_ObjectHideFlags: 0
@@ -7268,6 +7269,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PLAYER
       objectReference: {fileID: 0}
+    - target: {fileID: 4032296622584524223, guid: 48ad5864c68ed994d9c2f82b2364ae2c, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 377654142}
     - target: {fileID: 4032296622584524223, guid: 48ad5864c68ed994d9c2f82b2364ae2c, type: 3}
       propertyPath: playerMovement
       value: 
