@@ -7,7 +7,7 @@ public class CombatState : State
     public float lightAttackDamage = 10f;
     public float heavyAttackDamage = 20f;
 
-    public float extraDelayAfterAttack = 1.0f;   // delay AFTER animation finishes
+    public float attackCooldown = 1.5f;
     public float attackRange = 1.5f;
 
     public Transform target;  // assigned from AggroState
@@ -20,10 +20,8 @@ public class CombatState : State
     public override void Enter()
     {
         isAttacking = false;
-        nextAttackTime = Time.time;
+        nextAttackTime = Time.time + 0.2f;  // small buffer
 
-        // Start attacking immediately on entering combat
-        StartCoroutine(PerformAttack());
     }
 
     public override void Do()
@@ -43,11 +41,6 @@ public class CombatState : State
             return;
         }
 
-        if (isAttacking)
-        {
-            anim.SetBool("Attacking", true);
-        }
-
         // If we are allowed to attack again and not currently in an attack animation
         if (!isAttacking && Time.time >= nextAttackTime)
         {
@@ -58,50 +51,36 @@ public class CombatState : State
     IEnumerator PerformAttack()
     {
         isAttacking = true;
-        RandomAttack(); // Play animation + apply damage
 
+        // Randomly choose attack
+        string attackTrigger = (Random.Range(0, 2) == 0) ? "LightAttack" : "HeavyAttack";
+        float damage = (attackTrigger == "LightAttack") ? lightAttackDamage : heavyAttackDamage;
+
+        // Play animation
+        anim.SetBool("Attacking", true);
+
+        // Wait 1 frame so animator updates
         yield return null;
 
-        // Get the currently playing animation's length
-        AnimatorStateInfo animState = anim.GetCurrentAnimatorStateInfo(0);
-        float animDuration = animState.length;
+        // Now safely read animation length
+        AnimatorStateInfo state = anim.GetCurrentAnimatorStateInfo(0);
+        float duration = state.length;
 
-        // Wait for animation to finish + extra delay
-        yield return new WaitForSeconds(animDuration + extraDelayAfterAttack);
+        // Deal damage immediately (or delay if you want hit timing)
+        DealDamage(damage);
 
-        // Allow next attack
-        nextAttackTime = Time.time;
+        // Wait for animation + cooldown
+        yield return new WaitForSeconds(duration);
+
+        nextAttackTime = Time.time + attackCooldown;
         isAttacking = false;
-    }
-
-    void RandomAttack()
-    {
-        int choice = Random.Range(0, 2); // 0 or 1
-
-        if (choice == 0)
-        {
-            currentAttackName = "LightAttack";
-            DealDamage(lightAttackDamage);
-        }
-        else
-        {
-            currentAttackName = "HeavyAttack";
-            DealDamage(heavyAttackDamage);
-        }
     }
 
     void DealDamage(float amount)
     {
-        PlayerHealth health = target.GetComponent<PlayerHealth>();
-
-        if (health != null)
-        {
-            health.TakeDamage(amount);
-        }
-        else
-        {
-            Debug.LogWarning("CombatState: Target has no PlayerHealth component.");
-        }
+        PlayerHealth hp = target.GetComponent<PlayerHealth>();
+        if (hp != null)
+            hp.TakeDamage(amount);
     }
 
     public override void Exit() {
