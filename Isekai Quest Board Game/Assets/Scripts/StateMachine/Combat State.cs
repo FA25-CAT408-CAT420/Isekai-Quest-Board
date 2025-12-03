@@ -4,24 +4,22 @@ using UnityEngine;
 
 public class CombatState : State
 {
-    public float lightAttackDamage = 10f;
-    public float heavyAttackDamage = 20f;
+ public float attackDamageLight = 10f;
+    public float attackDamageHeavy = 20f;
 
     public float attackCooldown = 1.5f;
-    public float attackRange = 1.5f;
+    public float attackRange = 2f;
 
-    public Transform target;  // assigned from AggroState
+    public Transform target;
 
     private bool isAttacking = false;
     private float nextAttackTime = 0f;
 
-    private string currentAttackName; 
-
     public override void Enter()
     {
         isAttacking = false;
-        nextAttackTime = Time.time + 0.2f;  // small buffer
-
+        nextAttackTime = Time.time + 0.2f;
+        anim.SetBool("Attacking", false);
     }
 
     public override void Do()
@@ -32,20 +30,18 @@ public class CombatState : State
             return;
         }
 
-        float distance = Vector2.Distance(core.transform.position, target.position);
+        float dist = Vector2.Distance(core.transform.position, target.position);
 
-        // leave combat if player moves too far
-        if (distance > attackRange)
+        if (dist > attackRange)
         {
+            anim.SetBool("Attacking", false);
             isComplete = true;
             return;
         }
 
-        // If we are allowed to attack again and not currently in an attack animation
         if (!isAttacking && Time.time >= nextAttackTime)
         {
             StartCoroutine(PerformAttack());
-            anim.SetBool("Attacking", true);
         }
     }
 
@@ -53,34 +49,55 @@ public class CombatState : State
     {
         isAttacking = true;
 
-        // Randomly choose attack
-        string attackTrigger = (Random.Range(0, 2) == 0) ? "LightAttack" : "HeavyAttack";
-        float damage = (attackTrigger == "LightAttack") ? lightAttackDamage : heavyAttackDamage;
+        // Turn on the animator attack branch
+        anim.SetBool("Attacking", true);
 
-        // Wait 1 frame so animator updates
+        // Wait 1 frame so animator updates and enters attack state
         yield return null;
 
-        // Now safely read animation length
-        AnimatorStateInfo state = anim.GetCurrentAnimatorStateInfo(0);
-        float duration = state.length;
+        // Read the current attack animation
+        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+        float animDuration = stateInfo.length;
+        
+        while (!stateInfo.IsTag("Attack"))
+        {
+            yield return null;
+            stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+        }
 
-        // Deal damage immediately (or delay if you want hit timing)
-        DealDamage(damage);
+        animDuration = stateInfo.length;
 
-        // Wait for animation + cooldown
-        yield return new WaitForSeconds(duration);
+        // === Deal damage (optional timing adjustment) ===
+        ApplyAttackDamageBasedOnClip(stateInfo);
+
+        // Wait for animation to complete
+        yield return new WaitForSeconds(animDuration);
+
+        // Turn off attacking so animator exits attack sub-state
+        anim.SetBool("Attacking", false);
 
         nextAttackTime = Time.time + attackCooldown;
         isAttacking = false;
     }
 
-    void DealDamage(float amount)
+    void ApplyAttackDamageBasedOnClip(AnimatorStateInfo info)
     {
-        PlayerHealth hp = target.GetComponent<PlayerHealth>();
-        if (hp != null)
-            hp.TakeDamage(amount);
+        // OPTIONAL: use clip name to choose damage type
+        string clip = info.shortNameHash.ToString();
+
+        if (info.IsName("LightAttack"))
+            DealDamage(attackDamageLight);
+        else if (info.IsName("HeavyAttack"))
+            DealDamage(attackDamageHeavy);
+        else
+            DealDamage(attackDamageLight); // fallback
     }
 
-    public override void Exit() {
+    void DealDamage(float dmg)
+    {
+        if (target == null) return;
+        PlayerHealth hp = target.GetComponent<PlayerHealth>();
+        if (hp != null)
+            hp.TakeDamage(dmg);
     }
 }
