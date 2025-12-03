@@ -292,5 +292,5 @@ Transform:
   - {fileID: 356822987382816035}
   - {fileID: 1129506502743735971}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

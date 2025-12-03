@@ -32,16 +32,14 @@ public class GameManager : MonoBehaviour
         inputActions = new PlayerInputActions();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {
-        soulCounter.text = soulPoints.ToString();
+        if (soulCounter != null)
+        {
+            soulCounter.text = soulPoints.ToString();
+        }
+        
 
         if (soulPoints < 0){
             soulPoints = 0;
@@ -75,9 +73,11 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("No GUI in scene: " + scene.name);
         }
         else if (GUI != null)
-        {
-            soulCounter = GUI.transform.Find("SoulGroup/Soul Counter").GetComponent<TextMeshProUGUI>();
-
+        {   
+            if(soulCounter != null)
+            {
+                soulCounter = GUI.transform.Find("SoulGroup/Soul Counter").GetComponent<TextMeshProUGUI>();
+            }
         }
 
         if (scene.name == "DeathScene")

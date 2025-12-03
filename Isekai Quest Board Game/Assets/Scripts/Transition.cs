@@ -3,12 +3,14 @@ using UnityEngine.SceneManagement;
 
 public class Transition : MonoBehaviour
 {
-    [Header("Scene to Load")]
-    [Tooltip("Name of the scene to load when the player touches this object.")]
+    private GameManager gameManager;
     public string sceneToLoad;
-
-    [Header("Optional Settings")]
-    public bool useTrigger = true; // If true, uses OnTriggerEnter2D; if false, uses OnCollisionEnter2D
+    public bool useTrigger = true;
+    private void Start()
+    {
+        // Find the GameManager in the scene
+        gameManager = FindObjectOfType<GameManager>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
