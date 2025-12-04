@@ -2,11 +2,10 @@ using UnityEngine;
 
 public class TransitionPoint : MonoBehaviour
 {
-    [Header("Where should this point send the player?")]
-    public Transform destinationPoint;   // Drag another TransitionPoint here
+    public Transform destinationPoint;
 
-    [Header("Optional: Which object triggers the teleport?")]
-    public string triggeringTag = "Player";  // You can change this in Inspector
+    [Header("Object to trigger teleport:")]
+    public string triggeringTag = "Player";
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -18,10 +17,9 @@ public class TransitionPoint : MonoBehaviour
         if (pm != null)
         {
             pm.StopMovementCoroutine();
-            pm.isMoving = false;        // hard reset
+            pm.isMoving = false;  
         }
 
-        // Optional: If using RigidBody2D, clear velocity
         Rigidbody2D rb = collision.GetComponent<Rigidbody2D>();
         if (rb != null)
             rb.velocity = Vector2.zero;
@@ -33,7 +31,7 @@ public class TransitionPoint : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"{name} has no destination assigned!", this);
+            Debug.LogWarning($"{name} has no destination assigned", this);
         }
     }
 }

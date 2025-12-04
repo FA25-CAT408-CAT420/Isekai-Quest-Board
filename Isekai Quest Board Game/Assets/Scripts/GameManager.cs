@@ -106,8 +106,6 @@ public class GameManager : MonoBehaviour
                 return;
             }
         }
-
-        Debug.LogWarning("No matching SpawnPoint found for ID: " + nextSpawnID);
     }
 
     private void Restart(InputAction.CallbackContext context)

@@ -14,6 +14,8 @@ public class PlayerInteractions : MonoBehaviour
     private Collider2D nearbySpell;
     public CinemachineVirtualCamera camera;
 
+    private bool cameraInitialized = false;
+
     private void Awake()
     {
         playerControls = new PlayerInputActions();
@@ -22,6 +24,27 @@ public class PlayerInteractions : MonoBehaviour
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 0.05f);
+
+        foreach (var h in hits)
+        {
+            if (h.CompareTag("CameraBounds"))
+            {
+                if (camera == null)
+                    camera = GameObject.FindGameObjectWithTag("Camera").GetComponent<CinemachineVirtualCamera>();
+
+                // Instantly put camera into correct zone
+                camera.transform.position = new Vector3(
+                    h.transform.position.x,
+                    h.transform.position.y,
+                    camera.transform.position.z
+                );
+
+                cameraInitialized = true;
+                break;
+            }
+        }
     }
 
     private void OnEnable()
@@ -68,19 +91,20 @@ public class PlayerInteractions : MonoBehaviour
             Debug.Log("HIT THE ROOM");
             other.gameObject.GetComponent<SpawnLockedRoom>().Spawn();
         }
-        if (other.gameObject.CompareTag("CameraBounds"))
-
-        //Camera Functions
-        if (camera != null)
-        {
-            StartCoroutine(CamTransition(camera.transform, other.gameObject.transform, 0.2f));
-            // new Vector3(
-            //     other.gameObject.transform.position.x,
-            //     other.gameObject.transform.position.y,
-            //     camera.transform.position.z);
-        } 
-        else if (camera == null) {
-            camera = GameObject.FindGameObjectWithTag("Camera").GetComponent<CinemachineVirtualCamera>();
+        
+        if (other.gameObject.CompareTag("CameraBounds")) {
+            //Camera Functions
+            if (camera != null)
+            {
+                StartCoroutine(CamTransition(camera.transform, other.gameObject.transform, 0.2f));
+                // new Vector3(
+                //     other.gameObject.transform.position.x,
+                //     other.gameObject.transform.position.y,
+                //     camera.transform.position.z);
+            } 
+            else if (camera == null) {
+                camera = GameObject.FindGameObjectWithTag("Camera").GetComponent<CinemachineVirtualCamera>();
+            }
         }
     }
 
