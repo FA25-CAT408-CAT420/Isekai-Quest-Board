@@ -8,6 +8,8 @@ public class EnemyAi : EnemyCore
 
     public AggroState aggro;
 
+    public float damage = 5;
+
     void Start(){
         SetUpInstances();
         Set(patrol);
@@ -30,5 +32,13 @@ public class EnemyAi : EnemyCore
 
     void FixedUpdate(){
           state.FixedDoBranch();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(-damage);
+        }
     }
 }
