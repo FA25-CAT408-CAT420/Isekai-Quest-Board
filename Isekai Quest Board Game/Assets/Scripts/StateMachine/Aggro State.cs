@@ -5,14 +5,12 @@ using UnityEngine;
 public class AggroState : State
 {
 
-    public IdleState idle;
+    public CombatState combat;
     public NavigateState navigate;
 
-    public float attackRange = 1.5f;
+    public float attackRange = 2.5f;
     public VisionTrigger visionTrigger;
     public Transform target;
-
-    private bool isChasing;
 
     public override void Enter()
     {
@@ -25,26 +23,12 @@ public class AggroState : State
 
         navigate.destination = target.position;
         Set(navigate, true);
+
         anim.SetBool("Moving", true);
+        anim.SetBool("Attacking", false);
     }
 
     public override void Do()
-    {
-
-        if (target != null)
-        {
-            Chase();
-        }
-
-    }
-
-
-    public override void Exit()
-    {
-        
-    }
-
-    void Chase()
     {
         if (target == null)
         {
@@ -56,21 +40,29 @@ public class AggroState : State
 
         if (distance <= attackRange)
         {
-            isChasing = false;
-            Set(idle, true);
             rb.velocity = Vector2.zero;
             anim.SetBool("Moving", false);
+            anim.SetBool("Attacking", true);
+
+            Set(combat, true);
+            return;
         }
 
         if (machine.state == navigate)
         {
             navigate.destination = target.position;
         }
-        else 
+        else
         {
             navigate.destination = target.position;
             Set(navigate, true);
         }
+    }
+
+
+    public override void Exit()
+    {
+        anim.SetBool("Moving", false);
     }
 
     public Transform CheckForTarget()

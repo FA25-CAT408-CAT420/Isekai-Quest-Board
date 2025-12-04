@@ -7,8 +7,8 @@ public class IdleState : State
     public NavigateState navigate;
 
    public override void Enter() {
-    anim.SetFloat("X", navigate.destination.x);
-    anim.SetFloat("Y", navigate.destination.y);
+    anim.SetFloat("X", rb.position.x);
+    anim.SetFloat("Y", rb.position.y);
     }
 
    public override void Do() {
