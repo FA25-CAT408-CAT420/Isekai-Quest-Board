@@ -14,8 +14,9 @@ public class NavigateState : State
     Path path;
     int currentWaypoint;
     private bool reachedEndOfPath;
-    public float pathUpdateRate = 0.5f;
-    private float pathUpdateTimer;
+
+    public float pathUpdateRate = 0.25f; 
+    private float pathUpdateTimer = 0f;
 
     public override void Enter()
     {
@@ -27,6 +28,7 @@ public class NavigateState : State
         // Start A* pathfinding from snapped positions
         Vector2 start = SnapToTile(rb.position);
         Vector2 end = SnapToTile(destination);
+
         seeker.StartPath(start, end, OnPathComplete);
         
     }
@@ -45,7 +47,8 @@ public class NavigateState : State
 
         if (path == null) return;
 
-        pathUpdateTimer += Time.deltaTime;
+         pathUpdateTimer += Time.deltaTime;
+
         if (pathUpdateTimer >= pathUpdateRate)
         {
             pathUpdateTimer = 0f;
@@ -61,7 +64,7 @@ public class NavigateState : State
         }
 
         // Move toward next tile center
-        Vector2 targetPosition = SnapToTile(path.vectorPath[currentWaypoint]);
+        Vector2 targetPosition = path.vectorPath[currentWaypoint];
         Vector2 newPosition = Vector2.MoveTowards(rb.position, targetPosition, moveSpeed * Time.deltaTime);
         rb.MovePosition(newPosition);
 
@@ -83,13 +86,13 @@ public class NavigateState : State
 
      Vector2 SnapToTile(Vector2 worldPos)
     {
-        float snappedX = Mathf.Round(worldPos.x / tileSize.x) * tileSize.x;
-        float snappedY = Mathf.Round(worldPos.y / tileSize.y) * tileSize.y;
-        return new Vector2(snappedX, snappedY);
+        return new Vector2(Mathf.Round(worldPos.x / tileSize.x) * tileSize.x, Mathf.Round(worldPos.y / tileSize.y) * tileSize.y);
     }
 
     public override void Exit()
     {
         rb.velocity = Vector2.zero;
+
+        seeker.CancelCurrentPathRequest();
     }
 }

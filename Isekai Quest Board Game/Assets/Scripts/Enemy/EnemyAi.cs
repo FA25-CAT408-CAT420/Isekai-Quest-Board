@@ -8,6 +8,8 @@ public class EnemyAi : EnemyCore
 
     public AggroState aggro;
 
+    public float damage = 5;
+
     void Start(){
         SetUpInstances();
         Set(patrol);
@@ -17,14 +19,14 @@ public class EnemyAi : EnemyCore
     void Update()
     {
 
-    if (state == patrol) 
+    /*if (state == patrol) 
     {
         aggro.CheckForTarget();
         if (aggro.target != null)
          {
             Set(aggro);
          }
-    }
+    }*/
         state.DoBranch();
 }
 

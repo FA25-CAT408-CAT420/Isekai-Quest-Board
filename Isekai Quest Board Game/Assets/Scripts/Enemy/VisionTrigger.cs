@@ -3,24 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class VisionTrigger : MonoBehaviour
-{
+{ 
+    private bool isChasing;
 
-    public bool playerDetected = false; 
-    public Transform detectedTarget; 
-
-   void OnTriggerEnter2D(Collider2D other) {
-    if (other.CompareTag("Player"))
+   void OnTriggerEnter2D(Collider2D collision) {
+    if (collision.gameObject.tag == "Player")
     {
-        playerDetected = true;
-        detectedTarget = other.transform;
+        isChasing = true;
     }
    }
 
-   void OnTriggerExit2D(Collider2D other) {
-    if (other.CompareTag("Player"))
+   void OnTriggerExit2D(Collider2D collision) {
+    if (collision.gameObject.tag == "Player")
     {
-        playerDetected = false;
-        detectedTarget = null;
+        isChasing = false;
     }
    }
 }
