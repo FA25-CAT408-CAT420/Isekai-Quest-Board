@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using Cinemachine;
 public class PlayerCombat : MonoBehaviour
 {
     [Header("Scripts")]
@@ -45,6 +45,9 @@ public class PlayerCombat : MonoBehaviour
 
     public Animator anim;
 
+    //Cinemachine Stuff
+    CinemachineImpulseSource impulseSource;
+
     private void Awake()
     {
         playerControls = new PlayerInputActions();
@@ -67,6 +70,7 @@ public class PlayerCombat : MonoBehaviour
 
     private void Start()
     {
+        impulseSource = GetComponent<CinemachineImpulseSource>();
     }
 
     private void Update()
@@ -131,6 +135,7 @@ public void DealDamage()
             {
                 enemies[0].GetComponent<EnemyBase>().ChangeHealth(-damage);
                 enemies[0].GetComponent<EnemyKnockback>().Knockback(transform, knockbackForce);
+                impulseSource.GenerateImpulse();
                 break;
             }
 

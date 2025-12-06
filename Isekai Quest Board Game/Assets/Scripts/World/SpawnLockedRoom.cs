@@ -7,7 +7,7 @@ public class SpawnLockedRoom : MonoBehaviour
     public GameObject lockedRoom;
 
     public void Spawn(){
-        Instantiate(lockedRoom);
+        Instantiate(lockedRoom, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 }
