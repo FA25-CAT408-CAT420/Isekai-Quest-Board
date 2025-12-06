@@ -8,7 +8,7 @@ public class AggroState : State
     public CombatState combat;
     public NavigateState navigate;
 
-    public VisionTrigger visionTrigger;
+    //public VisionTrigger visionTrigger;
     public Transform target;
 
     public override void Enter()
@@ -51,7 +51,7 @@ public class AggroState : State
         anim.SetBool("Moving", false);
     }
 
-    public Transform CheckForTarget()
+    /*public Transform CheckForTarget()
     {
         if (visionTrigger != null && visionTrigger.playerDetected)
         {
@@ -64,5 +64,5 @@ public class AggroState : State
             isComplete = true; 
             return null;
         }
-    }
+    }*/
 }

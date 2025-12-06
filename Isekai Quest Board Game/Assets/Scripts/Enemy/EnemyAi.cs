@@ -19,26 +19,18 @@ public class EnemyAi : EnemyCore
     void Update()
     {
 
-    if (state == patrol) 
+    /*if (state == patrol) 
     {
         aggro.CheckForTarget();
         if (aggro.target != null)
          {
             Set(aggro);
          }
-    }
+    }*/
         state.DoBranch();
 }
 
     void FixedUpdate(){
           state.FixedDoBranch();
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.tag == "Player")
-        {
-            collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(-damage);
-        }
     }
 }
