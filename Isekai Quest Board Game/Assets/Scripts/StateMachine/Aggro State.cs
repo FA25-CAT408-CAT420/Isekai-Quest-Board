@@ -8,7 +8,6 @@ public class AggroState : State
     public CombatState combat;
     public NavigateState navigate;
 
-    public float attackRange = 2.5f;
     public VisionTrigger visionTrigger;
     public Transform target;
 
@@ -25,7 +24,6 @@ public class AggroState : State
         Set(navigate, true);
 
         anim.SetBool("Moving", true);
-        anim.SetBool("Attacking", false);
     }
 
     public override void Do()
@@ -33,18 +31,6 @@ public class AggroState : State
         if (target == null)
         {
             isComplete = true;
-            return;
-        }
-
-        float distance = Vector2.Distance(core.transform.position, target.position);
-
-        if (distance <= attackRange)
-        {
-            rb.velocity = Vector2.zero;
-            anim.SetBool("Moving", false);
-            anim.SetBool("Attacking", true);
-
-            Set(combat, true);
             return;
         }
 
