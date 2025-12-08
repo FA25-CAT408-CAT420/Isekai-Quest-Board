@@ -22,15 +22,7 @@ public class CombatState : State
 
     public override void Do()
     {
-        float distance = Vector2.Distance(core.transform.position, aggro.target.position);
-
-        if (distance <= attackRange)
-        {
-            rb.velocity = Vector2.zero;
-            anim.SetBool("Moving", false);
-            Attack();
-            return;
-        }
+        
     }
 
     void Attack()
@@ -42,13 +34,6 @@ public class CombatState : State
             cooldownTimer = attackCooldown;
         }
     }
-
-    /*public void FireProjectile()
-    {
-        GameObject spit = GameObject.Instantiate(SlimeSpit, projectileSpawn.position, Quaternion.identity);
-        float facing = core.transform.localScale.x;
-        Vector2 direction = new Vector2(facing, 0);
-    }*/
 
     public override void Exit()
     {

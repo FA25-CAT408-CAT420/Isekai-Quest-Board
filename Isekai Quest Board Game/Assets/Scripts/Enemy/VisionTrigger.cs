@@ -4,19 +4,23 @@ using UnityEngine;
 
 public class VisionTrigger : MonoBehaviour
 { 
-    private bool isChasing;
+    public bool playerDetected = false; 
+    public Transform detectedTarget;
 
-   void OnTriggerEnter2D(Collider2D collision) {
-    if (collision.gameObject.tag == "Player")
-    {
-        isChasing = true;
-    }
+   void OnTriggerEnter2D(Collider2D other) 
+   {
+        if (other.CompareTag("Player"))
+        {
+            playerDetected = true;
+            detectedTarget = other.transform;
+        }
    }
 
-   void OnTriggerExit2D(Collider2D collision) {
-    if (collision.gameObject.tag == "Player")
+   void OnTriggerExit2D(Collider2D other) {
+    if (other.CompareTag("Player"))
     {
-        isChasing = false;
+        playerDetected = false;
+        detectedTarget = null;
     }
    }
 }
