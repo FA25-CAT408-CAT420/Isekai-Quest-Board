@@ -21,6 +21,8 @@ public class EnemyBase : MonoBehaviour
     public float playerDetectedRange = 5;
     public Transform detectionPoint;
     public LayerMask playerLayer;
+    public Transform[] patrolPoints;
+    public int targetPoint;
 
     public PlayerHealth playerHealth;
     public GameObject soul;
@@ -37,7 +39,10 @@ public class EnemyBase : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         currentHealth = maxHealth;
-        ChangeState(EnemyState.Idle);
+
+
+        targetPoint = 0;
+        ChangeState(EnemyState.Patrolling);
         // sr = GetComponent<SpriteRenderer>();
         
     }
@@ -60,6 +65,14 @@ public class EnemyBase : MonoBehaviour
             //Attacky stuff
             rb.velocity = Vector2.zero;
         }
+        else if(enemyState == EnemyState.Patrolling)
+        {
+            if (transform.position == patrolPoints[targetPoint].position)
+            {
+                increaseTargetInt();
+            }
+            transform.position = Vector2.MoveTowards(transform.position, patrolPoints[targetPoint].position, speed * Time.deltaTime);
+        }
         // TargetOutline();
     }
 
@@ -80,6 +93,15 @@ public class EnemyBase : MonoBehaviour
     {
         facingDirection *= -1;
         transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+    }
+
+    void increaseTargetInt() {
+        targetPoint++;
+        
+        if(targetPoint >= patrolPoints.Length)
+        {
+            targetPoint = 0;
+        }
     }
 
     public void ChangeHealth(int amount)
@@ -149,6 +171,9 @@ public class EnemyBase : MonoBehaviour
         else if (enemyState == EnemyState.Attacking){
             anim.SetBool("Attacking", false);
         }
+        else if (enemyState == EnemyState.Patrolling){
+            anim.SetBool("Moving", false);
+        }
 
         //Update our current state
         enemyState = newState;
@@ -165,6 +190,9 @@ public class EnemyBase : MonoBehaviour
         else if (enemyState == EnemyState.Attacking){
             anim.SetBool("Attacking", true);
         }
+        else if (enemyState == EnemyState.Patrolling){
+            anim.SetBool("Moving", true);
+        }
    }
 
    private void OnDrawGizmosSelected()
@@ -179,4 +207,5 @@ public enum EnemyState
     Idle,
     Chasing,
     Attacking,
+    Patrolling,
 }

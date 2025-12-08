@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyCombat : MonoBehaviour
 {
-
+    public GameObject SlimeSpit;
     public float damage = 5f;
     public Transform attackPoint;
     public float weaponRange;
@@ -29,5 +29,10 @@ public class EnemyCombat : MonoBehaviour
         {
             hits[0].GetComponent<PlayerHealth>().TakeDamage(damage);
         }
+    }
+
+    void Shoot()
+    {
+        Instantiate(SlimeSpit, attackPoint.position, Quaternion.identity);
     }
 }

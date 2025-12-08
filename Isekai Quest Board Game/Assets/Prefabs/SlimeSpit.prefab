@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2535184070324416066}
   - component: {fileID: 6732079081314206537}
   - component: {fileID: 8898194552748357667}
+  - component: {fileID: 8358275514154403841}
   m_Layer: 0
   m_Name: SlimeSpit
   m_TagString: Untagged
@@ -90,7 +91,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.09348965, y: 0.012832016}
@@ -106,6 +107,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5417156, y: 0.26307797}
   m_EdgeRadius: 0
+--- !u!114 &8358275514154403841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6227826045610309428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 616d9253a9c2b584885686b96362b9f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 4
 --- !u!1 &7985281509961347364
 GameObject:
   m_ObjectHideFlags: 0
