@@ -345,6 +345,7 @@ GameObject:
   m_Component:
   - component: {fileID: 342745539}
   - component: {fileID: 342745540}
+  - component: {fileID: 342745541}
   m_Layer: 6
   m_Name: Aggro
   m_TagString: Untagged
@@ -380,9 +381,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   navigate: {fileID: 684041950}
+  combat: {fileID: 342745541}
   visionTrigger: {fileID: 450410395}
   target: {fileID: 963540247}
   minimumDistance: 1.5
+--- !u!114 &342745541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342745538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9ad0dc9086301047a3b0d42d673aa1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aggro: {fileID: 342745540}
 --- !u!1 &346296076
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,8 +636,8 @@ MonoBehaviour:
   rb: {fileID: 450410390}
   player: {fileID: 1539983248}
   anim: {fileID: 450410388}
-  currentHealth: 5
-  maxHealth: 50
+  currentHealth: 10
+  maxHealth: 10
   playerHealth: {fileID: 963540240}
   soul: {fileID: 2962393454113147998, guid: 95319887f104c3b4f9ac416a2bcc3457, type: 3}
   SlimeSpit: {fileID: 6227826045610309428, guid: 1787b19878f7c5841b78a256a120b9b3, type: 3}
@@ -634,6 +649,7 @@ MonoBehaviour:
     m_Bits: 512
   patrol: {fileID: 684041948}
   aggro: {fileID: 342745540}
+  combat: {fileID: 342745541}
 --- !u!95 &450410388 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 4905361859151889501, guid: 170bb7d26c10f9047a2dade62894b04d, type: 3}

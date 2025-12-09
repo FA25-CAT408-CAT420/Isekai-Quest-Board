@@ -6,6 +6,7 @@ public class EnemyAi : EnemyCore
 {
     public PatrolState patrol;
     public AggroState aggro;
+    public CombatState combat;
 
     void Start()
     {
@@ -26,9 +27,9 @@ public class EnemyAi : EnemyCore
             }
         }
 
-        if (state == aggro)
+        if (state == combat)
         {
-            rb.velocity = Vector2.zero;
+            anim.SetBool("Attacking", true);
         }
 
         state.DoBranch();

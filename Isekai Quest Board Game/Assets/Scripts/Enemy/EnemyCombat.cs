@@ -20,7 +20,7 @@ public class EnemyCombat : MonoBehaviour
         }
     }
 
-    public void Attack()
+    /*public void Attack()
     {
         Debug.Log("Attacking Player Now!");
         Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, weaponRange, playerLayer);
@@ -34,5 +34,5 @@ public class EnemyCombat : MonoBehaviour
     void Shoot()
     {
         Instantiate(SlimeSpit, attackPoint.position, Quaternion.identity);
-    }
+    }*/
 }
