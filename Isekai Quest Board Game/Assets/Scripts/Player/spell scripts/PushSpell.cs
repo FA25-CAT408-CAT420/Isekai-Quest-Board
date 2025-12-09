@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class PushSpell : Spells
 {
-    public GameObject pushSpell;
+    public GameObject pushPrefab;
     public GameObject player;
     public Animator animator;
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        
+        transform.position = player.transform.position;
     }
 
     // Update is called once per frame
@@ -25,8 +26,11 @@ public class PushSpell : Spells
 
     public override void Spell()
     {
-        Instantiate(pushSpell, player.transform.position, Quaternion.identity);
+        player = GameObject.FindGameObjectWithTag("Player");
+        Instantiate(pushPrefab, player.transform.position, Quaternion.identity);
         base.Spell();
+
+
     }
 
     public override void Cost()
@@ -40,6 +44,7 @@ public class PushSpell : Spells
         if (other.gameObject.tag == "Enemy")
         {
             Debug.Log("ENEMY GOT HIT");
+            other.gameObject.GetComponent<EnemyKnockback>().Knockback(gameObject.transform, 15);
         }
     }
 }

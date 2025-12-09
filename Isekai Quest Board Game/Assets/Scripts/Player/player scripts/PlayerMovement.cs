@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Inputs")]
     public PlayerInputActions playerControls;
-    private InputAction move;
+    public InputAction move;
     private InputAction run;
     private InputAction attack;
     // specials
