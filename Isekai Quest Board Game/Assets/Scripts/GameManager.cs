@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
@@ -14,6 +15,13 @@ public class GameManager : MonoBehaviour
     public int soulPoints = 0;
     public bool soulDropped = false;
     public bool isDead = false;
+    public int floorsCleared = 0;
+    public int bossesCleared = 0;
+
+    public List<GameObject> totalSpells = new List<GameObject>();
+    public List<GameObject> spellsToSpawn = new List<GameObject>();
+    public List<GameObject> shopSpawners = new List<GameObject>();
+    private bool spellsPopulated = false;
 
     [Header("Transition/Spawn")]
     public string nextSpawnID = ""; // ID of spawn point in next scene
@@ -45,6 +53,8 @@ public class GameManager : MonoBehaviour
         }
 
         if (soulPoints < 0) soulPoints = 0;
+
+
     }
 
     void OnEnable()
@@ -85,6 +95,41 @@ public class GameManager : MonoBehaviour
         else
         {
             inputActions.UI.Restart.performed -= Restart;
+        }
+
+        if (scene.name == "Forest")
+        {
+            StartCoroutine(SpawnSpells());
+        }
+        else
+        {
+            spellsPopulated = false;
+        }
+    }
+
+    IEnumerator SpawnSpells()
+    {   
+        yield return null;
+        if (!spellsPopulated)
+            {
+                for (int i = 0; i < totalSpells.Count; i++)
+                {
+                    spellsToSpawn.Add(totalSpells[i]);
+                }
+
+                spellsPopulated = true; 
+            }   
+
+        if (spellsPopulated)
+        {
+            for (int j = 0; j < shopSpawners.Count; j++)
+            {
+                int r = Random.Range(0, spellsToSpawn.Count); 
+                GameObject newSpell = Instantiate(spellsToSpawn[r], shopSpawners[j].transform.position, Quaternion.identity);
+                SpellAcquisition spellScript = newSpell.GetComponent<SpellAcquisition>();
+                spellScript.prefabReference = spellsToSpawn[r];
+                spellsToSpawn.RemoveAt(r);
+            }
         }
     }
 

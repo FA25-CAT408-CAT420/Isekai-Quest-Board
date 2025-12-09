@@ -15,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
     private InputAction specialLeft;
     private InputAction specialRight;
 
+    int nextSpell = 0;
+
     [Header("Movement")]
     public float gridSize = 1f;
     public float walkSpeed = 15f;
@@ -111,20 +113,37 @@ public class PlayerMovement : MonoBehaviour
         {
             playerCombat.Attack();
         }
-
-        if (specialUp.WasPressedThisFrame()){
-            playerCombat.SpecialInput(0);
-        }
-        else if (specialDown.WasPressedThisFrame()){
-            playerCombat.SpecialInput(1);
-        }
-        else if (specialLeft.WasPressedThisFrame()){
-            playerCombat.SpecialInput(2);
+        
+        if (specialUp.WasPressedThisFrame())
+            {
+                if (playerCombat.specials.Count > 0)
+                {
+                    playerCombat.SpecialInput(nextSpell);
+                    
+                }
+                else if (playerCombat.specials.Count <= 0)
+                {
+                    Debug.Log("You got no spells cuh");
+                }
+                
+            }
+        
+        if (specialLeft.WasPressedThisFrame()){
+            nextSpell--;
         }
         else if (specialRight.WasPressedThisFrame()){
-            playerCombat.SpecialInput(3);
+            nextSpell++;
         }
 
+        if (nextSpell >= playerCombat.specials.Count)
+        {
+            nextSpell = 0;
+        }
+        else if (nextSpell < 0)
+        {
+            nextSpell = playerCombat.specials.Count - 1;
+        }
+        
         Debug.DrawRay(transform.position, pos1 * rayDistance, Color.red);
     }
 

@@ -8,6 +8,7 @@ public class SpellAcquisition : MonoBehaviour
     private GameManager gameManager;
     public Spells spellData;
     public int price = 5;
+    public GameObject prefabReference;
 
     void Start(){
         playerCombat = GameObject.FindWithTag("Player").GetComponent<PlayerCombat>();
@@ -19,6 +20,12 @@ public class SpellAcquisition : MonoBehaviour
             gameManager.soulPoints -= price;
             Debug.Log("Spell destroyed: " + gameObject.name);
             playerCombat.specials.Add(spellData);
+
+            if (prefabReference != null)
+            {
+                gameManager.totalSpells.Remove(prefabReference);
+            }
+                
             Destroy(gameObject);
         }
         else {

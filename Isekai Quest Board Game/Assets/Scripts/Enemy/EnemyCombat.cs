@@ -2,42 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAi : EnemyCore
+public class EnemyCombat : MonoBehaviour
 {
-    public PatrolState patrol;
-    public AggroState aggro;
-
-    void Start()
-    {
-        currentHealth = maxHealth;
-        SetUpInstances();
-        Set(patrol);
-    }
-
-    void Update()
-    {
-        if (state == patrol) 
-        {
-            aggro.CheckForTarget();
-
-            if (aggro.target != null)
-            {
-                Set(aggro);
-            }
-        }
-
-        if (state == aggro)
-        {
-            rb.velocity = Vector2.zero;
-        }
-
-        state.DoBranch();
-    }
-
-    void FixedUpdate()
-    {
-          state.FixedDoBranch();
-    }
+    public GameObject SlimeSpit;
+    public float damage = 5f;
+    public Transform attackPoint;
+    public float weaponRange;
+    public LayerMask playerLayer;
 
     void OnCollisionEnter2D (Collision2D other)
     {

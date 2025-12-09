@@ -3383,7 +3383,7 @@ GameObject:
   - component: {fileID: -1039027800028777015}
   m_Layer: 0
   m_Name: Entry Room
-  m_TagString: Untagged
+  m_TagString: SpawnedRoom
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

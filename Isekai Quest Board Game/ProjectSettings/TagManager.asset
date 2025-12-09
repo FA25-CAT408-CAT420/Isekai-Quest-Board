@@ -19,6 +19,7 @@ TagManager:
   - Transition
   - Ghost
   - Camera
+  - SpawnedRoom
   layers:
   - Default
   - TransparentFX
