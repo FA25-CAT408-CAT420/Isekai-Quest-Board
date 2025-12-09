@@ -5,11 +5,12 @@ using UnityEngine;
 public class AggroState : State
 {
 
-    public CombatState combat;
     public NavigateState navigate;
+    public CombatState combat;
 
-    //public VisionTrigger visionTrigger;
+    public VisionTrigger visionTrigger;
     public Transform target;
+    public float minimumDistance = 5f;
 
     public override void Enter()
     {
@@ -23,7 +24,6 @@ public class AggroState : State
         navigate.destination = target.position;
         Set(navigate, true);
 
-        anim.SetBool("Moving", true);
     }
 
     public override void Do()
@@ -32,6 +32,16 @@ public class AggroState : State
         {
             isComplete = true;
             return;
+        }
+
+        float distance = Vector2.Distance(core.transform.position, target.position);
+
+        // If close enough switch to combat
+        if (distance <= minimumDistance)
+        {
+            rb.velocity = Vector2.zero;
+            Set(combat, true);
+            anim.SetBool("Moving", false);
         }
 
         if (machine.state == navigate)
@@ -51,7 +61,7 @@ public class AggroState : State
         anim.SetBool("Moving", false);
     }
 
-    /*public Transform CheckForTarget()
+    public Transform CheckForTarget()
     {
         if (visionTrigger != null && visionTrigger.playerDetected)
         {
@@ -64,5 +74,5 @@ public class AggroState : State
             isComplete = true; 
             return null;
         }
-    }*/
+    }
 }

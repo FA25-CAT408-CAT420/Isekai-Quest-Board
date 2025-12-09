@@ -12,7 +12,15 @@ public abstract class EnemyCore : MonoBehaviour
     //Reference to Animator
     public Animator anim;
     // To manage enemy Health
-    [SerializeField]public float Health;
+    public int currentHealth;
+    public int maxHealth;
+    public PlayerHealth playerHealth;
+    public GameObject soul;
+    public GameObject SlimeSpit;
+    public float damage = 5f;
+    public Transform attackPoint;
+    public float weaponRange;
+    public LayerMask playerLayer;
 
     public StateMachine machine;
 
@@ -29,6 +37,21 @@ public abstract class EnemyCore : MonoBehaviour
         State[] allChildrenStates = GetComponentsInChildren<State>();
         foreach (State state in allChildrenStates) {
             state.SetCore(this);
+        }
+    }
+
+    public void ChangeHealth(int amount)
+    {
+        currentHealth += amount;
+
+        if (currentHealth >= maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        else if (currentHealth <= 0)
+        {
+            Instantiate(soul, transform.position, Quaternion.identity);
+            Destroy(gameObject);
         }
     }
 

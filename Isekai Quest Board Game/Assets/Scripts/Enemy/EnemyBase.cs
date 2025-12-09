@@ -37,7 +37,7 @@ public class EnemyBase : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         currentHealth = maxHealth;
-        ChangeState(EnemyState.Idle);
+
         // sr = GetComponent<SpriteRenderer>();
         
     }

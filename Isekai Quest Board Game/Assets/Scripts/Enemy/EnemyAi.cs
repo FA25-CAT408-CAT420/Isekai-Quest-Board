@@ -5,32 +5,64 @@ using UnityEngine;
 public class EnemyAi : EnemyCore
 {
     public PatrolState patrol;
-
     public AggroState aggro;
+    public CombatState combat;
 
-    public float damage = 5;
-
-    void Start(){
+    void Start()
+    {
+        currentHealth = maxHealth;
         SetUpInstances();
         Set(patrol);
-
     }
 
     void Update()
     {
+        if (state == patrol) 
+        {
+            aggro.CheckForTarget();
 
-    /*if (state == patrol) 
-    {
-        aggro.CheckForTarget();
-        if (aggro.target != null)
-         {
-            Set(aggro);
-         }
-    }*/
+            if (aggro.target != null)
+            {
+                Set(aggro);
+            }
+        }
+
+        if (state == combat)
+        {
+            anim.SetBool("Attacking", true);
+        }
+
         state.DoBranch();
-}
+    }
 
-    void FixedUpdate(){
+    void FixedUpdate()
+    {
           state.FixedDoBranch();
+    }
+
+    void OnCollisionEnter2D (Collision2D other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            other.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
+            other.gameObject.GetComponent<PlayerMovement>().StopMovementCoroutine();
+            other.gameObject.GetComponent<PlayerKnockback>().ApplyKnockback(transform.position);
+        }
+    }
+
+    public void Attack()
+    {
+        Debug.Log("Attacking Player Now!");
+        Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, weaponRange, playerLayer);
+
+        if (hits.Length > 0)
+        {
+            hits[0].GetComponent<PlayerHealth>().TakeDamage(damage);
+        }
+    }
+
+    void Shoot()
+    {
+        Instantiate(SlimeSpit, attackPoint.position, Quaternion.identity);
     }
 }
