@@ -20,6 +20,7 @@ TagManager:
   - Ghost
   - Camera
   - SpawnedRoom
+  - SpikeTrigger
   layers:
   - Default
   - TransparentFX
