@@ -925,6 +925,9 @@ MonoBehaviour:
   isDead: 0
   floorsCleared: 0
   bossesCleared: 0
+  totalSpells: []
+  spellsToSpawn: []
+  shopSpawners: []
   nextSpawnID: 
 --- !u!4 &377654143
 Transform:
