@@ -964,6 +964,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PLAYER
       objectReference: {fileID: 0}
+    - target: {fileID: 1953818336411279484, guid: 48ad5864c68ed994d9c2f82b2364ae2c, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4032296622584524223, guid: 48ad5864c68ed994d9c2f82b2364ae2c, type: 3}
       propertyPath: HP
       value: 50
@@ -7983,14 +7987,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5092594015275183245, guid: 4f4cac06a5964174cad2a12a589e2f49, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 6643388301951590220, guid: 4f4cac06a5964174cad2a12a589e2f49, type: 3}
-      propertyPath: ventPoints.Array.size
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 6643388301951590220, guid: 4f4cac06a5964174cad2a12a589e2f49, type: 3}
       propertyPath: ventPoints.Array.data[0]
       value: 
@@ -8014,14 +8010,6 @@ PrefabInstance:
     - target: {fileID: 7559844408041535898, guid: 4f4cac06a5964174cad2a12a589e2f49, type: 3}
       propertyPath: m_Name
       value: Boss
-      objectReference: {fileID: 0}
-    - target: {fileID: 7559844408041535898, guid: 4f4cac06a5964174cad2a12a589e2f49, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 7559844408041535898, guid: 4f4cac06a5964174cad2a12a589e2f49, type: 3}
-      propertyPath: m_TagString
-      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

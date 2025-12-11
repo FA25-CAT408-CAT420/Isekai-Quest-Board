@@ -53,6 +53,7 @@ public class BossAi : MonoBehaviour
         if (!phase2Activated && currentHealth <= maxHealth / 2)
         {
             phase2Activated = true;
+            Debug.Log("Phase 2 Activated");
             ventPopping.ActivatePhase2();
         }
     }

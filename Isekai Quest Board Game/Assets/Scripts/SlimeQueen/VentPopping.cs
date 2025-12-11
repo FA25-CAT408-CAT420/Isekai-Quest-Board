@@ -31,6 +31,11 @@ public class VentPopping : MonoBehaviour
         StartCoroutine(VentCycle());
     }
 
+    public void ActivatePhase2()
+    {
+        inPhase2 = true;
+    }
+
     IEnumerator VentCycle()
     {
         while (true)
@@ -49,8 +54,6 @@ public class VentPopping : MonoBehaviour
 
     IEnumerator FirstPhase()
     {
-        while (true)
-        {
             yield return FadeIn();
             bossAi.Shoot();
             yield return new WaitForSeconds(visibleDuration);
@@ -59,7 +62,6 @@ public class VentPopping : MonoBehaviour
             // Move to next vent
             currentVentIndex = (currentVentIndex + 1) % ventPoints.Length;
             transform.position = ventPoints[currentVentIndex].position;
-        }
     }
 
     IEnumerator FadeIn()
@@ -103,7 +105,8 @@ public class VentPopping : MonoBehaviour
         {
             for (int i = 0; i < slimesPerVent; i++)
             {
-                Instantiate(slime, vent.position, Quaternion.identity);
+                 GameObject s = Instantiate(slime, vent.position, Quaternion.identity);
+                spawnedSlimes.Add(s);
                 yield return new WaitForSeconds(0.2f);
             }
         }
@@ -133,10 +136,5 @@ public class VentPopping : MonoBehaviour
         Color c = queenSprite.color;
         c.a = a;
         queenSprite.color = c;
-    }
-
-    public void ActivatePhase2()
-    {
-        inPhase2 = true;
     }
 }
