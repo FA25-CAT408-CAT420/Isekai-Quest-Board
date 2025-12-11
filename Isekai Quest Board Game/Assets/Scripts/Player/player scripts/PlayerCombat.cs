@@ -133,6 +133,7 @@ public void DealDamage()
 
             if (enemies.Length > 0)
             {
+                enemies[0].GetComponent<BossAi>().ChangeHealth(-damage);
                 enemies[0].GetComponent<EnemyBase>().ChangeHealth(-damage);
                 enemies[0].GetComponent<EnemyKnockback>().Knockback(transform, knockbackForce);
                 impulseSource.GenerateImpulse();
