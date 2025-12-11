@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7480411912269663119}
   - component: {fileID: -3522622266707702369}
   m_Layer: 0
-  m_Name: DL_SlimePool_2
+  m_Name: DL_Slime 3
   m_TagString: SpawnedRoom
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
