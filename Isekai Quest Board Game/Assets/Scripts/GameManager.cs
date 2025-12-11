@@ -165,4 +165,9 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("Forest");
         }
     }
+
+    public void SceneStart()
+    {
+        SceneManager.LoadScene("Forest");
+    }
 }
