@@ -10,7 +10,7 @@ public class AggroState : State
 
     public VisionTrigger visionTrigger;
     public Transform target;
-    public float minimumDistance = 5f;
+    public float minimumDistance = 3f;
 
     public override void Enter()
     {

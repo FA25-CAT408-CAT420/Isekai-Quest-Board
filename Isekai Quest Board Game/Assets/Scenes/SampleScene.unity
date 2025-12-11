@@ -384,7 +384,7 @@ MonoBehaviour:
   combat: {fileID: 342745541}
   visionTrigger: {fileID: 450410395}
   target: {fileID: 963540247}
-  minimumDistance: 1.5
+  minimumDistance: 3
 --- !u!114 &342745541
 MonoBehaviour:
   m_ObjectHideFlags: 0
