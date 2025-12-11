@@ -127,11 +127,11 @@ public class EnemyBase : MonoBehaviour
                 ChangeState(EnemyState.Chasing);
             }
         }
-        else
+        /*else
         {
             rb.velocity = Vector2.zero;
-            ChangeState(EnemyState.Idle);
-        }
+            ChangeState(EnemyState.Chasing);
+        }*/
    }
 
    void ChangeState(EnemyState newState)
