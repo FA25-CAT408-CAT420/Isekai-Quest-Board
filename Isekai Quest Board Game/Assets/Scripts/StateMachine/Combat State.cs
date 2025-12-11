@@ -14,7 +14,7 @@ public class CombatState : State
 
     public override void Do()
     {
-        anim.SetBool("Attacking", true);
+        anim.SetTrigger("IsAttacking");
     }
 
     public override void Exit()

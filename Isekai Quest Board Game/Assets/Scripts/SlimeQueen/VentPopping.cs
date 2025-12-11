@@ -2,116 +2,139 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VentPopping : State
+public class VentPopping : MonoBehaviour
 {
-    public BossSpawn bossSpawn;
-    public Transform currentVent;
-    public SpriteRenderer sprite;
-    public Collider2D hitbox;
+    public BossAi bossAi;
+    public Transform[] ventPoints;         // All vent locations
+    public SpriteRenderer queenSprite;     // The Slime Queen's sprite
+    public GameObject slime;
 
-    public float appearDuration = 3f;
-    public float disappearDelay = 1f;
+    public int slimesPerVent = 1;
+    public float fadeDuration = 1.5f;      // Time to fade in/out
+    public float visibleDuration = 3f;     // Time she stays visible
+    public bool inPhase2 = false;
+    public float phase2Duration = 5f;
 
-    private bool isTransitioning;
+    private int currentVentIndex = 0;
 
-    public override void Enter()
+    void Start()
     {
-        if (bossSpawn == null)
-        {
-            Debug.LogError("[BossVentBehavior] Missing VentManager reference!");
-            isComplete = true;
-            return;
-        }
+        // Start at the first vent (center vent)
+        transform.position = ventPoints[currentVentIndex].position;
 
-        // Start at the center vent if not already assigned
-        if (currentVent == null)
-        {
-            currentVent = bossSpawn.vents[0];
-        }
+        // Start invisible
+        Color c = queenSprite.color;
+        c.a = 0;
+        queenSprite.color = c;
 
-        // Move Boss to the vent position
-        core.transform.position = currentVent.position;
-
-        // Makes sure Slime Queen is visible and solid 
-        SetVisible(true);
-        isTransitioning = false;
-
-        // Start the venting cycle
+        // Begin the cycle
         StartCoroutine(VentCycle());
     }
 
-    private IEnumerator VentCycle()
+    public void ActivatePhase2()
     {
-        // Stay Visible for a bit
-        yield return new WaitForSeconds(appearDuration);
-
-        // Begin disappearing
-        isTransitioning = true;
-        yield return StartCoroutine(Disappear());
-
-        // Pick a new vent
-        Transform newVent = bossSpawn.GetRandomVent(currentVent);
-        currentVent = newVent;
-
-        // Move boss to the new vent
-        core.transform.position = currentVent.position;
-
-        // Appear again
-        yield return StartCoroutine(Appear());
-
-        // Repeat indefinitely
-        isTransitioning = false;
-        StartCoroutine(VentCycle());
+        inPhase2 = true;
     }
 
-    private IEnumerator Disappear()
+    IEnumerator VentCycle()
     {
-        // Play visual fade-out or shrinking effect
-        float fadeTime = 0.5f;
-        float t = 0f;
-        Color c = sprite.color;
-
-        while (t < fadeTime)
+        while (true)
         {
-            t += Time.deltaTime;
-            c.a = Mathf.Lerp(1f, 0f, t / fadeTime);
-            yield return null;
-        }
-
-        // Disable collisions while "underground"
-        SetVisible(false);
-        yield return new WaitForSeconds(disappearDelay);
-    }
-
-    private IEnumerator Appear()
-    {
-        // Reappear from the new vent
-        SetVisible(true);
-        float fadeTime = 0.5f;
-        float t = 0f;
-        Color c = sprite.color;
-
-        while (t < fadeTime)
-        {
-            t += Time.deltaTime;
-            c.a = Mathf.Lerp(0f, 1f, t / fadeTime);
-            sprite.color = c;
-            yield return null;
+            // Normal behavior
+            if (!inPhase2)
+            {
+                yield return FirstPhase();
+            }
+            else
+            {
+                yield return Phase2Behavior();
+            }
         }
     }
 
-    private void SetVisible(bool state)
+    IEnumerator FirstPhase()
     {
-        if (sprite != null)
-            sprite.enabled = state;
-            
-        if (hitbox != null)
-            hitbox.enabled = state;
+            yield return FadeIn();
+            bossAi.Shoot();
+            yield return new WaitForSeconds(visibleDuration);
+            yield return FadeOut();
+
+            // Move to next vent
+            currentVentIndex = (currentVentIndex + 1) % ventPoints.Length;
+            transform.position = ventPoints[currentVentIndex].position;
     }
 
-    public override void Exit()
+    IEnumerator FadeIn()
     {
-        StopAllCoroutines();
-        SetVisible(true);
+        float t = 0;
+        while (t < fadeDuration)
+        {
+            float alpha = t / fadeDuration;
+            SetAlpha(alpha);
+            t += Time.deltaTime;
+            yield return null;
+        }
+        SetAlpha(1);
+    }
+
+    IEnumerator FadeOut()
+    {
+        float t = 0;
+        while (t < fadeDuration)
+        {
+            float alpha = 1 - (t / fadeDuration);
+            SetAlpha(alpha);
+            t += Time.deltaTime;
+            yield return null;
+        }
+        SetAlpha(0);
+    }
+
+    IEnumerator Phase2Behavior()
+    {
+        // Step 1 — go to center vent
+        transform.position = ventPoints[currentVentIndex].position;
+
+        // Step 2 — fade out
+        yield return FadeOut();
+
+        List<GameObject> spawnedSlimes = new List<GameObject>();
+
+        // Step 3 — Spawn slimes
+        foreach (Transform vent in ventPoints)
+        {
+            for (int i = 0; i < slimesPerVent; i++)
+            {
+                 GameObject s = Instantiate(slime, vent.position, Quaternion.identity);
+                spawnedSlimes.Add(s);
+                yield return new WaitForSeconds(0.2f);
+            }
+        }
+
+        yield return new WaitForSeconds(phase2Duration);
+
+        foreach (GameObject s in spawnedSlimes)
+        {
+            if (s != null)
+            Destroy(s);
+        }
+
+        currentVentIndex = (currentVentIndex + 1) % ventPoints.Length;
+        transform.position = ventPoints[currentVentIndex].position;
+
+        // fade back in
+        yield return FadeIn();
+
+        // Phase 2 ends — return to normal popping cycle
+        inPhase2 = false; 
+
+    }
+
+
+    void SetAlpha(float a)
+    {
+        Color c = queenSprite.color;
+        c.a = a;
+        queenSprite.color = c;
     }
 }

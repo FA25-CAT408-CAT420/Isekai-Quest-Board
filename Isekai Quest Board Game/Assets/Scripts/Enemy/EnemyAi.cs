@@ -27,11 +27,6 @@ public class EnemyAi : EnemyCore
             }
         }
 
-        if (state == combat)
-        {
-            anim.SetBool("Attacking", true);
-        }
-
         state.DoBranch();
     }
 
