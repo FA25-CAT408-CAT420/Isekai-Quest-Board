@@ -5,14 +5,11 @@ using TMPro;
 
 public class EnemyBase : MonoBehaviour
 {
-    public int currentHealth;
-    public int maxHealth;
+    public float currentHealth;
+    public float maxHealth;
+    public float baseDamage = 5; 
     public int knockbackForce = 1;
     private int facingDirection = 1;
-
-    // public SpriteRenderer sr;
-    // public Material normalMat;
-    // public Material outlineMat;
     public bool isTargeted = false;
     public int AC = 10;
     public float speed;
@@ -30,6 +27,7 @@ public class EnemyBase : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
     private EnemyState enemyState;
+    protected StatBooster sb;
 
     // Start is called before the first frame update
     void Start()
@@ -37,9 +35,16 @@ public class EnemyBase : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         currentHealth = maxHealth;
+        sb = GetComponent<StatBooster>();
 
-        // sr = GetComponent<SpriteRenderer>();
+        StatCalc();
         
+    }
+
+    void StatCalc()
+    {
+        maxHealth = sb.BoostStats(maxHealth);
+        baseDamage = sb.BoostStats(baseDamage);
     }
 
     // Update is called once per frame
@@ -60,7 +65,6 @@ public class EnemyBase : MonoBehaviour
             //Attacky stuff
             rb.velocity = Vector2.zero;
         }
-        // TargetOutline();
     }
 
     void Chase()
@@ -97,18 +101,6 @@ public class EnemyBase : MonoBehaviour
         }
     }
 
-    // public void TargetOutline()
-    // {
-    //     if (isTargeted)
-    //     {
-    //         sr.material = outlineMat;
-    //     }
-    //     else if (!isTargeted)
-    //     {
-    //         sr.material = normalMat;
-    //     }
-    // }
-
     private void CheckForPLayer() {
         Collider2D[] hits = Physics2D.OverlapCircleAll(detectionPoint.position, playerDetectedRange, playerLayer);
         if (hits.Length > 0)
@@ -127,11 +119,6 @@ public class EnemyBase : MonoBehaviour
                 ChangeState(EnemyState.Chasing);
             }
         }
-        /*else
-        {
-            rb.velocity = Vector2.zero;
-            ChangeState(EnemyState.Chasing);
-        }*/
    }
 
    void ChangeState(EnemyState newState)
@@ -139,8 +126,6 @@ public class EnemyBase : MonoBehaviour
     //Exit the current animation
         if (enemyState == EnemyState.Idle)
         {
-            //anim.SetFloat("X", rb.position.x);
-            //anim.SetFloat("Y", rb.position.y);
             anim.SetBool("isIdle", false);
         }
         else if (enemyState == EnemyState.Chasing){

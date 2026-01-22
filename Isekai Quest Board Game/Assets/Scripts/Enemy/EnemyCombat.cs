@@ -5,10 +5,15 @@ using UnityEngine;
 public class EnemyCombat : MonoBehaviour
 {
     public GameObject SlimeSpit;
-    public float damage = 5f;
+    public float damage;
     public Transform attackPoint;
     public float weaponRange;
     public LayerMask playerLayer;
+
+    void Start()
+    {
+        damage = GetComponent<EnemyBase>().baseDamage;
+    }
 
     void OnCollisionEnter2D (Collision2D other)
     {

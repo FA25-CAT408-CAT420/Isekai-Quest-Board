@@ -851,6 +851,7 @@ GameObject:
   - component: {fileID: 4074098375432128618}
   - component: {fileID: 4381693003975085095}
   - component: {fileID: 4905361859151889501}
+  - component: {fileID: 5585484212999727048}
   - component: {fileID: 7599089884731340252}
   - component: {fileID: 3765387310799841332}
   - component: {fileID: 669982515564255678}
@@ -878,7 +879,7 @@ Transform:
   - {fileID: 2960275794288820237}
   - {fileID: 72801023826778528}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5844879431339061661
 SpriteRenderer:
@@ -1060,6 +1061,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5585484212999727048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8522549908244588971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b47fb7c3af6bb5479852470cc1900c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7599089884731340252
 MonoBehaviour:
   m_ObjectHideFlags: 0
