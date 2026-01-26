@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 5287550985107078977}
   - component: {fileID: 8788489516097825642}
   - component: {fileID: 6643388301951590220}
+  - component: {fileID: -8304202370577635987}
   m_Layer: 6
   m_Name: Boss
   m_TagString: Enemy
@@ -235,6 +236,7 @@ MonoBehaviour:
   playerHealth: {fileID: 4032296622584524223, guid: 48ad5864c68ed994d9c2f82b2364ae2c, type: 3}
   soul: {fileID: 2962393454113147998, guid: 95319887f104c3b4f9ac416a2bcc3457, type: 3}
   SlimeSpit: {fileID: 6227826045610309428, guid: 1787b19878f7c5841b78a256a120b9b3, type: 3}
+  health: {fileID: 0}
 --- !u!114 &6643388301951590220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,3 +263,18 @@ MonoBehaviour:
   visibleDuration: 4
   inPhase2: 0
   phase2Duration: 10
+--- !u!114 &-8304202370577635987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7559844408041535898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f161700e70c14714bafd534aa00bde04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soul: {fileID: 2962393454113147998, guid: 95319887f104c3b4f9ac416a2bcc3457, type: 3}
+  currentHealth: 0
+  maxHealth: 50

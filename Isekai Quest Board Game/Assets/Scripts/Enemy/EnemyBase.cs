@@ -21,6 +21,7 @@ public class EnemyBase : MonoBehaviour
 
     public PlayerHealth playerHealth;
     public GameObject soul;
+    public EnemyHealth health;
 
     private float attackCooldownTimer;
     private Transform player;
@@ -34,8 +35,8 @@ public class EnemyBase : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        currentHealth = maxHealth;
         sb = GetComponent<StatBooster>();
+        health = GetComponent<EnemyHealth>();
 
         StatCalc();
         
@@ -86,20 +87,6 @@ public class EnemyBase : MonoBehaviour
         transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
     }
 
-    public void ChangeHealth(int amount)
-    {
-        currentHealth += amount;
-
-        if (currentHealth >= maxHealth)
-        {
-            currentHealth = maxHealth;
-        }
-        else if (currentHealth <= 0)
-        {
-            Instantiate(soul, transform.position, Quaternion.identity);
-            Destroy(gameObject);
-        }
-    }
 
     private void CheckForPLayer() {
         Collider2D[] hits = Physics2D.OverlapCircleAll(detectionPoint.position, playerDetectedRange, playerLayer);

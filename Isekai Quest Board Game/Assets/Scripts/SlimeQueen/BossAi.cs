@@ -14,6 +14,7 @@ public class BossAi : MonoBehaviour
     public PlayerHealth playerHealth;
     public GameObject soul;
     public GameObject SlimeSpit;
+    public EnemyHealth health;
 
     private Rigidbody2D rb;
     private Animator anim;
@@ -23,34 +24,22 @@ public class BossAi : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        currentHealth = maxHealth;
+        health = GetComponent<EnemyHealth>();
     }
 
     // Update is called once per frame
     void Update(){
-        
+
+        CheckHealth();
     }
 
     void FixedUpdate(){
 
     }
 
-    public void ChangeHealth(int amount)
+    private void CheckHealth()
     {
-        currentHealth += amount;
-
-        if (currentHealth >= maxHealth)
-        {
-            currentHealth = maxHealth;
-        }
-        else if (currentHealth <= 0)
-        {
-            Instantiate(soul, transform.position, Quaternion.identity);
-            Destroy(gameObject);
-        }
-
-        //Phase 2 check
-        if (!phase2Activated && currentHealth <= maxHealth / 2)
+        if (!phase2Activated && health.currentHealth <= health.maxHealth / 2)
         {
             phase2Activated = true;
             Debug.Log("Phase 2 Activated");
