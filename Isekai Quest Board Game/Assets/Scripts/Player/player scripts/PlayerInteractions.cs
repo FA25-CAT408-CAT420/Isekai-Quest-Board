@@ -12,6 +12,7 @@ public class PlayerInteractions : MonoBehaviour
     private InputAction interact;
 
     private Collider2D nearbySpell;
+    public Collider2D nearbyUpgrade;
     public CinemachineVirtualCamera camera;
 
     private bool cameraInitialized = false;
@@ -87,6 +88,11 @@ public class PlayerInteractions : MonoBehaviour
             nearbySpell = other;
         }
 
+        if (other.gameObject.CompareTag("Upgrade"))
+        {
+            nearbyUpgrade = other;
+        }
+
         if (other.gameObject.CompareTag("LockedRoom")){
             Debug.Log("HIT THE ROOM");
             other.gameObject.GetComponent<SpawnLockedRoom>().Spawn();
@@ -121,6 +127,11 @@ public class PlayerInteractions : MonoBehaviour
         if (nearbySpell != null)
         {
             nearbySpell.GetComponent<SpellAcquisition>().Interacted();
+        }
+        
+        if (nearbyUpgrade != null)
+        {
+            nearbyUpgrade.GetComponent<UpgradeAcquisition>().Interacted();
         }
     }
 

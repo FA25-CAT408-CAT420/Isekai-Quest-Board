@@ -31,15 +31,14 @@ public class EnemyBase : MonoBehaviour
     protected StatBooster sb;
 
     // Start is called before the first frame update
-    void Start()
+
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         sb = GetComponent<StatBooster>();
         health = GetComponent<EnemyHealth>();
-
         StatCalc();
-        
     }
 
     void StatCalc()
