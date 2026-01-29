@@ -17,9 +17,11 @@ public class AudioManager : MonoBehaviour
    public AudioClip slimeHurt;
    public AudioClip playerHurt;
    public AudioClip nPCSpeak;
-   public AudioClip videoGameTXT; 
+   public AudioClip videoGameTXT;
+
+   public void PlaySFX(AudioClip clip)
+   {
+        SFXSource.PlayOneShot(clip);
+   }
 }
- public void PlaySFX(AudioClip clip)
- {
-    SFXSource.PlayOneShot(clip);
- }
+ 

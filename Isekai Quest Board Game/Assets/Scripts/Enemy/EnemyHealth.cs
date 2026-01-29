@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyHealth : EnemyBase
-
-AudioManager audioManager; 
 {
+    AudioManager audioManager;
     // Start is called before the first frame update
     private void Awake()
     {
