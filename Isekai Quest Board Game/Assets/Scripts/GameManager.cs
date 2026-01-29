@@ -171,4 +171,12 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("Forest");
     }
+    public void creditScene()
+    {
+        SceneManager.LoadScene("Credits");
+    }
+    public void titleScreen()
+    {
+        SceneManager.LoadScene("Title Screen");
+    }
 }
