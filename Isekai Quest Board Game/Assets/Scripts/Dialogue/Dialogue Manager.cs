@@ -5,12 +5,18 @@ using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
+    AudioManager audioManager; 
+
     public Text nameText;
     public Text dialogueText;
     
     private Queue<string> sentences;
 
     // Start is called before the first frame update
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
     void Start()
     {
         sentences = new Queue<string>();
@@ -26,6 +32,7 @@ public class DialogueManager : MonoBehaviour
 
         foreach (string sentence in dialogue.sentences)
         {
+            audioManager.PlaySFX(audioManager.videoGameTXT);
             sentences.Enqueue(sentence);
         }
 
