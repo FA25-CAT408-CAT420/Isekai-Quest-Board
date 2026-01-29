@@ -3,19 +3,38 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Soul
+  - UI
+  - Enemy
+  - Specials
+  - Debug
+  - Spell
+  - SpawnPoint
+  - Rooms
+  - CameraBounds
+  - ClosedRoom
+  - Boss
+  - LockedRoom
+  - Transition
+  - Ghost
+  - Camera
+  - SpawnedRoom
+  - SpikeTrigger
+  - Upgrade
+  - Audio
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Background
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Enemy
+  - Walls
+  - Cam
+  - Player
+  - Boss
   - 
   - 
   - 
