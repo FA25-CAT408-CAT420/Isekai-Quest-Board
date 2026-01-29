@@ -89,7 +89,7 @@ public class PlayerCombat : MonoBehaviour
         if (targetNext.WasPressedThisFrame() && !isTargeting)
         {
             isTargeting = true;
-            EnemyTargeting();
+            //EnemyTargeting();
         }
         else if (yourEnemiesInRange.Count <= 0)
         {
@@ -185,7 +185,7 @@ public void DealDamage()
         anim.SetBool("Attacking", false);
     }
 
-    public void EnemyTargeting()
+    /*public void EnemyTargeting()
     {
         if (yourEnemiesInRange.Count <= 0) return;
 
@@ -203,6 +203,7 @@ public void DealDamage()
             yourEnemiesInRange[i].isTargeted = i == enemyIndex;
     }
 
+
     public void AddYourEnemyToList(EnemyBase enemy)
     {
         if (!yourEnemiesInRange.Contains(enemy))
@@ -217,6 +218,8 @@ public void DealDamage()
             yourEnemiesInRange.Remove(enemy);
         }
     }
+
+    */
 
     private void OnDrawGizmosSelected()
     {

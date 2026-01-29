@@ -5,30 +5,36 @@ using TMPro;
 
 public class EnemyBase : MonoBehaviour
 {
+    [Header("Enemy States")]
     public float currentHealth;
     public float maxHealth;
     public float baseDamage = 5; 
     public int knockbackForce = 1;
     private int facingDirection = 1;
-    public bool isTargeted = false;
     public int AC = 10;
     public float speed;
     public float attackRange = 2;
     public float attackCooldown = 2;
     public float playerDetectedRange = 5;
+    private float attackCooldownTimer;
+
+    [Header("References")]
     public Transform detectionPoint;
     public LayerMask playerLayer;
-
     public PlayerHealth playerHealth;
     public GameObject soul;
     public EnemyHealth health;
-
-    private float attackCooldownTimer;
     private Transform player;
     private Rigidbody2D rb;
+    private SpriteRenderer sr;
     private Animator anim;
     private EnemyState enemyState;
     protected StatBooster sb;
+
+    [Header("Hitting Wall logic")]
+    private int currentDirection;
+    private float halfWidth;
+    
 
     // Start is called before the first frame update
 
