@@ -21,6 +21,7 @@ TagManager:
   - Camera
   - SpawnedRoom
   - SpikeTrigger
+  - Audio
   layers:
   - Default
   - TransparentFX
