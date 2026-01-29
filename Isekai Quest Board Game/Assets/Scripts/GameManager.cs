@@ -30,6 +30,12 @@ public class GameManager : MonoBehaviour
     private PlayerInputActions inputActions;
     private InputAction submit;
 
+    [Header("Skill Points Saved")]
+    // PLAYERS STAT POINTS SAVE
+    public float gmHealthSP;
+    public float gmStrengthSP;
+    public float gmDefenseSP;
+
     void Awake()
     {
         if (Instance == null)
@@ -123,14 +129,29 @@ public class GameManager : MonoBehaviour
 
         if (spellsPopulated)
         {
-            for (int j = 0; j < shopSpawners.Count; j++)
+            for (int j = 0; j < shopSpawners.Count && spellsToSpawn.Count > 0; j++)
             {
-                int r = Random.Range(0, spellsToSpawn.Count); 
-                GameObject newSpell = Instantiate(spellsToSpawn[r], shopSpawners[j].transform.position, Quaternion.identity);
-                SpellAcquisition spellScript = newSpell.GetComponent<SpellAcquisition>();
-                spellScript.prefabReference = spellsToSpawn[r];
+                int r = Random.Range(0, spellsToSpawn.Count);
+
+                GameObject newItem = Instantiate(
+                    spellsToSpawn[r],
+                    shopSpawners[j].transform.position,
+                    Quaternion.identity
+                );
+
+                IShopInterface shopItem = newItem.GetComponent<IShopInterface>();
+                if (shopItem != null)
+                {
+                    shopItem.Initialize(spellsToSpawn[r]);
+                }
+                else
+                {
+                    Debug.LogError($"Shop item missing IShopInterface: {newItem.name}");
+                }
+
                 spellsToSpawn.RemoveAt(r);
             }
+
         }
     }
 

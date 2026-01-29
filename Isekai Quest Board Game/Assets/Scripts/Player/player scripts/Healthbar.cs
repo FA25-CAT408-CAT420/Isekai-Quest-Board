@@ -24,7 +24,7 @@ public class Healthbar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        health = playerHealth.HP;
+        health = playerHealth.currentHP;
         magicPoints = playerMP.MP;
 
         if (healthSlider.value != health)

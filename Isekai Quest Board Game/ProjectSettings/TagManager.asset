@@ -21,6 +21,7 @@ TagManager:
   - Camera
   - SpawnedRoom
   - SpikeTrigger
+  - Upgrade
   layers:
   - Default
   - TransparentFX

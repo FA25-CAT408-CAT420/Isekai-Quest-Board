@@ -12,7 +12,8 @@ public class PlayerCombat : MonoBehaviour
     public Transform attackPoint;
     public float weaponRange = 1;
     public LayerMask enemyLayer;
-    public int damage = 1;
+    public float strength = 1f;
+    public float damage = 1f;
 
     [Header("Combat")]
     public List<Spells> specials = new List<Spells>();
@@ -138,47 +139,13 @@ public void DealDamage()
                 impulseSource.GenerateImpulse();
                 break;
             }
-
-            // EnemyBase enemyBase = enemy.GetComponent<EnemyBase>();
-            // EnemyKnockback enemyKnockback = enemy.GetComponent<EnemyKnockback>();
-
-            // if (enemyBase != null)
-            // {
-            //     enemyBase.ChangeHealth(-damage);
-            //     enemyKnockback.Knockback(transform, knockbackForce);
-            //     break;
-            // }
         }
 
         if (enemies == null)
         {
             playerMovement.isBlocked = false;
         }
-}
-
-// public void CastSpell()
-// {
-//     Collider2D[] enemies = Physics2D.OverlapCircleAll(attackPoint.position, weaponRange, enemyLayer);
-
-//         foreach (Collider2D enemy in enemies)
-//         {
-//             if (enemy.isTrigger) continue;
-
-//             playerMovement.isBlocked = true;
-
-//             if (enemies.Length > 0)
-//             {
-//                 enemies[0].GetComponent<EnemyBase>().ChangeHealth(-spellDamage);
-//                 enemies[0].GetComponent<EnemyKnockback>().Knockback(transform, knockbackForce);
-//                 break;
-//             }
-//         }
-
-//         if (enemies == null)
-//         {
-//             playerMovement.isBlocked = false;
-//         }
-// }
+    }
 
     public void FinishedAttacking()
     {

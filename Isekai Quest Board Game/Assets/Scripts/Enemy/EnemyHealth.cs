@@ -10,7 +10,7 @@ public class EnemyHealth : EnemyBase
         currentHealth = maxHealth;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
 
         currentHealth += damage;

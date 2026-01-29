@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 3274580111201372800}
   - component: {fileID: 5299495761039851045}
   - component: {fileID: 6197584691005989585}
-  - component: {fileID: 4237893541410265151}
+  - component: {fileID: 2548004325550205469}
   m_Layer: 9
   m_Name: PLAYER
   m_TagString: Player
@@ -224,7 +224,7 @@ MonoBehaviour:
     m_Name: Move
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 98032fc6-7bf5-444b-af0c-eb4dd139ee88
+    m_Id: 36d9ceaa-9b36-42fc-9875-8dbd6294afe0
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []
@@ -260,9 +260,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  playerMovement: {fileID: 0}
-  HP: 500
-  MP: 50
+  playerMovement: {fileID: 7149786371712973272}
+  baseHP: 50
+  currentHP: 1000
+  maxHP: 9999
+  MP: 1000
   isInvulnerable: 0
 --- !u!114 &3274580111201372800
 MonoBehaviour:
@@ -283,6 +285,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
+  strength: 1
   damage: 10
   specials: []
   specialBeta: {fileID: 7469255327022073415, guid: 05f5bb6aabc804f4084b8f4d5d2a0c8d, type: 3}
@@ -313,6 +316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
+  nearbyUpgrade: {fileID: 0}
   camera: {fileID: 0}
 --- !u!114 &6197584691005989585
 MonoBehaviour:
@@ -332,7 +336,7 @@ MonoBehaviour:
   tileSize: 1
   rayDistance: 0.7
   playerMovement: {fileID: 7149786371712973272}
---- !u!114 &4237893541410265151
+--- !u!114 &2548004325550205469
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -344,6 +348,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d4e1679b5b173747a9fbea4b6f4a5a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pc: {fileID: 3274580111201372800}
+  ph: {fileID: 4032296622584524223}
+  healthSP: 1
+  strengthSP: 1
+  defenseSP: 1
 --- !u!1 &6417366838936185853
 GameObject:
   m_ObjectHideFlags: 0

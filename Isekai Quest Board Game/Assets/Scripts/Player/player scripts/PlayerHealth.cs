@@ -7,26 +7,36 @@ public class PlayerHealth : MonoBehaviour
 {
     public GameManager gameManager;
     public PlayerMovement playerMovement;
-    public float HP = 50f;
+    public float baseHP = 50f;
+    public float currentHP;
+    public float maxHP = 1000;
     public float MP = 50f;
 
     public bool isInvulnerable = false;
 
-    void Start()
+    void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
     }
+    void Start()
+    {
+        
+    }
     void Update(){
-        if (HP <= 0)
+        if (currentHP <= 0)
         {
-            Die();
+            //Die();
+        }
+        if (currentHP > maxHP)
+        {
+            currentHP = maxHP;
         }
     }
     public void TakeDamage(float amount)
     {   
         if (isInvulnerable == false)
         {
-            HP -= amount; 
+            currentHP -= amount; 
         }
         else if (isInvulnerable == true){
             Debug.Log("I AM IMMORTAL");
@@ -36,6 +46,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
+        //gameManager.gmStrengthSP = gameManager.gmHealthSP = gameManager.gmDefenseSP = 0;
         playerMovement.StopAllCoroutines();
         playerMovement.enabled = false;
         gameManager.soulDropped = true;

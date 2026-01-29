@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpellAcquisition : MonoBehaviour
+public class SpellAcquisition : MonoBehaviour, IShopInterface
 {
     private PlayerCombat playerCombat;
     private GameManager gameManager;
@@ -14,7 +14,10 @@ public class SpellAcquisition : MonoBehaviour
         playerCombat = GameObject.FindWithTag("Player").GetComponent<PlayerCombat>();
         gameManager = FindObjectOfType<GameManager>();
     }
-
+    public void Initialize(GameObject prefab)
+    {
+        prefabReference = prefab;
+    }
     public void Interacted(){
         if (gameManager.soulPoints >= price) {
             gameManager.soulPoints -= price;

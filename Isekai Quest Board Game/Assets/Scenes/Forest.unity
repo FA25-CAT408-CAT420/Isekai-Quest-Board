@@ -26654,34 +26654,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa39fff27021d7b4cab4299e7b2fc5b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &391515246 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1953818336411279484, guid: 48ad5864c68ed994d9c2f82b2364ae2c, type: 3}
-  m_PrefabInstance: {fileID: 671493675}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &391515251 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7149786371712973272, guid: 48ad5864c68ed994d9c2f82b2364ae2c, type: 3}
-  m_PrefabInstance: {fileID: 671493675}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 391515246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb85add9e73aa87418e87cf621b94b91, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &391515258
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 391515246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9aaf6da16d5c09747aec0279f78d523d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &395221153
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26778,13 +26750,20 @@ MonoBehaviour:
   isDead: 0
   floorsCleared: 0
   bossesCleared: 0
+  currentCycles: 0
   totalSpells:
   - {fileID: 1658548075303350686, guid: 3e2902cb62102734094e0a8bea145776, type: 3}
   - {fileID: 928506810485898945, guid: 4ea33a91785d206459ebc1ea8ebc1114, type: 3}
   - {fileID: 1658548075303350686, guid: 44b902ed05698454fbb60ba7158d9925, type: 3}
+  - {fileID: 689625291555262072, guid: 27b3a4858a035b14c94c2c045be21d90, type: 3}
+  - {fileID: 6711755745485032073, guid: b376a18ca2dd3f149855cdf54449f47a, type: 3}
+  - {fileID: 2522126886695549796, guid: 0b2df26b3f2a27542986b0e2ca6cff27, type: 3}
   spellsToSpawn: []
   shopSpawners: []
   nextSpawnID: none
+  gmHealthSP: 1
+  gmStrengthSP: 1
+  gmDefenseSP: 1
 --- !u!4 &398353240
 Transform:
   m_ObjectHideFlags: 0
@@ -37340,22 +37319,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1523317884187177525, guid: 48ad5864c68ed994d9c2f82b2364ae2c, type: 3}
-      propertyPath: m_SortingOrder
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1953818336411279484, guid: 48ad5864c68ed994d9c2f82b2364ae2c, type: 3}
       propertyPath: m_Name
       value: PLAYER
       objectReference: {fileID: 0}
-    - target: {fileID: 4032296622584524223, guid: 48ad5864c68ed994d9c2f82b2364ae2c, type: 3}
-      propertyPath: MP
-      value: 1000
+    - target: {fileID: 5299495761039851045, guid: 48ad5864c68ed994d9c2f82b2364ae2c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4032296622584524223, guid: 48ad5864c68ed994d9c2f82b2364ae2c, type: 3}
-      propertyPath: playerMovement
-      value: 
-      objectReference: {fileID: 391515251}
     - target: {fileID: 6080069490259960591, guid: 48ad5864c68ed994d9c2f82b2364ae2c, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -37400,21 +37371,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7149786371712973272, guid: 48ad5864c68ed994d9c2f82b2364ae2c, type: 3}
-      propertyPath: move.m_Id
-      value: 36d9ceaa-9b36-42fc-9875-8dbd6294afe0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7149786371712973272, guid: 48ad5864c68ed994d9c2f82b2364ae2c, type: 3}
-      propertyPath: move.m_Name
-      value: Move
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1953818336411279484, guid: 48ad5864c68ed994d9c2f82b2364ae2c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 391515258}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48ad5864c68ed994d9c2f82b2364ae2c, type: 3}
 --- !u!1001 &706037918
 PrefabInstance:

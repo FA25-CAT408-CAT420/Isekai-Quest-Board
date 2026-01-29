@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UpgradeAcquisition : MonoBehaviour
+public class UpgradeAcquisition : MonoBehaviour, IShopInterface
 {
     private PlayerCombat playerCombat;
     private PlayerStatManager psm;
@@ -17,18 +17,25 @@ public class UpgradeAcquisition : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         psm = GameObject.FindWithTag("Player").GetComponent<PlayerStatManager>();
     }
+    public void Initialize(GameObject prefab)
+    {
+        prefabReference = prefab;
+    }
 
     public void Interacted(){
         if (gameManager.soulPoints >= price) {
             gameManager.soulPoints -= price;
             Debug.Log("Upgrade destroyed: " + gameObject.name);
             HandleCurrentStat(currentStat);
+            psm.CalculateStats();
+            if (prefabReference != null)
+            {
+                gameManager.totalSpells.Remove(prefabReference);
+            }
             Destroy(gameObject);
         }
         else {
-
         }
-        
     }
 
     public void HandleCurrentStat(StatType stat)
@@ -36,13 +43,13 @@ public class UpgradeAcquisition : MonoBehaviour
         switch (stat)
         {
             case StatType.HealthUp:
-                psm.healthSP++;
+                gameManager.gmHealthSP++;
                 break;
             case StatType.DefenseUp:
-                psm.defenseSP++;
+                gameManager.gmDefenseSP++;
                 break;
             case StatType.StrengthUp:
-                psm.strengthSP++;
+                gameManager.gmStrengthSP++;
                 break;
             default:
                 break;
