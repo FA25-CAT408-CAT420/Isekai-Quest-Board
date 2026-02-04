@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpellAcquisition : MonoBehaviour, IShopInterface
 {
+    public string shopItemTag{get; } = "Spell";
     private PlayerCombat playerCombat;
     private GameManager gameManager;
     public Spells spellData;
@@ -24,7 +25,7 @@ public class SpellAcquisition : MonoBehaviour, IShopInterface
             Debug.Log("Spell destroyed: " + gameObject.name);
             playerCombat.specials.Add(spellData);
 
-            if (prefabReference != null)
+            if (shopItemTag == "Spell" && prefabReference != null)
             {
                 gameManager.totalSpells.Remove(prefabReference);
             }

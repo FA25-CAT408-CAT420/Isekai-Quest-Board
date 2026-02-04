@@ -1090,7 +1090,6 @@ MonoBehaviour:
   maxHealth: 50
   baseDamage: 5
   knockbackForce: 1
-  isTargeted: 0
   AC: 10
   speed: 2
   attackRange: 2.5
@@ -1146,6 +1145,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f161700e70c14714bafd534aa00bde04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soul: {fileID: 2962393454113147998, guid: 95319887f104c3b4f9ac416a2bcc3457, type: 3}
   currentHealth: 0
   maxHealth: 10
+  baseDamage: 5
+  knockbackForce: 1
+  AC: 10
+  speed: 0
+  attackRange: 2
+  attackCooldown: 2
+  playerDetectedRange: 5
+  detectionPoint: {fileID: 0}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  playerHealth: {fileID: 0}
+  soul: {fileID: 2962393454113147998, guid: 95319887f104c3b4f9ac416a2bcc3457, type: 3}
+  health: {fileID: 0}
