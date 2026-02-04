@@ -34,6 +34,8 @@ public class EnemyBase : MonoBehaviour
     [Header("Hitting Wall logic")]
     private int currentDirection;
     private float halfWidth;
+    private float halfHeight;
+    private bool stayOnLedges = true;
     
 
     // Start is called before the first frame update
@@ -45,6 +47,14 @@ public class EnemyBase : MonoBehaviour
         sb = GetComponent<StatBooster>();
         health = GetComponent<EnemyHealth>();
         StatCalc();
+    }
+
+    void Start()
+    {
+         halfWidth = sr.bounds.extents.x;
+        halfHeight = sr.bounds.extents.y;
+        currentDirection = facingDirection;
+        sr.flipX = facingDirection == 1 ? false : true;
     }
 
     void StatCalc()
@@ -79,18 +89,62 @@ public class EnemyBase : MonoBehaviour
         if (player.position.x > transform.position.x && facingDirection == -1 ||
                 player.position.x < transform.position.x && facingDirection == 1)
         {
-            Flip();
+            //Flip();
         }
 
             Vector2 direction = (player.position - transform.position).normalized;
             rb.velocity = direction * speed;
     }
 
-    void Flip()
+    private void SetDirection()
+    {
+        Vector2 rightPos = transform.position;
+        Vector2 leftPos = transform.position;
+        rightPos.x += halfWidth;
+        leftPos.x -= halfWidth;
+
+        if (rb.velocity.x > 0)
+        {
+            if (Physics2D.Raycast(transform.position, Vector2.right, halfWidth + 0.1f, LayerMask.GetMask("Ground")))
+            {
+            // Draw a ray starting at the center of our enemy and point it to the right
+            // Check to see if the raycast is intersecting with a wall
+            // Also Check to make sure our enemy is actually WALKING right
+            // if we don't do this check the enemy will get stuck moving constantly backj and forth
+            currentDirection *= -1;
+            sr.flipX = true;
+            }
+            else if (stayOnLedges && !Physics2D.Raycast(rightPos, Vector2.down, halfHeight + 0.1f, LayerMask.GetMask("Ground")))
+            {
+                currentDirection *= -1;
+                sr.flipX = true;
+            }
+
+        }
+        else if (rb.velocity.x < 0)
+        {
+            if (Physics2D.Raycast(transform.position, Vector2.left, halfWidth + 0.1f, LayerMask.GetMask("Ground")))
+            {
+            currentDirection *= -1;
+            sr.flipX = false;
+            }
+            else if (stayOnLedges && !Physics2D.Raycast(leftPos, Vector2.down, halfHeight + 0.1f, LayerMask.GetMask("Ground")))
+            {
+                currentDirection *= -1;
+                sr.flipX = false;
+            }
+
+        }
+
+        Debug.DrawRay(transform.position, Vector2.right * (halfWidth + 0.1f), Color.red);
+        Debug.DrawRay(transform.position, Vector2.left * (halfWidth + 0.1f), Color.red);
+    }
+
+    /*void Flip()
     {
         facingDirection *= -1;
         transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
-    }
+    }*/
 
 
     private void CheckForPLayer() {
