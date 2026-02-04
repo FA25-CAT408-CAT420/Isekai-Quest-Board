@@ -553,6 +553,11 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!4 &444573396 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 72801023826778528, guid: 170bb7d26c10f9047a2dade62894b04d, type: 3}
+  m_PrefabInstance: {fileID: 635570341}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &451867199
 GameObject:
   m_ObjectHideFlags: 0
@@ -1067,6 +1072,10 @@ PrefabInstance:
       propertyPath: playerHealth
       value: 
       objectReference: {fileID: 963540240}
+    - target: {fileID: -1484128562349248572, guid: 170bb7d26c10f9047a2dade62894b04d, type: 3}
+      propertyPath: detectionPoint
+      value: 
+      objectReference: {fileID: 444573396}
     - target: {fileID: 446073086952482359, guid: 170bb7d26c10f9047a2dade62894b04d, type: 3}
       propertyPath: target
       value: 
@@ -1131,6 +1140,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7599089884731340252, guid: 170bb7d26c10f9047a2dade62894b04d, type: 3}
+      propertyPath: health
+      value: 
+      objectReference: {fileID: 635570342}
     - target: {fileID: 7599089884731340252, guid: 170bb7d26c10f9047a2dade62894b04d, type: 3}
       propertyPath: playerHealth
       value: 
@@ -1320,6 +1333,9 @@ MonoBehaviour:
   spellsToSpawn: []
   shopSpawners: []
   nextSpawnID: 
+  gmHealthSP: 0
+  gmStrengthSP: 0
+  gmDefenseSP: 0
 --- !u!4 &728979434
 Transform:
   m_ObjectHideFlags: 0
