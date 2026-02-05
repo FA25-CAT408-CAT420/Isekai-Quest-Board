@@ -261,10 +261,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
   playerMovement: {fileID: 7149786371712973272}
+  psm: {fileID: 2548004325550205469}
   baseHP: 50
   currentHP: 1000
   maxHP: 9999
   MP: 1000
+  dmgAmount: 0
+  dmgContainer: 0
   isInvulnerable: 0
 --- !u!114 &3274580111201372800
 MonoBehaviour:
@@ -350,6 +353,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pc: {fileID: 3274580111201372800}
   ph: {fileID: 4032296622584524223}
+  gm: {fileID: 0}
   healthSP: 1
   strengthSP: 1
   defenseSP: 1

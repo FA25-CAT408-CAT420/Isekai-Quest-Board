@@ -7,6 +7,7 @@ public class PlayerHealth : MonoBehaviour
 {
     public GameManager gameManager;
     public PlayerMovement playerMovement;
+    public PlayerStatManager psm;
     public float baseHP = 50f;
     public float currentHP;
     public float maxHP = 1000;
@@ -27,7 +28,7 @@ public class PlayerHealth : MonoBehaviour
     void Update(){
         if (currentHP <= 0)
         {
-            //Die();
+            Die();
         }
         if (currentHP > maxHP)
         {
@@ -38,8 +39,7 @@ public class PlayerHealth : MonoBehaviour
     {   
         if (isInvulnerable == false)
         {
-            dmgContainer = amount;
-            currentHP -= dmgAmount;
+            currentHP -= psm.InvertStats(amount, psm.defenseSP);
         }
         else if (isInvulnerable == true){
             Debug.Log("I AM IMMORTAL");

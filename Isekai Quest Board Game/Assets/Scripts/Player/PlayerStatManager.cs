@@ -37,6 +37,17 @@ public class PlayerStatManager : MonoBehaviour
         return Round(baseStat, 2);
     }
 
+    public float InvertStats(float damage, float upgradePoint)
+    {
+        float reduction = Mathf.Pow(1 + rateOfChange, upgradePoint);
+        Debug.Log(reduction);
+        damage /= reduction;
+        Debug.Log(damage);
+        float damageOut = Round(damage, 2);
+        Debug.Log(damageOut);
+        return damageOut;
+    }
+
     public void CalculateStats()
     {
         healthSP = gm.gmHealthSP;
@@ -44,5 +55,6 @@ public class PlayerStatManager : MonoBehaviour
         defenseSP = gm.gmDefenseSP;
         pc.damage = BoostStats(pc.strength, strengthSP);
         ph.maxHP = BoostStats(ph.baseHP, healthSP);
+        //ph.dmgAmount = InvertStats(ph.dmgContainer, defenseSP);
     }
 }

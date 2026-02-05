@@ -46,13 +46,17 @@ public class EnemyBase : MonoBehaviour
         anim = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
         sb = GetComponent<StatBooster>();
-        health = GetComponent<EnemyHealth>();
-        currentHealth = health.currentHealth;
-        maxHealth = health.maxHealth;
+        if (health != null)
+        {
+            health = GetComponent<EnemyHealth>();
+            currentHealth = health.currentHealth;  
+            maxHealth = health.maxHealth;
+        }
+    
         //StatCalc();
     }
 
-    /*void Start()
+    void Start()
     {
         halfWidth = sr.bounds.extents.x;
         halfHeight = sr.bounds.extents.y;
@@ -60,6 +64,7 @@ public class EnemyBase : MonoBehaviour
         sr.flipX = facingDirection == 1 ? false : true;
     }
 
+    /*
     void StatCalc()
     {
         maxHealth = sb.BoostStats(maxHealth);
@@ -69,7 +74,10 @@ public class EnemyBase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckForPLayer();
+        if (detectionPoint != null)
+        {
+            CheckForPLayer();
+        }
 
         if (attackCooldownTimer >0)
         {
@@ -201,11 +209,11 @@ public class EnemyBase : MonoBehaviour
         }
    }
 
-   private void OnDrawGizmosSelected()
-   {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(detectionPoint.position, playerDetectedRange);
-   }
+//    private void OnDrawGizmosSelected()
+//    {
+//         Gizmos.color = Color.red;
+//         Gizmos.DrawWireSphere(detectionPoint.position, playerDetectedRange);
+//    }
 }
 
 public enum EnemyState

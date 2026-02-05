@@ -9,19 +9,23 @@ public class EnemyCombat : MonoBehaviour
     public Transform attackPoint;
     public float weaponRange;
     public LayerMask playerLayer;
+    public EnemyBase baseScript;
 
     void Start()
     {
-        damage = GetComponent<EnemyBase>().baseDamage;
+        
     }
 
     void OnCollisionEnter2D (Collision2D other)
     {
         if (other.gameObject.tag == "Player")
         {
+            
+            damage = baseScript.baseDamage;
             other.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
             other.gameObject.GetComponent<PlayerMovement>().StopMovementCoroutine();
             other.gameObject.GetComponent<PlayerKnockback>().ApplyKnockback(transform.position);
+            Debug.Log("TOUCHED ME");
         }
     }
 

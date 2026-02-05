@@ -879,7 +879,7 @@ Transform:
   - {fileID: 2960275794288820237}
   - {fileID: 72801023826778528}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5844879431339061661
 SpriteRenderer:
@@ -1063,7 +1063,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 512
-  playerHealth: {fileID: 4032296622584524223, guid: 48ad5864c68ed994d9c2f82b2364ae2c, type: 3}
+  playerHealth: {fileID: 0}
   soul: {fileID: 2962393454113147998, guid: 95319887f104c3b4f9ac416a2bcc3457, type: 3}
   health: {fileID: -1484128562349248572}
 --- !u!114 &-1484128562349248572
@@ -1112,3 +1112,4 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 512
+  baseScript: {fileID: 0}

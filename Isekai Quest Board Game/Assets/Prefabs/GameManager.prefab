@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2736376008789487525
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6356788313074350790}
+  - component: {fileID: 6472845799360993173}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6356788313074350790
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2736376008789487525}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 544.87604, y: 779.4252, z: -3.8039436}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6472845799360993173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2736376008789487525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa508905914a30742a790e63aaa8aaab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUI: {fileID: 0}
+  soulPoints: 596
+  soulDropped: 0
+  isDead: 0
+  floorsCleared: 0
+  bossesCleared: 0
+  currentCycles: 0
+  totalSpells:
+  - {fileID: 1658548075303350686, guid: 3e2902cb62102734094e0a8bea145776, type: 3}
+  - {fileID: 928506810485898945, guid: 4ea33a91785d206459ebc1ea8ebc1114, type: 3}
+  - {fileID: 1658548075303350686, guid: 44b902ed05698454fbb60ba7158d9925, type: 3}
+  - {fileID: 689625291555262072, guid: 27b3a4858a035b14c94c2c045be21d90, type: 3}
+  - {fileID: 6711755745485032073, guid: b376a18ca2dd3f149855cdf54449f47a, type: 3}
+  - {fileID: 2522126886695549796, guid: 0b2df26b3f2a27542986b0e2ca6cff27, type: 3}
+  spellsToSpawn: []
+  shopSpawners: []
+  nextSpawnID: none
+  gmHealthSP: 1
+  gmStrengthSP: 1
+  gmDefenseSP: 1

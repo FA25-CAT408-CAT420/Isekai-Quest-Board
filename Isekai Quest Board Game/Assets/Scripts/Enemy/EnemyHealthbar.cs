@@ -14,7 +14,8 @@ public class EnemyHealthbar : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        healthSlider.maxValue = enemyHealth.maxHealth;
+        easeHealthSlider.maxValue = enemyHealth.maxHealth;
     }
 
     // Update is called once per frame
