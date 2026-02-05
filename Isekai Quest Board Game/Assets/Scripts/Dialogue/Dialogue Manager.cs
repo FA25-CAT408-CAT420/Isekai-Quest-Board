@@ -22,6 +22,15 @@ public class DialogueManager : MonoBehaviour
         sentences = new Queue<string>();
     }
 
+    public void Update()
+    {
+        if (Input.GetKeyDown("o"))
+        {
+            DisplayNextSentence();
+        }
+    }
+
+
     public void StartDialogue (Dialogue dialogue)
     {
         //Debug.Log("Starting conversation with " + dialogue.name);
