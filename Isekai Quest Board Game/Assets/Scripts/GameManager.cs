@@ -106,6 +106,10 @@ public class GameManager : MonoBehaviour
 
         if (scene.name == "Forest")
         {
+            
+            spellsPopulated = false;
+            spellsToSpawn.Clear();
+            shopSpawners.Clear();
             StartCoroutine(SpawnSpells());
         }
         else
@@ -151,7 +155,6 @@ public class GameManager : MonoBehaviour
 
                 spellsToSpawn.RemoveAt(r);
             }
-
         }
     }
 

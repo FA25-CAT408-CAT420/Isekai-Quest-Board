@@ -11,6 +11,8 @@ public class PlayerHealth : MonoBehaviour
     public float currentHP;
     public float maxHP = 1000;
     public float MP = 50f;
+    public float dmgAmount;
+    public float dmgContainer;
 
     public bool isInvulnerable = false;
 
@@ -36,12 +38,12 @@ public class PlayerHealth : MonoBehaviour
     {   
         if (isInvulnerable == false)
         {
-            currentHP -= amount; 
+            dmgContainer = amount;
+            currentHP -= dmgAmount;
         }
         else if (isInvulnerable == true){
             Debug.Log("I AM IMMORTAL");
         }
-           
     }
 
     private void Die()

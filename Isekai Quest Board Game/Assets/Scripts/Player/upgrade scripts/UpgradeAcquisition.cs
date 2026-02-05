@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UpgradeAcquisition : MonoBehaviour, IShopInterface
 {
+    public string shopItemTag{get; } = "Upgrade";
     private PlayerCombat playerCombat;
     private PlayerStatManager psm;
     private GameManager gameManager;
@@ -20,6 +21,7 @@ public class UpgradeAcquisition : MonoBehaviour, IShopInterface
     public void Initialize(GameObject prefab)
     {
         prefabReference = prefab;
+
     }
 
     public void Interacted(){
@@ -28,10 +30,10 @@ public class UpgradeAcquisition : MonoBehaviour, IShopInterface
             Debug.Log("Upgrade destroyed: " + gameObject.name);
             HandleCurrentStat(currentStat);
             psm.CalculateStats();
-            if (prefabReference != null)
-            {
-                gameManager.totalSpells.Remove(prefabReference);
-            }
+            // if (prefabReference != null)
+            // {
+            //     gameManager.totalSpells.Remove(prefabReference);
+            // }
             Destroy(gameObject);
         }
         else {
