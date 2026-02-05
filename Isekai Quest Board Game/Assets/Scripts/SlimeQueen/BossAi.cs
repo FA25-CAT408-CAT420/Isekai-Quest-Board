@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class BossAi : MonoBehaviour
 {
-    public int currentHealth;
-    public int maxHealth;
+    public float currentHealth;
+    public float maxHealth;
     public float damage = 5f;
     public bool phase2Activated = false;
     
@@ -20,11 +20,13 @@ public class BossAi : MonoBehaviour
     private Animator anim;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         health = GetComponent<EnemyHealth>();
+        currentHealth = health.currentHealth;
+        maxHealth = health.maxHealth;
     }
 
     // Update is called once per frame

@@ -2,15 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyHealth : EnemyBase
+public class EnemyHealth : MonoBehaviour
 {
+    public float currentHealth;
+    public float maxHealth;
+    public GameObject soul;
+
     AudioManager audioManager;
     // Start is called before the first frame update
-    private void Awake()
+    public void Awake()
     {
-        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        //audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
-    void Start()
+    public void Start()
     {
         currentHealth = maxHealth;
     }
@@ -19,7 +23,7 @@ public class EnemyHealth : EnemyBase
     {
 
         currentHealth += damage;
-        audioManager.PlaySFX(audioManager.slimeHurt);
+        //audioManager.PlaySFX(audioManager.slimeHurt);
 
         if (currentHealth >= maxHealth)
         {

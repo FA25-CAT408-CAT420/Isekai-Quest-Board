@@ -44,14 +44,17 @@ public class EnemyBase : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        sr = GetComponent<SpriteRenderer>();
         sb = GetComponent<StatBooster>();
         health = GetComponent<EnemyHealth>();
-        StatCalc();
+        currentHealth = health.currentHealth;
+        maxHealth = health.maxHealth;
+        //StatCalc();
     }
 
-    void Start()
+    /*void Start()
     {
-         halfWidth = sr.bounds.extents.x;
+        halfWidth = sr.bounds.extents.x;
         halfHeight = sr.bounds.extents.y;
         currentDirection = facingDirection;
         sr.flipX = facingDirection == 1 ? false : true;
@@ -61,7 +64,7 @@ public class EnemyBase : MonoBehaviour
     {
         maxHealth = sb.BoostStats(maxHealth);
         baseDamage = sb.BoostStats(baseDamage);
-    }
+    }*/
 
     // Update is called once per frame
     void Update()

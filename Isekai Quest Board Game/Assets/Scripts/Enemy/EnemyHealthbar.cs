@@ -9,7 +9,7 @@ public class EnemyHealthbar : MonoBehaviour
     public Slider easeHealthSlider;
     public float health;
     public float lerpSpeed = 0.05f;
-    public EnemyBase enemyBase;
+    public EnemyHealth enemyHealth;
 
     // Start is called before the first frame update
     void Start()
@@ -20,7 +20,7 @@ public class EnemyHealthbar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        health = enemyBase.currentHealth;
+        health = enemyHealth.currentHealth;
         
         if (healthSlider.value != health)
         {

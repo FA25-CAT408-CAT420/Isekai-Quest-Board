@@ -283,7 +283,7 @@ MonoBehaviour:
   easeHealthSlider: {fileID: 5438726475441966702}
   health: 0
   lerpSpeed: 0.05
-  enemyBase: {fileID: 7599089884731340252}
+  enemyHealth: {fileID: -1484128562349248572}
 --- !u!1 &3598699131888061827
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,7 +299,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8728567453329287602
 Transform:
   m_ObjectHideFlags: 0
@@ -849,13 +849,12 @@ GameObject:
   - component: {fileID: 5844879431339061661}
   - component: {fileID: 7729226374097886412}
   - component: {fileID: 4074098375432128618}
-  - component: {fileID: 4381693003975085095}
   - component: {fileID: 4905361859151889501}
   - component: {fileID: 5585484212999727048}
   - component: {fileID: 7599089884731340252}
+  - component: {fileID: -1484128562349248572}
   - component: {fileID: 3765387310799841332}
   - component: {fileID: 669982515564255678}
-  - component: {fileID: -1484128562349248572}
   m_Layer: 6
   m_Name: ENEMY
   m_TagString: Enemy
@@ -1006,41 +1005,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!58 &4381693003975085095
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8522549908244588971}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 3.5
 --- !u!95 &4905361859151889501
 Animator:
   serializedVersion: 5
@@ -1087,10 +1051,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 5
-  maxHealth: 50
+  maxHealth: 10
   baseDamage: 5
   knockbackForce: 1
-  isTargeted: 0
   AC: 10
   speed: 2
   attackRange: 2.5
@@ -1100,9 +1063,24 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 512
-  playerHealth: {fileID: 0}
+  playerHealth: {fileID: 4032296622584524223, guid: 48ad5864c68ed994d9c2f82b2364ae2c, type: 3}
   soul: {fileID: 2962393454113147998, guid: 95319887f104c3b4f9ac416a2bcc3457, type: 3}
-  health: {fileID: 0}
+  health: {fileID: -1484128562349248572}
+--- !u!114 &-1484128562349248572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8522549908244588971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f161700e70c14714bafd534aa00bde04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 0
+  maxHealth: 10
+  soul: {fileID: 2962393454113147998, guid: 95319887f104c3b4f9ac416a2bcc3457, type: 3}
 --- !u!114 &3765387310799841332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1134,18 +1112,3 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 512
---- !u!114 &-1484128562349248572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8522549908244588971}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f161700e70c14714bafd534aa00bde04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  soul: {fileID: 2962393454113147998, guid: 95319887f104c3b4f9ac416a2bcc3457, type: 3}
-  currentHealth: 0
-  maxHealth: 10

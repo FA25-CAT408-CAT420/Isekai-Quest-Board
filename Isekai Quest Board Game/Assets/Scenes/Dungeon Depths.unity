@@ -930,6 +930,9 @@ MonoBehaviour:
   spellsToSpawn: []
   shopSpawners: []
   nextSpawnID: 
+  gmHealthSP: 0
+  gmStrengthSP: 0
+  gmDefenseSP: 0
 --- !u!4 &377654143
 Transform:
   m_ObjectHideFlags: 0
@@ -9420,6 +9423,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4580876974668041424, guid: 170bb7d26c10f9047a2dade62894b04d, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -9460,7 +9467,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: ENEMY
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
