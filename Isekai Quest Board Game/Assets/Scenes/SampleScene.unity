@@ -209,7 +209,7 @@ GameObject:
   m_Layer: 0
   m_Name: Point5
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -240,7 +240,7 @@ GameObject:
   m_Layer: 0
   m_Name: Point3
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -641,7 +641,7 @@ GameObject:
   m_Layer: 0
   m_Name: Point1
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1391,6 +1391,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 1953818336411279484, guid: 48ad5864c68ed994d9c2f82b2364ae2c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2548004325550205469, guid: 48ad5864c68ed994d9c2f82b2364ae2c, type: 3}
       propertyPath: gm
       value: 
@@ -1498,7 +1502,7 @@ GameObject:
   m_Layer: 0
   m_Name: Point4
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1737,6 +1741,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 669982515564255678, guid: 170bb7d26c10f9047a2dade62894b04d, type: 3}
+      propertyPath: baseScript
+      value: 
+      objectReference: {fileID: 1487396174}
     - target: {fileID: 2074781533818356465, guid: 170bb7d26c10f9047a2dade62894b04d, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1797,6 +1805,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7599089884731340252, guid: 170bb7d26c10f9047a2dade62894b04d, type: 3}
+      propertyPath: playerHealth
+      value: 
+      objectReference: {fileID: 963540240}
     - target: {fileID: 8522549908244588971, guid: 170bb7d26c10f9047a2dade62894b04d, type: 3}
       propertyPath: m_Name
       value: ENEMY
@@ -2364,6 +2376,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1374659199}
   m_CullTransparentMesh: 1
+--- !u!114 &1487396174 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7599089884731340252, guid: 170bb7d26c10f9047a2dade62894b04d, type: 3}
+  m_PrefabInstance: {fileID: 1136657524}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6d12cda87f9a9845b2275b5530a9bb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1498329379
 GameObject:
   m_ObjectHideFlags: 0
@@ -2376,7 +2399,7 @@ GameObject:
   m_Layer: 0
   m_Name: Point2
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
