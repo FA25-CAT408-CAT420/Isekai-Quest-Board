@@ -5,7 +5,7 @@ using UnityEngine;
 public class StatBooster : MonoBehaviour
 {
     float rateOfChange = 0.25f;
-    GameManager gm = FindObjectOfType<GameManager>();
+    /*GameManager gm = FindObjectOfType<GameManager>();
     public float BoostStats(float baseStat)
     {
         float e1 = (1 + rateOfChange);
@@ -13,5 +13,5 @@ public class StatBooster : MonoBehaviour
         float e3 = Mathf.Pow(e1, e2);
 
         return baseStat *= e3;
-    }
+    }*/
 }

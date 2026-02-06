@@ -35,7 +35,8 @@ public class EnemyBase : MonoBehaviour
     private int currentDirection;
     private float halfWidth;
     private float halfHeight;
-    private bool stayOnLedges = true;
+    //private bool stayOnLedges = true;
+    private Vector2 movement;
     
 
     // Start is called before the first frame update
@@ -62,6 +63,7 @@ public class EnemyBase : MonoBehaviour
         halfHeight = sr.bounds.extents.y;
         currentDirection = facingDirection;
         sr.flipX = facingDirection == 1 ? false : true;
+        ChangeState(EnemyState.Patrolling);
     }
 
     /*
@@ -94,14 +96,30 @@ public class EnemyBase : MonoBehaviour
         }
     }
 
+    void FixedUpdate()
+    {
+        if(enemyState == EnemyState.Patrolling)
+        {
+            Patrol();
+            SetDirection();
+        }
+    }
+
+    void Patrol()
+    {
+        movement.x = speed * currentDirection;
+        movement.y = rb.velocity.y;
+        rb.velocity = movement;
+    }
+
     void Chase()
     {
         
-        if (player.position.x > transform.position.x && facingDirection == -1 ||
+        /*if (player.position.x > transform.position.x && facingDirection == -1 ||
                 player.position.x < transform.position.x && facingDirection == 1)
         {
-            //Flip();
-        }
+            Flip();
+        }*/
 
             Vector2 direction = (player.position - transform.position).normalized;
             rb.velocity = direction * speed;
@@ -116,7 +134,7 @@ public class EnemyBase : MonoBehaviour
 
         if (rb.velocity.x > 0)
         {
-            if (Physics2D.Raycast(transform.position, Vector2.right, halfWidth + 0.1f, LayerMask.GetMask("Ground")))
+            if (Physics2D.Raycast(transform.position, Vector2.right, halfWidth + 0.1f, LayerMask.GetMask("Walls")))
             {
             // Draw a ray starting at the center of our enemy and point it to the right
             // Check to see if the raycast is intersecting with a wall
@@ -125,25 +143,25 @@ public class EnemyBase : MonoBehaviour
             currentDirection *= -1;
             sr.flipX = true;
             }
-            else if (stayOnLedges && !Physics2D.Raycast(rightPos, Vector2.down, halfHeight + 0.1f, LayerMask.GetMask("Ground")))
+            /*else if (stayOnLedges && !Physics2D.Raycast(rightPos, Vector2.down, halfHeight + 0.1f, LayerMask.GetMask("Walls")))
             {
                 currentDirection *= -1;
                 sr.flipX = true;
-            }
+            }*/
 
         }
         else if (rb.velocity.x < 0)
         {
-            if (Physics2D.Raycast(transform.position, Vector2.left, halfWidth + 0.1f, LayerMask.GetMask("Ground")))
+            if (Physics2D.Raycast(transform.position, Vector2.left, halfWidth + 0.1f, LayerMask.GetMask("Walls")))
             {
             currentDirection *= -1;
             sr.flipX = false;
             }
-            else if (stayOnLedges && !Physics2D.Raycast(leftPos, Vector2.down, halfHeight + 0.1f, LayerMask.GetMask("Ground")))
+            /*else if (stayOnLedges && !Physics2D.Raycast(leftPos, Vector2.down, halfHeight + 0.1f, LayerMask.GetMask("Walls")))
             {
                 currentDirection *= -1;
                 sr.flipX = false;
-            }
+            }*/
 
         }
 
@@ -191,6 +209,10 @@ public class EnemyBase : MonoBehaviour
         else if (enemyState == EnemyState.Attacking){
             anim.SetBool("Attacking", false);
         }
+        else if (enemyState == EnemyState.Patrolling){
+            anim.SetBool("Moving", false);
+        }
+        
 
         //Update our current state
         enemyState = newState;
@@ -198,8 +220,7 @@ public class EnemyBase : MonoBehaviour
         //Update the new animation
         if (enemyState == EnemyState.Idle)
         {
-            anim.SetFloat("X", rb.position.x);
-            anim.SetFloat("Y", rb.position.y);
+            anim.SetBool("isIdle", true);
         }
         else if (enemyState == EnemyState.Chasing){
             anim.SetBool("Moving", true);
@@ -207,7 +228,11 @@ public class EnemyBase : MonoBehaviour
         else if (enemyState == EnemyState.Attacking){
             anim.SetBool("Attacking", true);
         }
+        else if (enemyState == EnemyState.Patrolling){
+            anim.SetBool("Moving", true);
+        }
    }
+   
 
 //    private void OnDrawGizmosSelected()
 //    {
@@ -221,4 +246,5 @@ public enum EnemyState
     Idle,
     Chasing,
     Attacking,
+    Patrolling,
 }
