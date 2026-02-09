@@ -13,21 +13,23 @@ public class DialogueManager : MonoBehaviour
     private Queue<string> sentences;
 
     // Start is called before the first frame update
-    private void Awake()
+    /*private void Awake()
     {
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
-    }
+    }*/
+
     void Start()
     {
         sentences = new Queue<string>();
+        DisplayNextSentence();
     }
 
     public void Update()
     {
-        if (Input.GetKeyDown("o"))
+        /*if (Input.GetKeyDown("o"))
         {
             DisplayNextSentence();
-        }
+        }*/
     }
 
 
@@ -36,16 +38,15 @@ public class DialogueManager : MonoBehaviour
         //Debug.Log("Starting conversation with " + dialogue.name);
 
         nameText.text = dialogue.name;
-
         sentences.Clear();
 
         foreach (string sentence in dialogue.sentences)
         {
-            audioManager.PlaySFX(audioManager.videoGameTXT);
+            //audioManager.PlaySFX(audioManager.videoGameTXT);
             sentences.Enqueue(sentence);
         }
 
-        DisplayNextSentence();
+        //DisplayNextSentence();
     }
 
     public void DisplayNextSentence()

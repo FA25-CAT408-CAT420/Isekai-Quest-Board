@@ -6,14 +6,19 @@ public class DialogueTrigger : MonoBehaviour
 {
    public Dialogue dialogue;
 
+   void Awake()
+   {
+      FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
+   }
 
-   public void FixedUpdate()
+
+   /*public void FixedUpdate()
    {
       if (Input.GetKey("space"))
       {
          FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
       }
-   }
+   }*/
    
    public void TriggerDialogue()
    {
