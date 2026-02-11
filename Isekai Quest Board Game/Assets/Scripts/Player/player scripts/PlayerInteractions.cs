@@ -33,13 +33,13 @@ public class PlayerInteractions : MonoBehaviour
             if (h.CompareTag("CameraBounds"))
             {
                 if (camera == null)
-                    camera = GameObject.FindGameObjectWithTag("Camera").GetComponent<CinemachineVirtualCamera>();
+                    gameManager.camera = GameObject.FindGameObjectWithTag("Camera").GetComponent<CinemachineVirtualCamera>();
 
                 // Instantly put camera into correct zone
-                camera.transform.position = new Vector3(
+                gameManager.camera.transform.position = new Vector3(
                     h.transform.position.x,
                     h.transform.position.y,
-                    camera.transform.position.z
+                    gameManager.camera.transform.position.z
                 );
 
                 cameraInitialized = true;
@@ -100,16 +100,16 @@ public class PlayerInteractions : MonoBehaviour
         
         if (other.gameObject.CompareTag("CameraBounds")) {
             //Camera Functions
-            if (camera != null)
+            if (gameManager.camera != null)
             {
-                StartCoroutine(CamTransition(camera.transform, other.gameObject.transform, 0.2f));
+                StartCoroutine(CamTransition(gameManager.camera.transform, other.gameObject.transform, 0.2f));
                 // new Vector3(
                 //     other.gameObject.transform.position.x,
                 //     other.gameObject.transform.position.y,
                 //     camera.transform.position.z);
             } 
-            else if (camera == null) {
-                camera = GameObject.FindGameObjectWithTag("Camera").GetComponent<CinemachineVirtualCamera>();
+            else if (gameManager.camera == null) {
+                Debug.Log("No camera");
             }
         }
     }

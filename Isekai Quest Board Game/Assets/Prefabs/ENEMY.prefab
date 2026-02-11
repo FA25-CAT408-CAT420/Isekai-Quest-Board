@@ -879,7 +879,7 @@ Transform:
   - {fileID: 2960275794288820237}
   - {fileID: 72801023826778528}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5844879431339061661
 SpriteRenderer:
@@ -1106,7 +1106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SlimeSpit: {fileID: 6227826045610309428, guid: 1787b19878f7c5841b78a256a120b9b3, type: 3}
-  damage: 5
+  damage: 1
   attackPoint: {fileID: 2960275794288820237}
   weaponRange: 2.5
   playerLayer:

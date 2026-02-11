@@ -15,11 +15,12 @@ public class PlayerStatManager : MonoBehaviour
     void Awake()
     {
         gm = FindObjectOfType<GameManager>();
+        CalculateStats();
+        ph.currentHP = ph.maxHP;
     }
     void Start()
     {
-        CalculateStats();
-        ph.currentHP = ph.maxHP;
+        
     }
 
     public static float Round(float value, int digits)

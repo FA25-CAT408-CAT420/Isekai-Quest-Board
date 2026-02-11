@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.InputSystem;
+using Cinemachine;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> spellsToSpawn = new List<GameObject>();
     public List<GameObject> shopSpawners = new List<GameObject>();
     private bool spellsPopulated = false;
+    public CinemachineVirtualCamera camera;
 
     [Header("Transition/Spawn")]
     public string nextSpawnID = ""; // ID of spawn point in next scene
@@ -90,6 +92,15 @@ public class GameManager : MonoBehaviour
         if (GUI != null)
         {
             soulCounter = GUI.transform.Find("SoulGroup/Soul Counter")?.GetComponent<TextMeshProUGUI>();
+        }
+
+        if (camera == null)
+        {
+            camera = GameObject.FindGameObjectWithTag("Camera").GetComponent<CinemachineVirtualCamera>();
+        }
+        else if (camera != null)
+        {
+            Debug.Log("Camera successfully loaded");
         }
 
         // Spawn player at the correct spawn point

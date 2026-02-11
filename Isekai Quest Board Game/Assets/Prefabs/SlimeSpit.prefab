@@ -33,7 +33,7 @@ Transform:
   m_Children:
   - {fileID: 8064346341109631064}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &6732079081314206537
 Rigidbody2D:
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6
-  damage: 5
+  damage: 1
 --- !u!1 &7985281509961347364
 GameObject:
   m_ObjectHideFlags: 0
