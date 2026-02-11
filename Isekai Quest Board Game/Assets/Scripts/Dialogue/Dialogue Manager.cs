@@ -21,15 +21,15 @@ public class DialogueManager : MonoBehaviour
     void Start()
     {
         sentences = new Queue<string>();
-        DisplayNextSentence();
+        //DisplayNextSentence();
     }
 
     public void Update()
     {
-        /*if (Input.GetKeyDown("o"))
+        if (Input.GetKeyDown("o"))
         {
             DisplayNextSentence();
-        }*/
+        }
     }
 
 
@@ -46,7 +46,7 @@ public class DialogueManager : MonoBehaviour
             sentences.Enqueue(sentence);
         }
 
-        //DisplayNextSentence();
+        DisplayNextSentence();
     }
 
     public void DisplayNextSentence()
