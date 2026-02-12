@@ -35,8 +35,10 @@ public class EnemyBase : MonoBehaviour
     private int currentDirection;
     private float halfWidth;
     private float halfHeight;
-    //private bool stayOnLedges = true;
     private Vector2 movement;
+
+    [Header("Patrolling")]
+    private float gridSize = 1f;
     
 
     // Start is called before the first frame update
@@ -85,7 +87,12 @@ public class EnemyBase : MonoBehaviour
         {
             attackCooldownTimer -= Time.deltaTime;
         }
-        if (enemyState == EnemyState.Chasing)
+        if(enemyState == EnemyState.Patrolling)
+        {
+            Patrol();
+            SetDirection();
+        }
+        else if (enemyState == EnemyState.Chasing)
         {
             Chase();
         }
@@ -96,33 +103,18 @@ public class EnemyBase : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
-    {
-        if(enemyState == EnemyState.Patrolling)
-        {
-            Patrol();
-            SetDirection();
-        }
-    }
-
     void Patrol()
     {
-        movement.x = speed * currentDirection;
-        movement.y = rb.velocity.y;
-        rb.velocity = movement;
+        //movement.x = speed * currentDirection;
+        //movement.y = rb.velocity.y;
+        //rb.velocity = movement;
     }
 
     void Chase()
     {
-        
-        /*if (player.position.x > transform.position.x && facingDirection == -1 ||
-                player.position.x < transform.position.x && facingDirection == 1)
-        {
-            Flip();
-        }*/
 
-            Vector2 direction = (player.position - transform.position).normalized;
-            rb.velocity = direction * speed;
+        Vector2 direction = (player.position - transform.position).normalized;
+        rb.velocity = direction * speed;
     }
 
     private void SetDirection()
@@ -143,11 +135,11 @@ public class EnemyBase : MonoBehaviour
             currentDirection *= -1;
             sr.flipX = true;
             }
-            /*else if (stayOnLedges && !Physics2D.Raycast(rightPos, Vector2.down, halfHeight + 0.1f, LayerMask.GetMask("Walls")))
+            else if (Physics2D.Raycast(transform.position, Vector2.up, halfHeight + 0.1f, LayerMask.GetMask("Walls")))
             {
                 currentDirection *= -1;
                 sr.flipX = true;
-            }*/
+            }
 
         }
         else if (rb.velocity.x < 0)
@@ -157,23 +149,19 @@ public class EnemyBase : MonoBehaviour
             currentDirection *= -1;
             sr.flipX = false;
             }
-            /*else if (stayOnLedges && !Physics2D.Raycast(leftPos, Vector2.down, halfHeight + 0.1f, LayerMask.GetMask("Walls")))
+            else if (Physics2D.Raycast(transform.position, Vector2.up, halfHeight + 0.1f, LayerMask.GetMask("Walls")))
             {
                 currentDirection *= -1;
-                sr.flipX = false;
-            }*/
+                sr.flipX = true;
+            }
 
         }
 
         Debug.DrawRay(transform.position, Vector2.right * (halfWidth + 0.1f), Color.red);
         Debug.DrawRay(transform.position, Vector2.left * (halfWidth + 0.1f), Color.red);
+        Debug.DrawRay(transform.position, Vector2.up * (halfHeight + 0.1f), Color.red);
+        Debug.DrawRay(transform.position, Vector2.down * (halfHeight + 0.1f), Color.red);
     }
-
-    /*void Flip()
-    {
-        facingDirection *= -1;
-        transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
-    }*/
 
 
     private void CheckForPLayer() {
@@ -195,6 +183,27 @@ public class EnemyBase : MonoBehaviour
             }
         }
    }
+
+   /*private IEnumerator Moving() {
+
+        int directionX = Random.Range(-1, 1);
+        int directionY = Random.Range(-1, 1);
+        return null;
+
+        Vector2 startPosition = transform.position;
+        Vector2 endPosition = startPosition + (facingDirection * gridSize);
+
+        float elapsedTime = 0;
+        while (elapsedTime < moveduration)
+        {
+            elapsedTime += Time.deltaTime;
+            float percent = elapsedTime / moveduration;
+            transform.position = Vector2.Lerp(startPosition, endPosition, percent);
+            yield return null;
+        }
+
+        transform.position = endPosition;
+   }*/
 
    void ChangeState(EnemyState newState)
    {
