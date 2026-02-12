@@ -23,6 +23,7 @@ TagManager:
   - SpikeTrigger
   - Upgrade
   - Audio
+  - uiSpecialImage
   layers:
   - Default
   - TransparentFX

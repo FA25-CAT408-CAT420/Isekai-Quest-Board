@@ -6,6 +6,7 @@ public class SpellAcquisition : MonoBehaviour, IShopInterface
 {
     public string shopItemTag{get; } = "Spell";
     private PlayerCombat playerCombat;
+    private PlayerMovement playerMovement;
     private GameManager gameManager;
     public Spells spellData;
     public int price = 5;
@@ -13,6 +14,7 @@ public class SpellAcquisition : MonoBehaviour, IShopInterface
 
     void Start(){
         playerCombat = GameObject.FindWithTag("Player").GetComponent<PlayerCombat>();
+        playerMovement = GameObject.FindWithTag("Player").GetComponent<PlayerMovement>();
         gameManager = FindObjectOfType<GameManager>();
     }
     public void Initialize(GameObject prefab)
@@ -23,11 +25,12 @@ public class SpellAcquisition : MonoBehaviour, IShopInterface
         if (gameManager.soulPoints >= price) {
             gameManager.soulPoints -= price;
             Debug.Log("Spell destroyed: " + gameObject.name);
-            playerCombat.specials.Add(spellData);
+            gameManager.specials.Add(spellData);
 
             if (shopItemTag == "Spell" && prefabReference != null)
             {
                 gameManager.totalSpells.Remove(prefabReference);
+                playerMovement.nextSpell++;
             }
                 
             Destroy(gameObject);

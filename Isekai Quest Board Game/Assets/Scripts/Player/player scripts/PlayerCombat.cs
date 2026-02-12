@@ -7,6 +7,7 @@ public class PlayerCombat : MonoBehaviour
     [Header("Scripts")]
     public PlayerMovement playerMovement;
     public PlayerHealth playerHealth;
+    private GameManager gameManager;
 
     [Header("Hitboxing")]
     public Transform attackPoint;
@@ -16,8 +17,7 @@ public class PlayerCombat : MonoBehaviour
     public float damage = 1f;
 
     [Header("Combat")]
-    public List<Spells> specials = new List<Spells>();
-    public Spells specialBeta;
+    //public List<Spells> specials = new List<Spells>();
     public float dmgLowEnd = 1f;
     public float dmgHighEnd = 3f;
     public int critDC = 20;
@@ -72,6 +72,7 @@ public class PlayerCombat : MonoBehaviour
     private void Start()
     {
         impulseSource = GetComponent<CinemachineImpulseSource>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     private void Update()
@@ -100,13 +101,13 @@ public class PlayerCombat : MonoBehaviour
 
     public void SpecialInput(int index)
     {
-        float mpCost = specials[index].CostCalculation();
-        specials[index].Cost();
+        float mpCost = gameManager.specials[index].CostCalculation();
+        gameManager.specials[index].Cost();
 
         if (playerHealth.MP >= mpCost && spellTimer <= 0)
         {
             playerHealth.MP = playerHealth.MP - mpCost;
-            specials[index].Spell();
+            gameManager.specials[index].Spell();
             
             spellTimer = spellCooldown;
         }

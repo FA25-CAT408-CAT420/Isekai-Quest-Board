@@ -20,11 +20,12 @@ public class PlayerInteractions : MonoBehaviour
     private void Awake()
     {
         playerControls = new PlayerInputActions();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
+        
 
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 0.05f);
 

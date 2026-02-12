@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> totalSpells = new List<GameObject>();
     public List<GameObject> spellsToSpawn = new List<GameObject>();
     public List<GameObject> shopSpawners = new List<GameObject>();
+    public List<Spells> specials = new List<Spells>();
     private bool spellsPopulated = false;
     public CinemachineVirtualCamera camera;
 

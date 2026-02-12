@@ -15,7 +15,9 @@ public class PlayerMovement : MonoBehaviour
     private InputAction specialLeft;
     private InputAction specialRight;
 
-    int nextSpell = 0;
+    public int prevSpell = 0;
+    public int nextSpell = -1;
+    public int overSpell = 1;
 
     [Header("Movement")]
     public float gridSize = 1f;
@@ -34,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Scripts")]
     public PlayerCombat playerCombat;
+    private GameManager gameManager;
 
     [Header("AttackPoint")]
     public Vector2 pos1;
@@ -91,6 +94,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         currentSpeed = walkSpeed;
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     private void Update()
@@ -114,35 +118,32 @@ public class PlayerMovement : MonoBehaviour
             playerCombat.Attack();
         }
         
-        if (specialUp.WasPressedThisFrame())
+        if (gameManager.specials.Count > 0)
+        {
+            if (specialUp.WasPressedThisFrame())
             {
-                if (playerCombat.specials.Count > 0)
-                {
-                    playerCombat.SpecialInput(nextSpell);
-                    
-                }
-                else if (playerCombat.specials.Count <= 0)
-                {
-                    Debug.Log("You got no spells cuh");
-                }
-                
+                playerCombat.SpecialInput(nextSpell);           
             }
-        
-        if (specialLeft.WasPressedThisFrame()){
-            nextSpell--;
-        }
-        else if (specialRight.WasPressedThisFrame()){
-            nextSpell++;
-        }
+            
+            int count = gameManager.specials.Count;
 
-        if (nextSpell >= playerCombat.specials.Count)
-        {
-            nextSpell = 0;
+            if (specialLeft.WasPressedThisFrame())
+            {
+                nextSpell--;
+            }
+            else if (specialRight.WasPressedThisFrame())
+            {
+                nextSpell++;
+            }
+
+            // wrap main index
+            nextSpell = (nextSpell + count) % count;
+
+            // derive neighbors
+            prevSpell = (nextSpell - 1 + count) % count;
+            overSpell = (nextSpell + 1) % count;  
         }
-        else if (nextSpell < 0)
-        {
-            nextSpell = playerCombat.specials.Count - 1;
-        }
+        
         
         Debug.DrawRay(transform.position, pos1 * rayDistance, Color.red);
     }

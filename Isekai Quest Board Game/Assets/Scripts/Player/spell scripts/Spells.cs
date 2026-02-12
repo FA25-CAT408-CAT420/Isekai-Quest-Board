@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Spells : MonoBehaviour
 {
     public PlayerHealth playerStat;
     public int spellLvl = 1;
     public float baseMPCost;
+    public  Image sprite;
 
     void Awake(){
         GameObject playerOBJ = GameObject.FindGameObjectWithTag("Player");

@@ -229,6 +229,9 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
+  prevSpell: 0
+  nextSpell: -1
+  overSpell: 1
   gridSize: 32
   walkSpeed: 5
   runSpeed: 10
@@ -290,8 +293,6 @@ MonoBehaviour:
     m_Bits: 1088
   strength: 1
   damage: 10
-  specials: []
-  specialBeta: {fileID: 7469255327022073415, guid: 05f5bb6aabc804f4084b8f4d5d2a0c8d, type: 3}
   dmgLowEnd: 1
   dmgHighEnd: 3
   critDC: 20
