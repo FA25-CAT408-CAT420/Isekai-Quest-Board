@@ -38,6 +38,10 @@ public class EnemyBase : MonoBehaviour
     private Vector2 movement;
 
     [Header("Patrolling")]
+    public float moveDuration = 0.5f;
+    public float pauseDuration = 1f;
+    private Coroutine patrolRoutine;
+    private Coroutine chaseRoutine;
     private float gridSize = 1f;
     
 
@@ -89,7 +93,6 @@ public class EnemyBase : MonoBehaviour
         }
         if(enemyState == EnemyState.Patrolling)
         {
-            Patrol();
             SetDirection();
         }
         else if (enemyState == EnemyState.Chasing)
@@ -103,12 +106,12 @@ public class EnemyBase : MonoBehaviour
         }
     }
 
-    void Patrol()
+    /*void Patrol()
     {
-        //movement.x = speed * currentDirection;
-        //movement.y = rb.velocity.y;
-        //rb.velocity = movement;
-    }
+        movement.x = speed * currentDirection;
+        movement.y = rb.velocity.y;
+        rb.velocity = movement;
+    }*/
 
     void Chase()
     {
@@ -184,25 +187,112 @@ public class EnemyBase : MonoBehaviour
         }
    }
 
-   /*private IEnumerator Moving() {
-
-        int directionX = Random.Range(-1, 1);
-        int directionY = Random.Range(-1, 1);
-        return null;
-
-        Vector2 startPosition = transform.position;
-        Vector2 endPosition = startPosition + (facingDirection * gridSize);
-
-        float elapsedTime = 0;
-        while (elapsedTime < moveduration)
+   private IEnumerator PatrolRoutine() {
+        while (enemyState == EnemyState.Patrolling)
         {
-            elapsedTime += Time.deltaTime;
-            float percent = elapsedTime / moveduration;
-            transform.position = Vector2.Lerp(startPosition, endPosition, percent);
+
+            Vector2 direction = Vector2.zero;
+
+            // Randomly picks a direction for the slime to move towards.
+            int randomDir = Random.Range(0,4);
+
+            // A Switch case that assigns what each number will be used for
+            switch (randomDir)
+            {
+                case 0: direction = Vector2.right; break;
+                case 1: direction = Vector2.left; break;
+                case 2: direction = Vector2.up; break;
+                case 3: direction = Vector2.down; break;
+            }
+
+            // Flips the sprite when moving left and right
+            if (direction.x > 0)
+            {
+                sr.flipX = false;
+            }
+            if (direction.x < 0)
+            {
+                sr.flipX = true;
+            }
+            
+            // Calculates where the slime is and where the slime wants to go.
+            Vector2 startPosition = rb.position;
+            Vector2 targetPosition = startPosition + direction * gridSize;
+
+            float elapsedTime = 0f;
+
+            // How long it takes for the slime to move to that tile
+            while (elapsedTime < moveDuration)
+            {
+                elapsedTime += Time.deltaTime;
+                float percent = elapsedTime / moveDuration;
+
+                Vector2 newPosition = Vector2.Lerp(startPosition, targetPosition, percent);
+                rb.MovePosition(newPosition);
+
+                yield return null;
+            }
+
+            // Makes sure the slime snaps exactly to the grid
+            rb.MovePosition(targetPosition);
+
+            // How long we want the slime to pause before moving again.
+            yield return new WaitForSeconds(pauseDuration);
+        }
+   }
+
+   /*private IEnumerator ChaseRoutine()
+   {
+        
+        while (enemyState == EnemyState.Chasing)
+        {
+            // If close enough to attack... then attack
+            if (Vector2.Distance(rb.position, player.position) <= attackRange)
+            {
+                ChangeState(EnemyState.Attacking);
+                yield break;
+            }
+
+            Vector2 direction = Vector2.zero;
+
+            Vector2 difference = player.position - transform.position;
+
+            // Decide whether to move horizontally or vertically
+            if (Mathf.Abs(difference.x) > Mathf.Abs(difference.y))
+            {
+                direction = difference.x > 0 ? Vector2.right : Vector2.left;
+            }
+            else
+            {
+                direction = difference.y > 0 ? Vector2.up : Vector2.down;
+            }
+
+            
+            if (direction.x > 0)
+                sr.flipX = false;
+            else if (direction.x < 0)
+                sr.flipX = true;
+
+            Vector2 startPosition = rb.position;
+            Vector2 targetPosition = startPosition + direction * gridSize;
+
+            float elapsedTime = 0f;
+
+            while (elapsedTime < moveDuration)
+            {
+                elapsedTime += Time.deltaTime;
+                float percent = elapsedTime / moveDuration;
+
+                Vector2 newPosition = Vector2.Lerp(startPosition, targetPosition, percent);
+                rb.MovePosition(newPosition);
+
+                yield return null;
+            }
+
+            rb.MovePosition(targetPosition);
+
             yield return null;
         }
-
-        transform.position = endPosition;
    }*/
 
    void ChangeState(EnemyState newState)
@@ -222,6 +312,17 @@ public class EnemyBase : MonoBehaviour
             anim.SetBool("Moving", false);
         }
         
+        if (patrolRoutine != null)
+        {
+            StopCoroutine(patrolRoutine);
+            patrolRoutine = null;
+        }
+
+        /*if (chaseRoutine != null)
+        {
+            StopCoroutine(chaseRoutine);
+            chaseRoutine = null;
+        }*/
 
         //Update our current state
         enemyState = newState;
@@ -233,12 +334,22 @@ public class EnemyBase : MonoBehaviour
         }
         else if (enemyState == EnemyState.Chasing){
             anim.SetBool("Moving", true);
+
+            /*if (chaseRoutine == null)
+            {
+                chaseRoutine = StartCoroutine(ChaseRoutine());
+            }*/
         }
         else if (enemyState == EnemyState.Attacking){
             anim.SetBool("Attacking", true);
         }
         else if (enemyState == EnemyState.Patrolling){
             anim.SetBool("Moving", true);
+
+            if (patrolRoutine == null)
+            {
+                patrolRoutine = StartCoroutine(PatrolRoutine());
+            }
         }
    }
    

@@ -1203,6 +1203,7 @@ MonoBehaviour:
   totalSpells: []
   spellsToSpawn: []
   shopSpawners: []
+  specials: []
   camera: {fileID: 0}
   nextSpawnID: 
   gmHealthSP: 0
@@ -1814,6 +1815,10 @@ PrefabInstance:
       propertyPath: playerHealth
       value: 
       objectReference: {fileID: 963540240}
+    - target: {fileID: 7599089884731340252, guid: 170bb7d26c10f9047a2dade62894b04d, type: 3}
+      propertyPath: pauseDuration
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8522549908244588971, guid: 170bb7d26c10f9047a2dade62894b04d, type: 3}
       propertyPath: m_Name
       value: ENEMY
