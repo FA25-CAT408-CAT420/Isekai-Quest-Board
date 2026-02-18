@@ -20,12 +20,38 @@ public class EnemyCombat : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            
-            damage = baseScript.baseDamage;
-            other.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
-            other.gameObject.GetComponent<PlayerMovement>().StopMovementCoroutine();
-            other.gameObject.GetComponent<PlayerKnockback>().ApplyKnockback(transform.position);
-            Debug.Log("TOUCHED ME");
+            HandlePlayerContact(other.gameObject);
+        }
+    }
+
+    private void HandlePlayerContact(GameObject player)
+    {
+        Debug.Log("Enemy contacted Player – attempting damage + knockback");
+
+        // Damage
+        var health = player.GetComponent<PlayerHealth>();
+        if (health != null)
+        {
+            health.TakeDamage(damage);
+        }
+
+        // Stop ongoing move
+        var movement = player.GetComponent<PlayerMovement>();
+        if (movement != null)
+        {
+            movement.StopMovementCoroutine();
+        }
+
+        // Knockback – this is the critical call
+        var knockback = player.GetComponent<PlayerKnockback>();
+        if (knockback != null)
+        {
+            knockback.ApplyKnockback(transform.position);
+            Debug.Log("Called ApplyKnockback from enemy at " + transform.position);
+        }
+        else
+        {
+            Debug.LogWarning("Player has no PlayerKnockback component!");
         }
     }
 

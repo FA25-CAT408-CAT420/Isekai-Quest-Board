@@ -6,70 +6,113 @@ public class PlayerKnockback : MonoBehaviour
     public LayerMask wallLayer;
     public float tileSize = 1f;
     public float rayDistance = 0.7f;
-    private Vector2 moveDir;
-    public PlayerMovement playerMovement;
-    public Coroutine knockbackCoroutine;
+    public float knockbackSpeed = 5f;      // ← Tweak this! 4–8 range for smooth ~0.2–0.3s push
+    public float knockbackDuration = 0.3f; // Safety max time (prevents infinite if stuck)
+
+    // NEW – short delay before allowing input again (prevents immediate glide from held stick)
+    public float postKnockStunTime = 0.1f;
+
+    private Vector2 knockDir;
+    private PlayerMovement playerMovement;
+    private Coroutine knockbackCoroutine;
+
+    // NEW – reference to Rigidbody2D so we can zero velocity
+    private Rigidbody2D rb;
+
+    private void Awake()
+    {
+        playerMovement = GetComponent<PlayerMovement>();
+        rb = GetComponent<Rigidbody2D>();  // ← grab it here
+
+        if (playerMovement == null)
+        {
+            Debug.LogError("PlayerKnockback: PlayerMovement component not found!");
+        }
+        if (rb == null)
+        {
+            Debug.LogError("PlayerKnockback: Rigidbody2D component not found!");
+        }
+    }
 
     public void ApplyKnockback(Vector3 enemyPosition)
     {
-        // Cancel existing knockback
+        // Prevent overlap / spam
         if (knockbackCoroutine != null)
         {
             StopCoroutine(knockbackCoroutine);
             knockbackCoroutine = null;
         }
 
-        playerMovement.isMoving = true; // lock movement input
+        // Interrupt normal movement
+        playerMovement.StopMovementCoroutine();
 
-        Vector3 dir = (transform.position - enemyPosition).normalized;
+        Vector3 rawDir = (transform.position - enemyPosition).normalized;
 
-        // Cardinalize
-        if (Mathf.Abs(dir.x) > Mathf.Abs(dir.y))
-            moveDir = new Vector2(Mathf.Sign(dir.x), 0);
+        // Cardinalize (same as your movement)
+        if (Mathf.Abs(rawDir.x) > Mathf.Abs(rawDir.y))
+            knockDir = new Vector2(Mathf.Sign(rawDir.x), 0);
         else
-            moveDir = new Vector2(0, Mathf.Sign(dir.y));
+            knockDir = new Vector2(0, Mathf.Sign(rawDir.y));
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, moveDir, tileSize, wallLayer);
-        if (hit.collider != null)
+        // Check if path is blocked before starting
+        RaycastHit2D initialHit = Physics2D.Raycast(transform.position, knockDir, tileSize, wallLayer);
+        if (initialHit.collider != null)
         {
-            Debug.Log("Knockback blocked by wall.");
-            playerMovement.isMoving = false;
-            return;
+            Debug.Log("Knockback blocked by wall (initial check).");
+            return; // No knockback at all
         }
 
-        Vector3 targetPos = transform.position + (Vector3)moveDir;
-        knockbackCoroutine = StartCoroutine(Move(targetPos));
+        Vector3 targetPos = transform.position + (Vector3)knockDir * tileSize;
+
+        knockbackCoroutine = StartCoroutine(KnockbackRoutine(targetPos));
     }
 
-    IEnumerator Move(Vector3 targetPos)
+    private IEnumerator KnockbackRoutine(Vector3 targetPos)
     {
         float elapsed = 0f;
-        float timeout = 0.3f; // safety timeout
-        bool hitWall = false;
+        bool hitWallDuringMove = false;
 
-        while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon && elapsed < timeout)
+        while ((targetPos - transform.position).sqrMagnitude > 0.001f && elapsed < knockbackDuration)
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, moveDir, rayDistance, wallLayer);
+            // Mid-move wall check (same as your PlayerMovement)
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, knockDir, rayDistance, wallLayer);
             if (hit.collider != null)
             {
-                hitWall = true;
+                hitWallDuringMove = true;
+                Debug.Log("Knockback stopped mid-move - hit wall.");
                 break;
             }
 
-            transform.position = Vector3.MoveTowards(transform.position, targetPos, 15f * Time.deltaTime);
+            // Move smoothly
+            transform.position = Vector3.MoveTowards(
+                transform.position,
+                targetPos,
+                knockbackSpeed * Time.deltaTime
+            );
+
             elapsed += Time.deltaTime;
             yield return null;
         }
 
+        // Final snap to grid
         transform.position = new Vector3(
             Mathf.Round(transform.position.x),
             Mathf.Round(transform.position.y),
             Mathf.Round(transform.position.z)
         );
 
-        playerMovement.isMoving = false;
+        // NEW: stop any residual physics sliding
+        if (rb != null)
+        {
+            rb.velocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+        }
+
+        // NEW: short stun before player can move again (prevents held input from starting new move instantly)
+        yield return new WaitForSeconds(postKnockStunTime);
+
         knockbackCoroutine = null;
-        Debug.Log($"Knockback finished (wallHit={hitWall})");
+        Debug.Log($"Knockback finished (wallHitDuringMove={hitWallDuringMove})");
     }
 
     public void StopKnockbackCoroutine()
@@ -78,7 +121,24 @@ public class PlayerKnockback : MonoBehaviour
         {
             StopCoroutine(knockbackCoroutine);
             knockbackCoroutine = null;
-            playerMovement.isMoving = false;
         }
+
+        // Force snap + zero velocity if interrupted mid-knock
+        transform.position = new Vector3(
+            Mathf.Round(transform.position.x),
+            Mathf.Round(transform.position.y),
+            Mathf.Round(transform.position.z)
+        );
+
+        if (rb != null)
+        {
+            rb.velocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+        }
+    }
+
+    private void OnDisable()
+    {
+        StopKnockbackCoroutine();
     }
 }

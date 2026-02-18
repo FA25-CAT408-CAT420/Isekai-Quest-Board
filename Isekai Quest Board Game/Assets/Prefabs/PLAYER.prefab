@@ -86,7 +86,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1953818336411279484}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -339,7 +339,9 @@ MonoBehaviour:
     m_Bits: 128
   tileSize: 1
   rayDistance: 0.7
-  playerMovement: {fileID: 7149786371712973272}
+  knockbackSpeed: 5
+  knockbackDuration: 0.3
+  postKnockStunTime: 0.1
 --- !u!114 &2548004325550205469
 MonoBehaviour:
   m_ObjectHideFlags: 0
