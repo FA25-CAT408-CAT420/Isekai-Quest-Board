@@ -30,11 +30,17 @@ public class GameManager : MonoBehaviour
     [Header("Transition/Spawn")]
     public string nextSpawnID = ""; // ID of spawn point in next scene
 
+    [Header("Shop Spawn Delay")]
+    [Tooltip("Seconds to wait after Forest loads before spawning shop items (helps with registration timing)")]
+    public float spawnDelaySeconds = 0.8f;  // ← Start here, try 1.0–1.5 if still 0
+
+    private float spawnTimer = 0f;
+    private bool waitingToSpawn = false;
+
     private PlayerInputActions inputActions;
     private InputAction submit;
 
     [Header("Skill Points Saved")]
-    // PLAYERS STAT POINTS SAVE
     public float gmHealthSP;
     public float gmStrengthSP;
     public float gmDefenseSP;
@@ -51,7 +57,6 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
         inputActions = new PlayerInputActions();
     }
 
@@ -61,10 +66,20 @@ public class GameManager : MonoBehaviour
         {
             soulCounter.text = soulPoints.ToString();
         }
-
         if (soulPoints < 0) soulPoints = 0;
 
+        // Timer runs here — starts immediately on scene load
+        if (waitingToSpawn)
+        {
+            spawnTimer += Time.deltaTime;
 
+            if (spawnTimer >= spawnDelaySeconds)
+            {
+                waitingToSpawn = false;
+                StartCoroutine(SpawnSpells());
+                Debug.Log($"Spawn delay complete ({spawnTimer:F2}s) — starting SpawnSpells (spawners: {shopSpawners.Count})");
+            }
+        }
     }
 
     void OnEnable()
@@ -72,7 +87,6 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
         submit = inputActions.UI.Submit;
         submit.performed += OnSubmit;
-
         inputActions.Enable();
         submit.Enable();
     }
@@ -81,7 +95,6 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
         submit.performed -= OnSubmit;
-
         inputActions.Disable();
         submit.Disable();
     }
@@ -118,33 +131,45 @@ public class GameManager : MonoBehaviour
 
         if (scene.name == "Forest")
         {
-            
             spellsPopulated = false;
             spellsToSpawn.Clear();
-            shopSpawners.Clear();
-            StartCoroutine(SpawnSpells());
+
+            // Start timer immediately on load
+            spawnTimer = 0f;
+            waitingToSpawn = true;
+
+            Debug.Log($"Forest loaded — spawn timer started ({spawnDelaySeconds}s delay)");
         }
         else
         {
             spellsPopulated = false;
+            waitingToSpawn = false;
         }
     }
 
     IEnumerator SpawnSpells()
-    {   
+    {  
+        // Optional: one extra frame for safety
         yield return null;
-        if (!spellsPopulated)
-            {
-                for (int i = 0; i < totalSpells.Count; i++)
-                {
-                    spellsToSpawn.Add(totalSpells[i]);
-                }
 
-                spellsPopulated = true; 
-            }   
+        Debug.Log($"SpawnSpells activated — spawners found: {shopSpawners.Count}");
+
+        if (!spellsPopulated)
+        {
+            for (int i = 0; i < totalSpells.Count; i++)
+            {
+                spellsToSpawn.Add(totalSpells[i]);
+            }
+            spellsPopulated = true;
+        }  
 
         if (spellsPopulated)
         {
+            if (shopSpawners.Count == 0)
+            {
+                Debug.LogWarning("No shop spawners registered — check ShopSpawner scripts or increase delay!");
+            }
+
             for (int j = 0; j < shopSpawners.Count && spellsToSpawn.Count > 0; j++)
             {
                 int r = Random.Range(0, spellsToSpawn.Count);
@@ -173,10 +198,8 @@ public class GameManager : MonoBehaviour
     private void SpawnPlayerAtNextSpawn()
     {
         if (string.IsNullOrEmpty(nextSpawnID)) return;
-
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player == null) return;
-
         SpawnPoint[] points = FindObjectsOfType<SpawnPoint>();
         foreach (var p in points)
         {
@@ -207,10 +230,12 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("Forest");
     }
+
     public void creditScene()
     {
         SceneManager.LoadScene("Credits");
     }
+
     public void titleScreen()
     {
         SceneManager.LoadScene("Title Screen");

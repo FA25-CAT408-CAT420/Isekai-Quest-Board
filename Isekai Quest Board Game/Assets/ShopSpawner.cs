@@ -1,35 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 public class ShopSpawner : MonoBehaviour
 {
     private GameManager gameManager;
-    public GameObject[] spellList;
-    // Start is called before the first frame update
+    public GameObject[] spellList;  // ← you can keep this if you need it locally
+
+    void Awake()
+    {
+        Debug.Log($"[ShopSpawner {gameObject.name}] Awake at time: {Time.time:F2}");
+        gameManager = FindObjectOfType<GameManager>();
+
+        if (gameManager == null)
+        {
+            Debug.LogError("ShopSpawner couldn't find GameManager!", this);
+            return;
+        }
+
+        PopulateSpawners();
+    }
+
     void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
-        PopulateSpawners();
-
+        // If you still need something in Start, keep it here
+        // But registration should be in Awake now
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    // public void PopulateSpells()
-    // {
-    //     spellList = new GameObject[gameManager.totalSpells.Length];
-    //     for (int i = 0; i < gameManager.totalSpells.Length; i++)
-    //     {
-    //         spellList[i] = gameManager.totalSpells[i]; 
-    //     }
-    // }
 
     public void PopulateSpawners()
     {
-        gameManager.shopSpawners.Add(gameObject);
+        if (!gameManager.shopSpawners.Contains(gameObject))
+        {
+            gameManager.shopSpawners.Add(gameObject);
+            Debug.Log($"[ShopSpawner] Registered {gameObject.name} in Awake()");
+        }
     }
 }
