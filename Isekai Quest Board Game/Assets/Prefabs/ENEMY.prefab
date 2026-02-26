@@ -1066,6 +1066,8 @@ MonoBehaviour:
   playerHealth: {fileID: 0}
   soul: {fileID: 2962393454113147998, guid: 95319887f104c3b4f9ac416a2bcc3457, type: 3}
   health: {fileID: -1484128562349248572}
+  moveDuration: 0.2
+  pauseDuration: 1
 --- !u!114 &-1484128562349248572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1112,4 +1114,4 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 512
-  baseScript: {fileID: 0}
+  baseScript: {fileID: 7599089884731340252}

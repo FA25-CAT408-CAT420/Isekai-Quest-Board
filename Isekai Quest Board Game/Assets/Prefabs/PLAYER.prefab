@@ -292,7 +292,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1088
   strength: 1
-  damage: 10
+  damage: 2
   dmgLowEnd: 1
   dmgHighEnd: 3
   critDC: 20
