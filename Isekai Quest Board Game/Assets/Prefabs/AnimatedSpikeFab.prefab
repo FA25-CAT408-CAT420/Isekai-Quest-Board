@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2947896236083388344}
   - component: {fileID: 8164168319524928836}
   m_Layer: 0
-  m_Name: SpikeFab
+  m_Name: AnimatedSpikeFab
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
