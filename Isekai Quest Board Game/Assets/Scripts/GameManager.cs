@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour
         {
             soulCounter.text = soulPoints.ToString();
         }
+
         if (soulPoints < 0) soulPoints = 0;
 
         // Timer runs here — starts immediately on scene load
@@ -105,7 +106,7 @@ public class GameManager : MonoBehaviour
         GUI = GameObject.FindWithTag("UI");
         if (GUI != null)
         {
-            soulCounter = GUI.transform.Find("SoulGroup/Soul Counter")?.GetComponent<TextMeshProUGUI>();
+            soulCounter = GUI.transform.Find("DungeonUI/SoulGroup/Soul Counter")?.GetComponent<TextMeshProUGUI>();
         }
 
         if (camera == null)

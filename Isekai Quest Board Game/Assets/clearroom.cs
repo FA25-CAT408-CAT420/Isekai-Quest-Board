@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class ClearRoom : MonoBehaviour
 {
     [Header("Spawn Settings")]
-    [Tooltip("Drag your enemy prefab here")]
+    public GameManager gameManager;
     public GameObject enemyPrefab;
 
     [Tooltip("Minimum enemies to spawn (at least 1 recommended)")]
@@ -34,6 +34,7 @@ public class ClearRoom : MonoBehaviour
     void Start()
     {
         roomTrigger = GetComponent<Collider2D>();
+        gameManager = FindObjectOfType<GameManager>();
         if (roomTrigger == null || !roomTrigger.isTrigger)
         {
             Debug.LogError($"{nameof(ClearRoom)} needs a trigger Collider2D on this GameObject!");
@@ -103,6 +104,14 @@ public class ClearRoom : MonoBehaviour
 
     private void LoadNextScene()
     {
+        gameManager.floorsCleared++;
+        if (gameManager.floorsCleared >= 3){
+            nextSceneName = "Boss Room";
+        }
+        else if (gameManager.floorsCleared < 3)
+        {
+            nextSceneName = "Dungeon Depths";
+        }
         if (string.IsNullOrEmpty(nextSceneName))
         {
             Debug.LogWarning("nextSceneName is empty — cannot load scene.");

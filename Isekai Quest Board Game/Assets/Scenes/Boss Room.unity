@@ -631,7 +631,7 @@ RectTransform:
   m_GameObject: {fileID: 137669582}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 1, z: 1}
+  m_LocalScale: {x: 1.7035904, y: 0.39843073, z: 0.70831}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1673392702}
@@ -641,7 +641,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -480}
+  m_AnchoredPosition: {x: 0, y: -240}
   m_SizeDelta: {x: 500, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &137669584
@@ -8761,6 +8761,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 690427096015991442, guid: 9b02c34bfacb1dd448d9cd4ac4ef2483, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -790
+      objectReference: {fileID: 0}
     - target: {fileID: 1705430504120475624, guid: 9b02c34bfacb1dd448d9cd4ac4ef2483, type: 3}
       propertyPath: m_Name
       value: GUI
@@ -8881,6 +8885,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4379453761874878217, guid: 9b02c34bfacb1dd448d9cd4ac4ef2483, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4379453761874878217, guid: 9b02c34bfacb1dd448d9cd4ac4ef2483, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 5069946708955571683, guid: 9b02c34bfacb1dd448d9cd4ac4ef2483, type: 3}
       propertyPath: playerMP
       value: 
@@ -8889,6 +8901,22 @@ PrefabInstance:
       propertyPath: playerHealth
       value: 
       objectReference: {fileID: 1553207564}
+    - target: {fileID: 5464006105803743302, guid: 9b02c34bfacb1dd448d9cd4ac4ef2483, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5464006105803743302, guid: 9b02c34bfacb1dd448d9cd4ac4ef2483, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 6836383434685969893, guid: 9b02c34bfacb1dd448d9cd4ac4ef2483, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6836383434685969893, guid: 9b02c34bfacb1dd448d9cd4ac4ef2483, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
