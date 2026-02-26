@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e20649c64004402469d4f39655e42bb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  price: 0
+  price: 3
   currentStat: 0
   prefabReference: {fileID: 689625291555262072}
 --- !u!1 &7224123592866465995
