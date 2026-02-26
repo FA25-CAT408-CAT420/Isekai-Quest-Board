@@ -134,7 +134,7 @@ public class EnemyBase : MonoBehaviour
             // Draw a ray starting at the center of our enemy and point it to the right
             // Check to see if the raycast is intersecting with a wall
             // Also Check to make sure our enemy is actually WALKING right
-            // if we don't do this check the enemy will get stuck moving constantly backj and forth
+            // if we don't do this check the enemy will get stuck moving constantly back and forth
             currentDirection *= -1;
             sr.flipX = true;
             }
@@ -241,59 +241,12 @@ public class EnemyBase : MonoBehaviour
         }
    }
 
-   /*private IEnumerator ChaseRoutine()
-   {
+//    private IEnumerator ChaseLogic(){
+//     while (enemyState == EnemyState.Chasing)
+//     {
         
-        while (enemyState == EnemyState.Chasing)
-        {
-            // If close enough to attack... then attack
-            if (Vector2.Distance(rb.position, player.position) <= attackRange)
-            {
-                ChangeState(EnemyState.Attacking);
-                yield break;
-            }
-
-            Vector2 direction = Vector2.zero;
-
-            Vector2 difference = player.position - transform.position;
-
-            // Decide whether to move horizontally or vertically
-            if (Mathf.Abs(difference.x) > Mathf.Abs(difference.y))
-            {
-                direction = difference.x > 0 ? Vector2.right : Vector2.left;
-            }
-            else
-            {
-                direction = difference.y > 0 ? Vector2.up : Vector2.down;
-            }
-
-            
-            if (direction.x > 0)
-                sr.flipX = false;
-            else if (direction.x < 0)
-                sr.flipX = true;
-
-            Vector2 startPosition = rb.position;
-            Vector2 targetPosition = startPosition + direction * gridSize;
-
-            float elapsedTime = 0f;
-
-            while (elapsedTime < moveDuration)
-            {
-                elapsedTime += Time.deltaTime;
-                float percent = elapsedTime / moveDuration;
-
-                Vector2 newPosition = Vector2.Lerp(startPosition, targetPosition, percent);
-                rb.MovePosition(newPosition);
-
-                yield return null;
-            }
-
-            rb.MovePosition(targetPosition);
-
-            yield return null;
-        }
-   }*/
+//     }
+//    }
 
    void ChangeState(EnemyState newState)
    {

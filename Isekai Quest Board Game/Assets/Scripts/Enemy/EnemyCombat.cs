@@ -55,16 +55,16 @@ public class EnemyCombat : MonoBehaviour
         }
     }
 
-    public void Attack()
-    {
-        Debug.Log("Attacking Player Now!");
-        Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, weaponRange, playerLayer);
+    // public void Attack()
+    // {
+    //     Debug.Log("Attacking Player Now!");
+    //     Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, weaponRange, playerLayer);
 
-        if (hits.Length > 0)
-        {
-            hits[0].GetComponent<PlayerHealth>().TakeDamage(damage);
-        }
-    }
+    //     if (hits.Length > 0)
+    //     {
+    //         hits[0].GetComponent<PlayerHealth>().TakeDamage(damage);
+    //     }
+    // }
 
     void Shoot()
     {
