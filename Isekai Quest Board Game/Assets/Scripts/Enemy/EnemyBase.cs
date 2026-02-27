@@ -43,6 +43,8 @@ public class EnemyBase : MonoBehaviour
     private Coroutine patrolRoutine;
     private Coroutine chaseRoutine;
     private float gridSize = 1f;
+    private bool isMoving = false;
+    private Vector2 targetPosition;
     
 
     // Start is called before the first frame update
@@ -91,33 +93,60 @@ public class EnemyBase : MonoBehaviour
         {
             attackCooldownTimer -= Time.deltaTime;
         }
-        if(enemyState == EnemyState.Patrolling)
+        switch (enemyState)
         {
-            SetDirection();
-        }
-        else if (enemyState == EnemyState.Chasing)
-        {
-            Chase();
-        }
-        else if(enemyState == EnemyState.Attacking)
-        {
-            //Attacky stuff
-            rb.velocity = Vector2.zero;
+            case EnemyState.Patrolling:
+                SetDirection();
+                break;
+
+            case EnemyState.Chasing:
+                ChaseGrid();
+                break;
+    
+            case EnemyState.Attacking:
+                rb.velocity = Vector2.zero;
+                isMoving = false;
+                break;
         }
     }
 
-    /*void Patrol()
+    void ChaseGrid()
     {
-        movement.x = speed * currentDirection;
-        movement.y = rb.velocity.y;
-        rb.velocity = movement;
-    }*/
+        if (player == null) return;
 
-    void Chase()
+        // If already moving towards a tile then continue moving
+        if (isMoving)
+        {
+            ChasePlayer();
+            return;
+        }
+
+        // Choose next tile step
+        Vector2 direction = player.position - transform.position;
+
+        Vector2 moveDir = Vector2.zero;
+
+        if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+        {
+            moveDir = new Vector2(Mathf.Sign(direction.x), 0);
+        }
+        else {
+            moveDir = new Vector2(0, Mathf.Sign(direction.y));
+        }
+
+        targetPosition = (Vector2)transform.position + moveDir;
+        isMoving = true;
+    }
+
+    void ChasePlayer()
     {
+        transform.position = Vector2.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
 
-        Vector2 direction = (player.position - transform.position).normalized;
-        rb.velocity = direction * speed;
+        if (Vector2.Distance(transform.position, targetPosition) < 0.01f)
+        {
+            transform.position = targetPosition;
+            isMoving = false;
+        }
     }
 
     private void SetDirection()
@@ -241,13 +270,6 @@ public class EnemyBase : MonoBehaviour
         }
    }
 
-//    private IEnumerator ChaseLogic(){
-//     while (enemyState == EnemyState.Chasing)
-//     {
-        
-//     }
-//    }
-
    void ChangeState(EnemyState newState)
    {
     //Exit the current animation
@@ -271,11 +293,8 @@ public class EnemyBase : MonoBehaviour
             patrolRoutine = null;
         }
 
-        /*if (chaseRoutine != null)
-        {
-            StopCoroutine(chaseRoutine);
-            chaseRoutine = null;
-        }*/
+        rb.velocity = Vector2.zero;
+        isMoving = false;
 
         //Update our current state
         enemyState = newState;
@@ -287,11 +306,6 @@ public class EnemyBase : MonoBehaviour
         }
         else if (enemyState == EnemyState.Chasing){
             anim.SetBool("Moving", true);
-
-            /*if (chaseRoutine == null)
-            {
-                chaseRoutine = StartCoroutine(ChaseRoutine());
-            }*/
         }
         else if (enemyState == EnemyState.Attacking){
             anim.SetBool("Attacking", true);
