@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BossAi : MonoBehaviour
 {
@@ -25,8 +26,8 @@ public class BossAi : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         health = GetComponent<EnemyHealth>();
-        currentHealth = health.currentHealth;
-        maxHealth = health.maxHealth;
+        currentHealth = health.bossCurrentHealth;
+        maxHealth = health.bossMaxHealth;
     }
 
     // Update is called once per frame
@@ -41,7 +42,7 @@ public class BossAi : MonoBehaviour
 
     private void CheckHealth()
     {
-        if (!phase2Activated && health.currentHealth <= health.maxHealth / 2)
+        if (!phase2Activated && health.bossCurrentHealth <= health.bossMaxHealth / 2)
         {
             phase2Activated = true;
             Debug.Log("Phase 2 Activated");
@@ -57,6 +58,13 @@ public class BossAi : MonoBehaviour
             other.gameObject.GetComponent<PlayerMovement>().StopMovementCoroutine();
             other.gameObject.GetComponent<PlayerKnockback>().ApplyKnockback(transform.position);
         }
+    }
+
+    public IEnumerator DeathSequence()
+    {
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene("Forest");
+
     }
 
     public void Shoot()
