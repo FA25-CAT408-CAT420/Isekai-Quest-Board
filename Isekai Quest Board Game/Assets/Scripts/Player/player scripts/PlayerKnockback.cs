@@ -69,6 +69,7 @@ public class PlayerKnockback : MonoBehaviour
 
     private IEnumerator KnockbackRoutine(Vector3 targetPos)
     {
+        playerMovement.enabled = false;
         float elapsed = 0f;
         bool hitWallDuringMove = false;
 
@@ -110,6 +111,7 @@ public class PlayerKnockback : MonoBehaviour
 
         // NEW: short stun before player can move again (prevents held input from starting new move instantly)
         yield return new WaitForSeconds(postKnockStunTime);
+        playerMovement.enabled = true;
 
         knockbackCoroutine = null;
         Debug.Log($"Knockback finished (wallHitDuringMove={hitWallDuringMove})");
@@ -135,6 +137,8 @@ public class PlayerKnockback : MonoBehaviour
             rb.velocity = Vector2.zero;
             rb.angularVelocity = 0f;
         }
+
+        
     }
 
     private void OnDisable()

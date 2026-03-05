@@ -10,11 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2054890818652936847}
   - component: {fileID: 1918731525901375287}
-  - component: {fileID: 1758719495828035754}
-  - component: {fileID: 1186796363184851029}
-  - component: {fileID: 2947896236083388344}
   - component: {fileID: 8164168319524928836}
-  m_Layer: 0
+  - component: {fileID: 1908467731373947616}
+  - component: {fileID: 4766609260577716087}
+  m_Layer: 6
   m_Name: SpikeFab
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -35,7 +34,7 @@ Transform:
   m_Children:
   - {fileID: 3408242588192745873}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1918731525901375287
 SpriteRenderer:
@@ -89,7 +88,34 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1758719495828035754
+--- !u!50 &8164168319524928836
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328633636357994053}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
+--- !u!114 &1908467731373947616
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -98,49 +124,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 328633636357994053}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32156a31f73dfd0438310aba51e839fd, type: 3}
+  m_Script: {fileID: 11500000, guid: 58b2b7a963adc674f96a4de36b988134, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SlimeSpit: {fileID: 0}
-  damage: 11.5
-  attackPoint: {fileID: 0}
-  weaponRange: 0
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  baseScript: {fileID: 1186796363184851029}
---- !u!114 &1186796363184851029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 328633636357994053}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6d12cda87f9a9845b2275b5530a9bb7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentHealth: 3.16
-  maxHealth: 4.81
-  baseDamage: 5
-  knockbackForce: 1
-  AC: 10
-  speed: 0
-  attackRange: 2
-  attackCooldown: 2
-  playerDetectedRange: 5
-  detectionPoint: {fileID: 0}
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  playerHealth: {fileID: 0}
-  soul: {fileID: 0}
-  health: {fileID: 0}
-  moveDuration: 0.5
-  pauseDuration: 1
---- !u!58 &2947896236083388344
-CircleCollider2D:
+  damage: 2
+  isEnabled: 1
+--- !u!61 &4766609260577716087
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -172,35 +162,18 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.5
---- !u!50 &8164168319524928836
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 328633636357994053}
-  m_BodyType: 2
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &1247399479339458483
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,7 +184,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3408242588192745873}
   - component: {fileID: 7281284357243481630}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Stone Brick
   m_TagString: Untagged
   m_Icon: {fileID: 0}

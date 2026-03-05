@@ -118,32 +118,34 @@ public class PlayerMovement : MonoBehaviour
             playerCombat.Attack();
         }
         
-        if (gameManager.specials.Count > 0)
+        if (gameManager != null)
         {
-            if (specialUp.WasPressedThisFrame())
+            if (gameManager.specials.Count > 0)
             {
-                playerCombat.SpecialInput(nextSpell);           
-            }
-            
-            int count = gameManager.specials.Count;
+                if (specialUp.WasPressedThisFrame())
+                {
+                    playerCombat.SpecialInput(nextSpell);           
+                }
+                
+                int count = gameManager.specials.Count;
 
-            if (specialLeft.WasPressedThisFrame())
-            {
-                nextSpell--;
-            }
-            else if (specialRight.WasPressedThisFrame())
-            {
-                nextSpell++;
-            }
+                if (specialLeft.WasPressedThisFrame())
+                {
+                    nextSpell--;
+                }
+                else if (specialRight.WasPressedThisFrame())
+                {
+                    nextSpell++;
+                }
 
-            // wrap main index
-            nextSpell = (nextSpell + count) % count;
+                // wrap main index
+                nextSpell = (nextSpell + count) % count;
 
-            // derive neighbors
-            prevSpell = (nextSpell - 1 + count) % count;
-            overSpell = (nextSpell + 1) % count;  
+                // derive neighbors
+                prevSpell = (nextSpell - 1 + count) % count;
+                overSpell = (nextSpell + 1) % count;  
+            }
         }
-        
         
         Debug.DrawRay(transform.position, pos1 * rayDistance, Color.red);
     }
@@ -228,3 +230,4 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 }
+        

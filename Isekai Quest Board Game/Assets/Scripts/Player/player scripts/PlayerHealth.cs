@@ -51,8 +51,11 @@ public class PlayerHealth : MonoBehaviour
         //gameManager.gmStrengthSP = gameManager.gmHealthSP = gameManager.gmDefenseSP = 0;
         playerMovement.StopAllCoroutines();
         playerMovement.enabled = false;
-        gameManager.soulDropped = true;
-        gameManager.isDead = true;
+        if (gameManager != null)
+        {
+            gameManager.soulDropped = true;
+            gameManager.isDead = true; 
+        }
         CanvasGroup dungeonUI = GameObject.FindGameObjectWithTag("UI").transform.Find("DungeonUI").GetComponent<CanvasGroup>();
         CanvasGroup deathUI = GameObject.FindGameObjectWithTag("UI").transform.Find("DeathUI").GetComponent<CanvasGroup>();
         dungeonUI.alpha = 0;

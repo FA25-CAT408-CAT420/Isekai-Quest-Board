@@ -2,28 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyCombat : MonoBehaviour
+public class SpikeDamage : MonoBehaviour
 {
-    public GameObject SlimeSpit;
     public float damage;
-    public Transform attackPoint;
-    public float weaponRange;
-    public LayerMask playerLayer;
-    public EnemyBase baseScript;
+    public bool isEnabled = true;
+    // Start is called before the first frame update
+    void OnCollisionStay2D (Collision2D other)
+    {
+
+        if (isEnabled)
+        {
+            if (other.gameObject.tag == "Player")
+            {
+                HandlePlayerContact(other.gameObject);
+            }  
+        }
+        else if (!isEnabled)
+        {
+            return;
+        }
+
+    }
 
     void Start()
     {
         
     }
-
-    void OnCollisionStay2D (Collision2D other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            HandlePlayerContact(other.gameObject);
-        }
-    }
-
     private void HandlePlayerContact(GameObject player)
     {
         Debug.Log("Enemy contacted Player – attempting damage + knockback");
@@ -53,21 +57,5 @@ public class EnemyCombat : MonoBehaviour
         {
             Debug.LogWarning("Player has no PlayerKnockback component!");
         }
-    }
-
-    // public void Attack()
-    // {
-    //     Debug.Log("Attacking Player Now!");
-    //     Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, weaponRange, playerLayer);
-
-    //     if (hits.Length > 0)
-    //     {
-    //         hits[0].GetComponent<PlayerHealth>().TakeDamage(damage);
-    //     }
-    // }
-
-    void Shoot()
-    {
-        Instantiate(SlimeSpit, attackPoint.position, Quaternion.identity);
     }
 }
