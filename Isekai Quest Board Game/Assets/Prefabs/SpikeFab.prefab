@@ -10,10 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2054890818652936847}
   - component: {fileID: 1918731525901375287}
-  - component: {fileID: 1758719495828035754}
-  - component: {fileID: 1186796363184851029}
   - component: {fileID: 2947896236083388344}
   - component: {fileID: 8164168319524928836}
+  - component: {fileID: -1139355021752699579}
   m_Layer: 0
   m_Name: SpikeFab
   m_TagString: Enemy
@@ -88,54 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1758719495828035754
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 328633636357994053}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32156a31f73dfd0438310aba51e839fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SlimeSpit: {fileID: 0}
-  damage: 11.5
-  attackPoint: {fileID: 0}
-  weaponRange: 0
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  baseScript: {fileID: 1186796363184851029}
---- !u!114 &1186796363184851029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 328633636357994053}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6d12cda87f9a9845b2275b5530a9bb7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentHealth: 3.16
-  maxHealth: 4.81
-  baseDamage: 5
-  knockbackForce: 1
-  AC: 10
-  speed: 0
-  attackRange: 2
-  attackCooldown: 2
-  playerDetectedRange: 5
-  detectionPoint: {fileID: 0}
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  playerHealth: {fileID: 0}
-  soul: {fileID: 0}
-  health: {fileID: 0}
 --- !u!58 &2947896236083388344
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -198,3 +149,17 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-1139355021752699579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328633636357994053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80d7bdff2505a5c4484370f8a1e66cdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spikeID: 
+  anim: {fileID: 0}
