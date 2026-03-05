@@ -3048,6 +3048,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1247562351125443041, guid: 4f4cac06a5964174cad2a12a589e2f49, type: 3}
   m_PrefabInstance: {fileID: 1632244212}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1111912728 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8788489516097825642, guid: 4f4cac06a5964174cad2a12a589e2f49, type: 3}
+  m_PrefabInstance: {fileID: 1632244212}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 520c8ec5a3a91b54e929f1b798d81c7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1128388505
 GameObject:
   m_ObjectHideFlags: 0
@@ -7223,9 +7234,25 @@ PrefabInstance:
     m_TransformParent: {fileID: 852623489}
     m_Modifications:
     - target: {fileID: -8304202370577635987, guid: 4f4cac06a5964174cad2a12a589e2f49, type: 3}
+      propertyPath: bm
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: -8304202370577635987, guid: 4f4cac06a5964174cad2a12a589e2f49, type: 3}
       propertyPath: health
       value: 
       objectReference: {fileID: 345344497}
+    - target: {fileID: -8304202370577635987, guid: 4f4cac06a5964174cad2a12a589e2f49, type: 3}
+      propertyPath: slimeQueen
+      value: 
+      objectReference: {fileID: 1111912728}
+    - target: {fileID: -8304202370577635987, guid: 4f4cac06a5964174cad2a12a589e2f49, type: 3}
+      propertyPath: bossMaxHealth
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: -8304202370577635987, guid: 4f4cac06a5964174cad2a12a589e2f49, type: 3}
+      propertyPath: bossCurrentHealth
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 1247562351125443041, guid: 4f4cac06a5964174cad2a12a589e2f49, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -7301,6 +7328,10 @@ PrefabInstance:
     - target: {fileID: 7559844408041535898, guid: 4f4cac06a5964174cad2a12a589e2f49, type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8788489516097825642, guid: 4f4cac06a5964174cad2a12a589e2f49, type: 3}
+      propertyPath: bm
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8788489516097825642, guid: 4f4cac06a5964174cad2a12a589e2f49, type: 3}
       propertyPath: health
@@ -8703,6 +8734,10 @@ PrefabInstance:
     - target: {fileID: 1953818336411279484, guid: 48ad5864c68ed994d9c2f82b2364ae2c, type: 3}
       propertyPath: m_Name
       value: PLAYER
+      objectReference: {fileID: 0}
+    - target: {fileID: 3274580111201372800, guid: 48ad5864c68ed994d9c2f82b2364ae2c, type: 3}
+      propertyPath: damage
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6080069490259960591, guid: 48ad5864c68ed994d9c2f82b2364ae2c, type: 3}
       propertyPath: m_RootOrder
