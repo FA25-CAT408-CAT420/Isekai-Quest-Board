@@ -8,9 +8,7 @@ public class EnemyHealth : MonoBehaviour
     public float maxHealth;
     public GameObject soul;
     public BossAi slimeQueen;
-
-    public float bossCurrentHealth;
-    public float bossMaxHealth;
+    public bool isBoss = false;
 
     AudioManager audioManager;
     // Start is called before the first frame update
@@ -21,14 +19,12 @@ public class EnemyHealth : MonoBehaviour
     public void Start()
     {
         currentHealth = maxHealth;
-        bossCurrentHealth = bossMaxHealth;
     }
 
     public void TakeDamage(float damage)
     {
 
         currentHealth += damage;
-        bossCurrentHealth += damage;
 
         //audioManager.PlaySFX(audioManager.slimeHurt);
 
@@ -39,17 +35,15 @@ public class EnemyHealth : MonoBehaviour
         else if (currentHealth <= 0)
         {
             Instantiate(soul, transform.position, Quaternion.identity);
-            Destroy(gameObject);
-        }
-
-        if (bossCurrentHealth >= bossMaxHealth)
-        {
-            bossCurrentHealth = bossMaxHealth;
-        }
-        else if (bossCurrentHealth <= 0)
-        {
-            Instantiate(soul, transform.position, Quaternion.identity);
-            slimeQueen.StartCoroutine(slimeQueen.DeathSequence());
+            
+            if (isBoss && slimeQueen != null)
+            {
+                slimeQueen.StartCoroutine(slimeQueen.DeathSequence());
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

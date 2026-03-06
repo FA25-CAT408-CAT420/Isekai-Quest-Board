@@ -26,8 +26,8 @@ public class BossAi : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         health = GetComponent<EnemyHealth>();
-        currentHealth = health.bossCurrentHealth;
-        maxHealth = health.bossMaxHealth;
+        currentHealth = health.currentHealth;
+        maxHealth = health.maxHealth;
     }
 
     // Update is called once per frame
@@ -42,7 +42,7 @@ public class BossAi : MonoBehaviour
 
     private void CheckHealth()
     {
-        if (!phase2Activated && health.bossCurrentHealth <= health.bossMaxHealth / 2)
+        if (!phase2Activated && health.currentHealth <= health.maxHealth / 2)
         {
             phase2Activated = true;
             Debug.Log("Phase 2 Activated");

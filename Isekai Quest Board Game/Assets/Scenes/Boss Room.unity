@@ -7242,6 +7242,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 345344497}
     - target: {fileID: -8304202370577635987, guid: 4f4cac06a5964174cad2a12a589e2f49, type: 3}
+      propertyPath: isBoss
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8304202370577635987, guid: 4f4cac06a5964174cad2a12a589e2f49, type: 3}
       propertyPath: slimeQueen
       value: 
       objectReference: {fileID: 1111912728}
@@ -7301,6 +7305,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 5287550985107078977, guid: 4f4cac06a5964174cad2a12a589e2f49, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 7c8a35c46bcc8ff4a9cff6e09fda8d58, type: 2}
     - target: {fileID: 6643388301951590220, guid: 4f4cac06a5964174cad2a12a589e2f49, type: 3}
       propertyPath: ventPoints.Array.data[0]
       value: 
