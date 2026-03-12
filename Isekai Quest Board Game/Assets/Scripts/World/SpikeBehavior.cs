@@ -10,7 +10,7 @@ public class SpikeBehavior : MonoBehaviour
     public SpikeDamage spkDMG;
     public List<SpikeTraps> spikeList = new List<SpikeTraps>();
 
-    public float delayBetweenSpikes = 0.4f;
+    public float delayBetweenSpikes = 0.67f;
     public float delayBetweenWaves = 2f;
 
     private bool isRunning;
