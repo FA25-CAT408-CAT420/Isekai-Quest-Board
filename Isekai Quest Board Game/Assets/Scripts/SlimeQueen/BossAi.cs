@@ -7,7 +7,8 @@ public class BossAi : MonoBehaviour
 {
     public float currentHealth;
     public float maxHealth;
-    public float damage = 5f;
+    public float baseDamage = 4f;
+    public float outDamage;
     public bool phase2Activated = false;
     
     public Transform attackPoint;
@@ -54,7 +55,7 @@ public class BossAi : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            other.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
+            other.gameObject.GetComponent<PlayerHealth>().TakeDamage(outDamage);
             other.gameObject.GetComponent<PlayerMovement>().StopMovementCoroutine();
             other.gameObject.GetComponent<PlayerKnockback>().ApplyKnockback(transform.position);
         }

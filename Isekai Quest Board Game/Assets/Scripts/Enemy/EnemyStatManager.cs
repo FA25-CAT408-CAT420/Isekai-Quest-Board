@@ -6,6 +6,7 @@ public class EnemyStatManager : MonoBehaviour
 {
     public GameManager gm;
     public EnemyCombat ec;
+    public BossAi bai;
     public EnemyHealth eh;
     float rateOfChange = 0.25f;
 
@@ -31,6 +32,22 @@ public class EnemyStatManager : MonoBehaviour
     void CalculateStats()
     {
         eh.maxHealth = BoostStats(eh.baseHealth, gm.worldLevel);
-        ec.outDamage = BoostStats(ec.baseDamage, gm.worldLevel);
+        if (ec != null)
+        {
+            ec.outDamage = BoostStats(ec.baseDamage, gm.worldLevel);
+        }
+        else
+        {
+            return;
+        }
+        if (bai != null)
+        {
+            bai.outDamage = BoostStats(bai.baseDamage, gm.worldLevel);
+
+        }
+        else
+        {
+            return;
+        }
     }
 }
