@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public int floorsCleared = 0;
     public int bossesCleared = 0;
     public int worldLevel = 1;
+    public bool isWorldLvlRaised;
 
     public List<GameObject> totalSpells = new List<GameObject>();
     public List<GameObject> spellsToSpawn = new List<GameObject>();
@@ -132,6 +133,7 @@ public class GameManager : MonoBehaviour
 
         if (scene.name == "Forest")
         {
+            isWorldLvlRaised = false;
             spellsPopulated = false;
             spellsToSpawn.Clear();
 

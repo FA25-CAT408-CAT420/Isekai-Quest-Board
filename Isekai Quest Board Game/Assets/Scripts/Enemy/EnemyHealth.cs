@@ -9,12 +9,14 @@ public class EnemyHealth : MonoBehaviour
     public float maxHealth;
     public GameObject soul;
     public BossAi slimeQueen;
+    public GameManager gm;
     public bool isBoss = false;
 
     AudioManager audioManager;
     // Start is called before the first frame update
     public void Awake()
     {
+        gm = FindObjectOfType<GameManager>();
         //audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
     public void Start()
@@ -22,23 +24,20 @@ public class EnemyHealth : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public void TakeDamage(float damage)
+    void FixedUpdate()
     {
-
-        currentHealth += damage;
-
-        //audioManager.PlaySFX(audioManager.slimeHurt);
-
         if (currentHealth >= maxHealth)
         {
             currentHealth = maxHealth;
         }
-        else if (currentHealth <= 0)
+
+        if (currentHealth <= 0)
         {
             Instantiate(soul, transform.position, Quaternion.identity);
             
             if (isBoss && slimeQueen != null)
             {
+                
                 slimeQueen.StartCoroutine(slimeQueen.DeathSequence());
             }
             else
@@ -46,5 +45,12 @@ public class EnemyHealth : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+    }
+
+    public void TakeDamage(float damage)
+    {
+
+        currentHealth += damage;
+        //audioManager.PlaySFX(audioManager.slimeHurt); 
     }
 }

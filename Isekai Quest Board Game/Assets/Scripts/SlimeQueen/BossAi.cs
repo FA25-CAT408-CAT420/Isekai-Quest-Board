@@ -17,6 +17,7 @@ public class BossAi : MonoBehaviour
     public GameObject soul;
     public GameObject SlimeSpit;
     public EnemyHealth health;
+    private GameManager gm;
 
     private Rigidbody2D rb;
     private Animator anim;
@@ -24,6 +25,7 @@ public class BossAi : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        gm = FindObjectOfType<GameManager>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         health = GetComponent<EnemyHealth>();
@@ -64,6 +66,10 @@ public class BossAi : MonoBehaviour
     public IEnumerator DeathSequence()
     {
         yield return new WaitForSeconds(1f);
+        if (!gm.isWorldLvlRaised)
+        {
+            RaiseWorldLevel();
+        }
         SceneManager.LoadScene("Forest");
 
     }
@@ -71,5 +77,11 @@ public class BossAi : MonoBehaviour
     public void Shoot()
     {
         Instantiate(SlimeSpit, attackPoint.position, Quaternion.identity);
+    }
+
+    void RaiseWorldLevel()
+    {
+        gm.isWorldLvlRaised = true;
+        gm.worldLevel++;
     }
 }
