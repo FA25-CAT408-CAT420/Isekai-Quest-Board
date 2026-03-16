@@ -5,7 +5,8 @@ using UnityEngine;
 public class EnemyCombat : MonoBehaviour
 {
     public GameObject SlimeSpit;
-    public float damage;
+    public float baseDamage;
+    public float outDamage;
     public Transform attackPoint;
     public float weaponRange;
     public LayerMask playerLayer;
@@ -32,7 +33,7 @@ public class EnemyCombat : MonoBehaviour
         var health = player.GetComponent<PlayerHealth>();
         if (health != null)
         {
-            health.TakeDamage(damage);
+            health.TakeDamage(outDamage);
         }
 
         // Stop ongoing move

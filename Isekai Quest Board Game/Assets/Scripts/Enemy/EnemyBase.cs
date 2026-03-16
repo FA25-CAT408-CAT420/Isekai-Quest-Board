@@ -29,7 +29,6 @@ public class EnemyBase : MonoBehaviour
     private SpriteRenderer sr;
     private Animator anim;
     private EnemyState enemyState;
-    protected StatBooster sb;
 
     [Header("Hitting Wall logic")]
     private int currentDirection;
@@ -54,7 +53,6 @@ public class EnemyBase : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
-        sb = GetComponent<StatBooster>();
         if (health != null)
         {
             health = GetComponent<EnemyHealth>();
@@ -73,13 +71,6 @@ public class EnemyBase : MonoBehaviour
         sr.flipX = facingDirection == 1 ? false : true;
         ChangeState(EnemyState.Patrolling);
     }
-
-    /*
-    void StatCalc()
-    {
-        maxHealth = sb.BoostStats(maxHealth);
-        baseDamage = sb.BoostStats(baseDamage);
-    }*/
 
     // Update is called once per frame
     void Update()

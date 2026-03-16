@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6472845799360993173
 MonoBehaviour:
@@ -50,7 +50,7 @@ MonoBehaviour:
   isDead: 0
   floorsCleared: 0
   bossesCleared: 0
-  currentCycles: 0
+  worldLevel: 1
   totalSpells:
   - {fileID: 1658548075303350686, guid: 3e2902cb62102734094e0a8bea145776, type: 3}
   - {fileID: 928506810485898945, guid: 4ea33a91785d206459ebc1ea8ebc1114, type: 3}
@@ -60,8 +60,10 @@ MonoBehaviour:
   - {fileID: 2522126886695549796, guid: 0b2df26b3f2a27542986b0e2ca6cff27, type: 3}
   spellsToSpawn: []
   shopSpawners: []
+  specials: []
   camera: {fileID: 0}
   nextSpawnID: none
+  spawnDelaySeconds: 0.8
   gmHealthSP: 1
-  gmStrengthSP: 15
+  gmStrengthSP: 1
   gmDefenseSP: 1

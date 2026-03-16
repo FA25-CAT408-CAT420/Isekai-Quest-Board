@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     public bool isDead = false;
     public int floorsCleared = 0;
     public int bossesCleared = 0;
-    public int currentCycles = 0;
+    public int worldLevel = 1;
 
     public List<GameObject> totalSpells = new List<GameObject>();
     public List<GameObject> spellsToSpawn = new List<GameObject>();

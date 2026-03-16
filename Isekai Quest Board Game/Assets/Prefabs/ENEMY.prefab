@@ -850,11 +850,11 @@ GameObject:
   - component: {fileID: 7729226374097886412}
   - component: {fileID: 4074098375432128618}
   - component: {fileID: 4905361859151889501}
-  - component: {fileID: 5585484212999727048}
   - component: {fileID: 7599089884731340252}
   - component: {fileID: -1484128562349248572}
   - component: {fileID: 3765387310799841332}
   - component: {fileID: 669982515564255678}
+  - component: {fileID: 4738024709921333497}
   m_Layer: 6
   m_Name: ENEMY
   m_TagString: Enemy
@@ -1026,18 +1026,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5585484212999727048
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8522549908244588971}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b47fb7c3af6bb5479852470cc1900c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7599089884731340252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1080,9 +1068,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f161700e70c14714bafd534aa00bde04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseHealth: 5
   currentHealth: 0
   maxHealth: 10
   soul: {fileID: 2962393454113147998, guid: 95319887f104c3b4f9ac416a2bcc3457, type: 3}
+  slimeQueen: {fileID: 0}
+  isBoss: 0
 --- !u!114 &3765387310799841332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1108,10 +1099,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SlimeSpit: {fileID: 6227826045610309428, guid: 1787b19878f7c5841b78a256a120b9b3, type: 3}
-  damage: 1
+  baseDamage: 2
+  outDamage: 0
   attackPoint: {fileID: 2960275794288820237}
   weaponRange: 2.5
   playerLayer:
     serializedVersion: 2
     m_Bits: 512
   baseScript: {fileID: 7599089884731340252}
+--- !u!114 &4738024709921333497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8522549908244588971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b47fb7c3af6bb5479852470cc1900c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gm: {fileID: 0}
+  ec: {fileID: 669982515564255678}
+  eh: {fileID: -1484128562349248572}
