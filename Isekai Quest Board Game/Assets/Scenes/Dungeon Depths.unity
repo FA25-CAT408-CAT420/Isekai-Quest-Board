@@ -1624,8 +1624,7 @@ MonoBehaviour:
   levelEndSpawnables:
   - {fileID: 561295773490822851, guid: 87485ab0b76658746b4b104038f2d8c3, type: 3}
   - {fileID: 8727586395356009664, guid: 120a054c900631a429be66f4dea6e0f7, type: 3}
-  enemyType:
-  - {fileID: 8522549908244588971, guid: 170bb7d26c10f9047a2dade62894b04d, type: 3}
+  enemyType: []
   soul: {fileID: 7764106181133258489, guid: e3b8922bb0a71cd4283930fc2cab7102, type: 3}
 --- !u!4 &770147360
 Transform:
