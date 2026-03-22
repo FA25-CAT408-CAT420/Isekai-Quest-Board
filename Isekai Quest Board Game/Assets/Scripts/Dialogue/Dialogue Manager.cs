@@ -90,9 +90,13 @@ public class DialogueManager : MonoBehaviour
         continueButton.SetActive(true);
     }
 
-    void EndDialogue()
+    async void EndDialogue()
     {
         Debug.Log("End of conversation. ");
+
+        await ScreenFader.Instance.FadeOut();
+
+        SceneManager.LoadScene (SceneManager.GetActiveScene().buildIndex + 1);
     }
 
 }

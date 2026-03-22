@@ -9,6 +9,18 @@ EditorBuildSettings:
     path: Assets/Scenes/Title Screen.unity
     guid: e5d9a51b7c2f8f04c8f5a1f0bc06d7af
   - enabled: 1
+    path: Assets/Scenes/CutScene scenes/PROLOGUE.unity
+    guid: cecaf94f82077b04f91672be3d5388f2
+  - enabled: 1
+    path: Assets/Scenes/CutScene scenes/PROLOGUE 2.unity
+    guid: f021b8f2730fcb84aa336dd46774ca93
+  - enabled: 1
+    path: Assets/Scenes/CutScene scenes/PROLOGUE 3.unity
+    guid: dc577d51d5dbfb94e881f8eb8b629210
+  - enabled: 1
+    path: Assets/Scenes/CutScene scenes/TRANSITION.unity
+    guid: 210040db018f8c142ba5eb4de8fe92ab
+  - enabled: 1
     path: Assets/Scenes/Forest.unity
     guid: ebcec49f24e9c7842bb0878360785ba3
   - enabled: 1
@@ -23,15 +35,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Death Scene.unity
     guid: ff122ad730a0f4746b37d0cf89a482c4
-  - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
-  - enabled: 0
-    path: Assets/Scenes/Testing Chambers.unity
-    guid: ef69e61040c4bb447b0e25e630bf8a15
-  - enabled: 0
-    path: Assets/Scenes/Pathfinding Testing.unity
-    guid: ca5b06d89ba638d48bcc806c2258018a
   - enabled: 1
     path: Assets/Scenes/Credits.unity
     guid: 3255e9aa73bd10f499dcb83a162815b2
