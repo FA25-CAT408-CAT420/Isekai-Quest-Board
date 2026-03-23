@@ -229,18 +229,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void SceneStart()
-    {
-        SceneManager.LoadScene("Forest");
-    }
+    // public void SceneStart()
+    // {
+    //     SceneManager.LoadScene("Forest");
+    // }
 
-    public void creditScene()
-    {
-        SceneManager.LoadScene("Credits");
-    }
+    // public void creditScene()
+    // {
+    //     SceneManager.LoadScene("Credits");
+    // }
 
-    public void titleScreen()
-    {
-        SceneManager.LoadScene("Title Screen");
-    }
+    // public void titleScreen()
+    // {
+    //     SceneManager.LoadScene("Title Screen");
+    // }
 }
