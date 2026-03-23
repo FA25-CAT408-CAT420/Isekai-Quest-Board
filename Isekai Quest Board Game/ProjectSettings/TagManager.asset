@@ -24,6 +24,7 @@ TagManager:
   - Upgrade
   - Audio
   - uiSpecialImage
+  - BGMusic
   layers:
   - Default
   - TransparentFX

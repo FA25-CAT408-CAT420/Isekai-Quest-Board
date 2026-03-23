@@ -1860,7 +1860,7 @@ GameObject:
   - component: {fileID: 1655079335}
   m_Layer: 0
   m_Name: Audio Source
-  m_TagString: Untagged
+  m_TagString: BGMusic
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1875,7 +1875,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ca0549ed234e1a04aa3a5818430e01a7, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 99a8e24f5d6716f418358e49c8641151, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

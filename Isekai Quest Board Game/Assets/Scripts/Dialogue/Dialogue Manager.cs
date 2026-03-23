@@ -2,13 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class DialogueManager : MonoBehaviour
 {
-    AudioManager audioManager; 
+    AudioManager audioManager;
+    public GameObject continueButton; 
 
+    [Header("Dialogue stuff")]
     public Text nameText;
     public Text dialogueText;
+    public float textSpeed;
+    private bool isTyping = false;
     
     private Queue<string> sentences;
 
@@ -26,10 +31,10 @@ public class DialogueManager : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown("o"))
-        {
-            DisplayNextSentence();
-        }
+        // if (Input.GetKeyDown("o"))
+        // {
+        //     DisplayNextSentence();
+        // }
     }
 
 
@@ -51,6 +56,11 @@ public class DialogueManager : MonoBehaviour
 
     public void DisplayNextSentence()
     {
+        if (isTyping)
+        {
+            return;
+        }
+
         if (sentences.Count == 0)
         {
             EndDialogue();
@@ -58,13 +68,35 @@ public class DialogueManager : MonoBehaviour
         }
 
         string sentence = sentences.Dequeue();
-        dialogueText.text = sentence;
+        StopAllCoroutines();
+        StartCoroutine(TypeSentence(sentence));
+        //dialogueText.text = sentence;
         //Debug.Log(sentence);
     }
 
-    void EndDialogue()
+    IEnumerator TypeSentence (string sentence)
+    {
+        isTyping = true;
+        continueButton.SetActive(false);
+
+        dialogueText.text = "";
+        foreach (char letter in sentence.ToCharArray())
+        {
+            dialogueText.text += letter;
+            yield return new WaitForSeconds(textSpeed);
+        }
+
+        isTyping = false;
+        continueButton.SetActive(true);
+    }
+
+    async void EndDialogue()
     {
         Debug.Log("End of conversation. ");
+
+        await ScreenFader.Instance.FadeOut();
+
+        SceneManager.LoadScene (SceneManager.GetActiveScene().buildIndex + 1);
     }
 
 }
