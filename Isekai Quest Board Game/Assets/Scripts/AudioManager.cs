@@ -5,23 +5,12 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     // Start is called before the first frame update
-   [SerializeField] AudioSource musicSource;
-   [SerializeField] AudioSource SFXSource;
+   public AudioSource SFXSource;
+   public AudioClip TheClip; 
 
-   public AudioClip sword1; 
-   public AudioClip sword2;
-   public AudioClip potion;
-   public AudioClip levelUp;
-   public AudioClip selectionSFX; 
-   public AudioClip positiveSFX;
-   public AudioClip slimeHurt;
-   public AudioClip playerHurt;
-   public AudioClip nPCSpeak;
-   public AudioClip videoGameTXT;
-
-   public void PlaySFX(AudioClip clip)
+   public void PlaySFX()
    {
-        SFXSource.PlayOneShot(clip);
+     SFXSource.PlayOneShot(TheClip);
    }
 }
  
