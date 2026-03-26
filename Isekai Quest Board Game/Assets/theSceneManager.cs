@@ -17,4 +17,8 @@ public class theSceneManager : MonoBehaviour
     {
         SceneManager.LoadScene("Forest");
     }
+    public void LoadCutScene()
+    {
+        SceneManager.LoadScene("PROLOGUE");
+    }
 }

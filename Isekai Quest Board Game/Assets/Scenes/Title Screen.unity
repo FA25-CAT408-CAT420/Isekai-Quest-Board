@@ -1226,18 +1226,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c77da43b777762d41b76e778c8f2b989, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicSource: {fileID: 0}
   SFXSource: {fileID: 0}
-  sword1: {fileID: 8300000, guid: ace9ef3d0b0db0143af999933c5945c4, type: 3}
-  sword2: {fileID: 8300000, guid: a34a3381fca4bc04c84756edd64f04bd, type: 3}
-  potion: {fileID: 8300000, guid: ab831047a7734e74fb5064b3f880930f, type: 3}
-  levelUp: {fileID: 8300000, guid: 91a67bf71bec6794c860366e67db00f1, type: 3}
-  selectionSFX: {fileID: 8300000, guid: c0a354d402dc6e9499ba7dca81860f96, type: 3}
-  positiveSFX: {fileID: 8300000, guid: 3c04890236007cd4590e5483ce850bcc, type: 3}
-  slimeHurt: {fileID: 8300000, guid: 74599e2f68bf0ff498b6d7a13a24ff4f, type: 3}
-  playerHurt: {fileID: 8300000, guid: 31de84a6fd7c5654a8cf0ef399699708, type: 3}
-  nPCSpeak: {fileID: 8300000, guid: 54606b38f01773d4cbaed5f89517e76b, type: 3}
-  videoGameTXT: {fileID: 8300000, guid: 9dbbfec9a5923d64eae72119fbd6bc68, type: 3}
+  TheClip: {fileID: 0}
 --- !u!4 &1078459294
 Transform:
   m_ObjectHideFlags: 0
@@ -3117,7 +3107,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8217379}
         m_TargetAssemblyTypeName: theSceneManager, Assembly-CSharp
-        m_MethodName: SceneStart
+        m_MethodName: LoadCutScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
