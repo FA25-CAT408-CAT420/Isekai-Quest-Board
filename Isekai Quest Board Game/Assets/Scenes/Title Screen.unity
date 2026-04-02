@@ -3009,7 +3009,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6472845799360993173, guid: d9144feef5dbe74449b52de68eeb6674, type: 3}
       propertyPath: soulPoints
-      value: 282
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6472845799360993173, guid: d9144feef5dbe74449b52de68eeb6674, type: 3}
       propertyPath: spawnDelaySeconds

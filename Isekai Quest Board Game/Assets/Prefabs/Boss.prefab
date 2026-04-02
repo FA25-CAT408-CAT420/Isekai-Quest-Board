@@ -111,7 +111,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 422ad0dfd91400d489c173313ad83495, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -282,6 +282,7 @@ MonoBehaviour:
   maxHealth: 50
   soul: {fileID: 2962393454113147998, guid: 95319887f104c3b4f9ac416a2bcc3457, type: 3}
   slimeQueen: {fileID: 0}
+  gm: {fileID: 0}
   isBoss: 0
 --- !u!114 &7700156328992416412
 MonoBehaviour:

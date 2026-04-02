@@ -218,7 +218,7 @@ public class GameManager : MonoBehaviour
 
     private void Restart(InputAction.CallbackContext context)
     {
-        SceneManager.LoadScene("Testing Chambers");
+        SceneManager.LoadScene("Title Screen");
     }
 
     private void OnSubmit(InputAction.CallbackContext context)
