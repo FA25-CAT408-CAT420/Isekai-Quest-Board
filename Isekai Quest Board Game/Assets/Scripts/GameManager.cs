@@ -154,7 +154,7 @@ public class GameManager : MonoBehaviour
     {  
         // Optional: one extra frame for safety
         yield return null;
-
+        shopSpawners.RemoveAll(item => item == null);
         Debug.Log($"SpawnSpells activated — spawners found: {shopSpawners.Count}");
 
         if (!spellsPopulated)

@@ -121,6 +121,10 @@ public class PlayerInteractions : MonoBehaviour
         {
             nearbySpell = null;
         }
+        if (other.gameObject.CompareTag("Upgrade") && other == nearbyUpgrade)
+        {
+            nearbyUpgrade = null;
+        }
     }
 
     private void OnInteractPerformed(InputAction.CallbackContext context)
