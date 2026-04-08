@@ -14,6 +14,7 @@ public class DialogueManager : MonoBehaviour
     public Text dialogueText;
     public float textSpeed;
     private bool isTyping = false;
+    public bool enableSkip = true;
     
     private Queue<string> sentences;
 
@@ -31,10 +32,10 @@ public class DialogueManager : MonoBehaviour
 
     public void Update()
     {
-        // if (Input.GetKeyDown("o"))
-        // {
-        //     DisplayNextSentence();
-        // }
+        if (Input.GetKeyDown("p"))
+        {
+            SkipDialogue();
+        }
     }
 
 
@@ -97,6 +98,15 @@ public class DialogueManager : MonoBehaviour
         await ScreenFader.Instance.FadeOut();
 
         SceneManager.LoadScene (SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void SkipDialogue()
+    {
+        if (!enableSkip) return;
+
+        StopAllCoroutines();
+        sentences.Clear();
+        EndDialogue();
     }
 
 }
