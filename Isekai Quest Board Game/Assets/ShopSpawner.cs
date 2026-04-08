@@ -9,7 +9,12 @@ public class ShopSpawner : MonoBehaviour
 
     void Awake()
     {
-        Debug.Log($"[ShopSpawner {gameObject.name}] Awake at time: {Time.time:F2}");
+
+        
+    }
+
+    void Start()
+    {
         gameManager = FindObjectOfType<GameManager>();
 
         if (gameManager == null)
@@ -18,13 +23,30 @@ public class ShopSpawner : MonoBehaviour
             return;
         }
 
-        PopulateSpawners();
+        
     }
 
-    void Start()
+    void OnEnable()
     {
-        // If you still need something in Start, keep it here
-        // But registration should be in Awake now
+        gameManager = GameManager.Instance;
+
+        if (gameManager != null)
+        {
+            gameManager.shopSpawners.Add(gameObject);
+            Debug.Log("Spawner registered: " + name);
+        }
+        else
+        {
+            Debug.LogWarning("GameManager instance not found in OnEnable");
+        }
+    }
+
+    void OnDisable()
+    {
+        if (gameManager != null)
+        {
+            gameManager.shopSpawners.Remove(gameObject);
+        }
     }
 
     public void PopulateSpawners()
@@ -32,7 +54,6 @@ public class ShopSpawner : MonoBehaviour
         if (!gameManager.shopSpawners.Contains(gameObject))
         {
             gameManager.shopSpawners.Add(gameObject);
-            Debug.Log($"[ShopSpawner] Registered {gameObject.name} in Awake()");
         }
     }
 }

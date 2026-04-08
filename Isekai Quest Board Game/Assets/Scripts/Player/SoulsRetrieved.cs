@@ -10,7 +10,8 @@ public class SoulsRetrieved : MonoBehaviour
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
-        souls = gameManager.soulPoints;
+        souls = gameManager.formerSoulPoints;
+        gameManager.formerSoulPoints = 0;
     }
 
     // Update is called once per frame

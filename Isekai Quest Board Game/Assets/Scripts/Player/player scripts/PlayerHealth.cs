@@ -55,6 +55,7 @@ public class PlayerHealth : MonoBehaviour
         {
             gameManager.soulDropped = true;
             gameManager.isDead = true; 
+            gameManager.runInitCleared = false;
         }
         CanvasGroup dungeonUI = GameObject.FindGameObjectWithTag("UI").transform.Find("DungeonUI").GetComponent<CanvasGroup>();
         CanvasGroup deathUI = GameObject.FindGameObjectWithTag("UI").transform.Find("DeathUI").GetComponent<CanvasGroup>();

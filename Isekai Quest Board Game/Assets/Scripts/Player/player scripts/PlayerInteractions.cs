@@ -82,6 +82,7 @@ public class PlayerInteractions : MonoBehaviour
         {
             int deathSouls = other.gameObject.GetComponent<SoulsRetrieved>().souls;
             gameManager.soulPoints += deathSouls;
+            gameManager.soulDropped = false;
             Destroy(other.gameObject);
         }
 

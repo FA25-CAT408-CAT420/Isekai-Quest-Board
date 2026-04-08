@@ -12,8 +12,11 @@ public class GameManager : MonoBehaviour
 
     public GameObject GUI;
     private TextMeshProUGUI soulCounter;
-
+    private bool hasSpawnedThisRun = false;
+    public bool runInitCleared = false;
+    public bool newGame = false;
     public int soulPoints = 0;
+    public int formerSoulPoints = 0;
     public bool soulDropped = false;
     public bool isDead = false;
     public int floorsCleared = 0;
@@ -22,6 +25,7 @@ public class GameManager : MonoBehaviour
     public bool isWorldLvlRaised;
 
     public List<GameObject> totalSpells = new List<GameObject>();
+    public List<GameObject> defaultSpells = new List<GameObject>();
     public List<GameObject> spellsToSpawn = new List<GameObject>();
     public List<GameObject> shopSpawners = new List<GameObject>();
     public List<Spells> specials = new List<Spells>();
@@ -63,6 +67,12 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (newGame == true)    
+        {
+            Debug.Log("Start Run Initilization");
+            RunInitilization();
+        }
+
         if (soulCounter != null)
         {
             soulCounter.text = soulPoints.ToString();
@@ -79,8 +89,14 @@ public class GameManager : MonoBehaviour
             {
                 waitingToSpawn = false;
                 StartCoroutine(SpawnSpells());
-                Debug.Log($"Spawn delay complete ({spawnTimer:F2}s) — starting SpawnSpells (spawners: {shopSpawners.Count})");
             }
+        }
+
+        if (isDead)
+        {
+            Debug.Log("IS DEAD GM WORKING?");
+            formerSoulPoints = soulPoints;
+            //soulPoints = 0;
         }
     }
 
@@ -133,7 +149,13 @@ public class GameManager : MonoBehaviour
 
         if (scene.name == "Forest")
         {
-            isWorldLvlRaised = false;
+            shopSpawners.RemoveAll(x => x == null);
+
+            if (isDead)
+            {
+                RunInitilization();
+            }
+            
             spellsPopulated = false;
             spellsToSpawn.Clear();
 
@@ -227,6 +249,24 @@ public class GameManager : MonoBehaviour
         {
             SceneManager.LoadScene("Forest");
         }
+    }
+
+    void RunInitilization()
+    {
+        Debug.Log("Run Initilized");
+        isDead = false; 
+        isWorldLvlRaised = false;
+        newGame = false;
+        totalSpells = new List<GameObject>(defaultSpells);
+        soulPoints = 0;
+        formerSoulPoints = 0;
+        gmDefenseSP = 0;
+        gmHealthSP = 0;
+        gmStrengthSP = 0;
+        runInitCleared = true;
+
+        hasSpawnedThisRun = false;
+        spellsPopulated = false;
     }
 
     // public void SceneStart()

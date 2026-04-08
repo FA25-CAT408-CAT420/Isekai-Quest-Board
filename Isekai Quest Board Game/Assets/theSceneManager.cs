@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class theSceneManager : MonoBehaviour
 {
+    public GameManager gameManager;
+    void Start()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+    }
     public void TitleScreen()
     {
         SceneManager.LoadScene("Title Screen");
@@ -19,6 +24,7 @@ public class theSceneManager : MonoBehaviour
     }
     public void LoadCutScene()
     {
+        gameManager.newGame = true;
         SceneManager.LoadScene("PROLOGUE");
     }
 }
