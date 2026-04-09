@@ -3419,7 +3419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a5f378814b379c45bb9427d99690771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  openingDirection: 1
+  openingDirection: 3
   cameraBounds: {fileID: 0}
   waitTime: 4
 --- !u!1 &1736404973813697099

@@ -130,7 +130,7 @@ Transform:
   - {fileID: 3655771067664513356}
   - {fileID: 4219724107761658699}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &628689425562969537
 CircleCollider2D:
@@ -380,7 +380,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 1088
-  strength: 1
+  strength: 3
   damage: 2
   dmgLowEnd: 1
   dmgHighEnd: 3
