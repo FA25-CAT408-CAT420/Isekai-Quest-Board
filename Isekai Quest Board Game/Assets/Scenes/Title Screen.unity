@@ -163,6 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f58f4ad1f11ebc641951b8f7837e7ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
 --- !u!4 &8217380
 Transform:
   m_ObjectHideFlags: 0
@@ -2963,6 +2964,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 2736376008789487525, guid: d9144feef5dbe74449b52de68eeb6674, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6356788313074350790, guid: d9144feef5dbe74449b52de68eeb6674, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -3008,13 +3013,53 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6472845799360993173, guid: d9144feef5dbe74449b52de68eeb6674, type: 3}
+      propertyPath: newGame
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6472845799360993173, guid: d9144feef5dbe74449b52de68eeb6674, type: 3}
       propertyPath: soulPoints
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6472845799360993173, guid: d9144feef5dbe74449b52de68eeb6674, type: 3}
+      propertyPath: runInitCleared
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6472845799360993173, guid: d9144feef5dbe74449b52de68eeb6674, type: 3}
       propertyPath: spawnDelaySeconds
       value: 1.3
       objectReference: {fileID: 0}
+    - target: {fileID: 6472845799360993173, guid: d9144feef5dbe74449b52de68eeb6674, type: 3}
+      propertyPath: totalSpells.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6472845799360993173, guid: d9144feef5dbe74449b52de68eeb6674, type: 3}
+      propertyPath: defaultSpells.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6472845799360993173, guid: d9144feef5dbe74449b52de68eeb6674, type: 3}
+      propertyPath: defaultSpells.Array.data[0]
+      value: 
+      objectReference: {fileID: 1658548075303350686, guid: 44b902ed05698454fbb60ba7158d9925, type: 3}
+    - target: {fileID: 6472845799360993173, guid: d9144feef5dbe74449b52de68eeb6674, type: 3}
+      propertyPath: defaultSpells.Array.data[1]
+      value: 
+      objectReference: {fileID: 928506810485898945, guid: 4ea33a91785d206459ebc1ea8ebc1114, type: 3}
+    - target: {fileID: 6472845799360993173, guid: d9144feef5dbe74449b52de68eeb6674, type: 3}
+      propertyPath: defaultSpells.Array.data[2]
+      value: 
+      objectReference: {fileID: 1658548075303350686, guid: 3e2902cb62102734094e0a8bea145776, type: 3}
+    - target: {fileID: 6472845799360993173, guid: d9144feef5dbe74449b52de68eeb6674, type: 3}
+      propertyPath: defaultSpells.Array.data[3]
+      value: 
+      objectReference: {fileID: 6711755745485032073, guid: b376a18ca2dd3f149855cdf54449f47a, type: 3}
+    - target: {fileID: 6472845799360993173, guid: d9144feef5dbe74449b52de68eeb6674, type: 3}
+      propertyPath: defaultSpells.Array.data[4]
+      value: 
+      objectReference: {fileID: 689625291555262072, guid: 27b3a4858a035b14c94c2c045be21d90, type: 3}
+    - target: {fileID: 6472845799360993173, guid: d9144feef5dbe74449b52de68eeb6674, type: 3}
+      propertyPath: defaultSpells.Array.data[5]
+      value: 
+      objectReference: {fileID: 2522126886695549796, guid: 0b2df26b3f2a27542986b0e2ca6cff27, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
