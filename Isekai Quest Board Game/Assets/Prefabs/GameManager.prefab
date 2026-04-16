@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6472845799360993173
 MonoBehaviour:
@@ -45,18 +45,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GUI: {fileID: 0}
+  runInitCleared: 0
+  newGame: 0
   soulPoints: 596
+  formerSoulPoints: 0
   soulDropped: 0
   isDead: 0
   floorsCleared: 0
   bossesCleared: 0
   worldLevel: 1
-  totalSpells:
-  - {fileID: 1658548075303350686, guid: 3e2902cb62102734094e0a8bea145776, type: 3}
-  - {fileID: 928506810485898945, guid: 4ea33a91785d206459ebc1ea8ebc1114, type: 3}
+  isWorldLvlRaised: 0
+  totalSpells: []
+  defaultSpells:
   - {fileID: 1658548075303350686, guid: 44b902ed05698454fbb60ba7158d9925, type: 3}
-  - {fileID: 689625291555262072, guid: 27b3a4858a035b14c94c2c045be21d90, type: 3}
+  - {fileID: 928506810485898945, guid: 4ea33a91785d206459ebc1ea8ebc1114, type: 3}
+  - {fileID: 1658548075303350686, guid: 3e2902cb62102734094e0a8bea145776, type: 3}
   - {fileID: 6711755745485032073, guid: b376a18ca2dd3f149855cdf54449f47a, type: 3}
+  - {fileID: 689625291555262072, guid: 27b3a4858a035b14c94c2c045be21d90, type: 3}
   - {fileID: 2522126886695549796, guid: 0b2df26b3f2a27542986b0e2ca6cff27, type: 3}
   spellsToSpawn: []
   shopSpawners: []

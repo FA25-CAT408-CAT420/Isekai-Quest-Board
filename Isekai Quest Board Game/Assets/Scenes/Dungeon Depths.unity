@@ -1616,7 +1616,7 @@ MonoBehaviour:
   - {fileID: 1634888221963257220, guid: e4e4c0f9a2ca8a14e9b73688bb7a7df0, type: 3}
   - {fileID: 2153301481027742191, guid: 945d80323c09a6c4a82f0648e564c2d7, type: 3}
   rightRooms:
-  - {fileID: 6749406879919192522, guid: 58758f77fd0aaa34d9c1fce35db45461, type: 3}
+  - {fileID: 6749406879919192522, guid: 86addfda79be32844a635fb4ee859e8f, type: 3}
   - {fileID: 6722607467048391297, guid: 55ebf395c6f00d74db792081c1ae4b62, type: 3}
   - {fileID: 2153301481027742191, guid: 913ba732cf12085419142bddf4d0f1e1, type: 3}
   - {fileID: 5711097234017313485, guid: 9a0abb4d055e0d444a2246bc52fed189, type: 3}
