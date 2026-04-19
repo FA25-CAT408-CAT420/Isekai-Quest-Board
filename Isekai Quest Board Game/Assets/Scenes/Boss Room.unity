@@ -408,6 +408,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slime vent (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2513757544792342086, guid: e570a0473da8b354981feb5904f02399, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2513757544792342086, guid: e570a0473da8b354981feb5904f02399, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1102692387
+      objectReference: {fileID: 0}
     - target: {fileID: 5298603528629173998, guid: e570a0473da8b354981feb5904f02399, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -1183,6 +1191,14 @@ PrefabInstance:
     - target: {fileID: 929494169672730042, guid: e570a0473da8b354981feb5904f02399, type: 3}
       propertyPath: m_Name
       value: Slime vent (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2513757544792342086, guid: e570a0473da8b354981feb5904f02399, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2513757544792342086, guid: e570a0473da8b354981feb5904f02399, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1102692387
       objectReference: {fileID: 0}
     - target: {fileID: 5298603528629173998, guid: e570a0473da8b354981feb5904f02399, type: 3}
       propertyPath: m_RootOrder
@@ -3673,9 +3689,9 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: -100
+  m_SortingLayerID: 1700607981
+  m_SortingLayer: 1
+  m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -8060,6 +8076,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slime vent (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 2513757544792342086, guid: e570a0473da8b354981feb5904f02399, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2513757544792342086, guid: e570a0473da8b354981feb5904f02399, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1102692387
+      objectReference: {fileID: 0}
     - target: {fileID: 5298603528629173998, guid: e570a0473da8b354981feb5904f02399, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -8343,6 +8367,14 @@ PrefabInstance:
     - target: {fileID: 929494169672730042, guid: e570a0473da8b354981feb5904f02399, type: 3}
       propertyPath: m_Name
       value: Slime vent (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2513757544792342086, guid: e570a0473da8b354981feb5904f02399, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2513757544792342086, guid: e570a0473da8b354981feb5904f02399, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1102692387
       objectReference: {fileID: 0}
     - target: {fileID: 5298603528629173998, guid: e570a0473da8b354981feb5904f02399, type: 3}
       propertyPath: m_RootOrder
@@ -8752,6 +8784,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slime vent
       objectReference: {fileID: 0}
+    - target: {fileID: 2513757544792342086, guid: e570a0473da8b354981feb5904f02399, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2513757544792342086, guid: e570a0473da8b354981feb5904f02399, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1102692387
+      objectReference: {fileID: 0}
     - target: {fileID: 5298603528629173998, guid: e570a0473da8b354981feb5904f02399, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -8900,6 +8940,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2166830781054620949, guid: 9b02c34bfacb1dd448d9cd4ac4ef2483, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2657190163547430539, guid: 9b02c34bfacb1dd448d9cd4ac4ef2483, type: 3}
+      propertyPath: m_RenderMode
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2939899097709276981, guid: 9b02c34bfacb1dd448d9cd4ac4ef2483, type: 3}

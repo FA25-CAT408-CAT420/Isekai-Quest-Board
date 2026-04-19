@@ -2046,9 +2046,9 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: -80
+  m_SortingLayerID: 1700607981
+  m_SortingLayer: 1
+  m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -2917,9 +2917,9 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: -85
+  m_SortingLayerID: 1700607981
+  m_SortingLayer: 1
+  m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -7120,9 +7120,9 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: -100
+  m_SortingLayerID: 1700607981
+  m_SortingLayer: 1
+  m_SortingOrder: -1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -7208,6 +7208,18 @@ PrefabInstance:
     - target: {fileID: 328633636357994053, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
       propertyPath: m_Name
       value: SpikeFab (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -831721947
       objectReference: {fileID: 0}
     - target: {fileID: 2054890818652936847, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
       propertyPath: m_RootOrder
@@ -7319,6 +7331,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -831721947
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7385,6 +7405,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -831721947
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7450,6 +7478,14 @@ PrefabInstance:
     - target: {fileID: 1713565096416488139, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -831721947
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7539,6 +7575,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpikeFab (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -831721947
+      objectReference: {fileID: 0}
     - target: {fileID: 2054890818652936847, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -7604,6 +7652,18 @@ PrefabInstance:
     - target: {fileID: 328633636357994053, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
       propertyPath: m_Name
       value: SpikeFab (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -831721947
       objectReference: {fileID: 0}
     - target: {fileID: 2054890818652936847, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
       propertyPath: m_RootOrder
@@ -7715,6 +7775,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -831721947
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7736,6 +7804,18 @@ PrefabInstance:
     - target: {fileID: 328633636357994053, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
       propertyPath: m_Name
       value: SpikeFab (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -831721947
       objectReference: {fileID: 0}
     - target: {fileID: 2054890818652936847, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
       propertyPath: m_RootOrder
@@ -7847,6 +7927,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -831721947
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7912,6 +8000,14 @@ PrefabInstance:
     - target: {fileID: 1713565096416488139, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -831721947
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8045,6 +8141,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -831721947
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8111,6 +8215,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -831721947
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8132,6 +8244,18 @@ PrefabInstance:
     - target: {fileID: 328633636357994053, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
       propertyPath: m_Name
       value: SpikeFab (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -831721947
       objectReference: {fileID: 0}
     - target: {fileID: 2054890818652936847, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
       propertyPath: m_RootOrder
@@ -8243,6 +8367,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -831721947
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8309,6 +8441,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -831721947
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8374,6 +8514,14 @@ PrefabInstance:
     - target: {fileID: 1713565096416488139, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -831721947
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8462,6 +8610,18 @@ PrefabInstance:
     - target: {fileID: 328633636357994053, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
       propertyPath: m_Name
       value: SpikeFab (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -831721947
       objectReference: {fileID: 0}
     - target: {fileID: 2054890818652936847, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
       propertyPath: m_RootOrder
@@ -8573,6 +8733,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -831721947
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8639,6 +8807,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -831721947
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8660,6 +8836,18 @@ PrefabInstance:
     - target: {fileID: 328633636357994053, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
       propertyPath: m_Name
       value: SpikeFab (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -831721947
       objectReference: {fileID: 0}
     - target: {fileID: 2054890818652936847, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
       propertyPath: m_RootOrder
@@ -8726,6 +8914,18 @@ PrefabInstance:
     - target: {fileID: 328633636357994053, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
       propertyPath: m_Name
       value: SpikeFab (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -831721947
       objectReference: {fileID: 0}
     - target: {fileID: 2054890818652936847, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
       propertyPath: m_RootOrder
@@ -8925,6 +9125,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpikeFab (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -831721947
+      objectReference: {fileID: 0}
     - target: {fileID: 2054890818652936847, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -9035,6 +9247,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -831721947
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9122,6 +9342,18 @@ PrefabInstance:
     - target: {fileID: 328633636357994053, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
       propertyPath: m_Name
       value: SpikeFab (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -831721947
       objectReference: {fileID: 0}
     - target: {fileID: 2054890818652936847, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
       propertyPath: m_RootOrder
@@ -9233,6 +9465,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -831721947
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9321,6 +9561,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpikeFab (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -831721947
+      objectReference: {fileID: 0}
     - target: {fileID: 2054890818652936847, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -9386,6 +9638,18 @@ PrefabInstance:
     - target: {fileID: 328633636357994053, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
       propertyPath: m_Name
       value: SpikeFab (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -831721947
       objectReference: {fileID: 0}
     - target: {fileID: 2054890818652936847, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
       propertyPath: m_RootOrder
@@ -9497,6 +9761,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -831721947
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9562,6 +9834,14 @@ PrefabInstance:
     - target: {fileID: 1713565096416488139, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -831721947
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9629,6 +9909,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4443784468186262162, guid: e1b7f8c16cb3ab442b60a34655316914, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -831721947
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9650,6 +9938,18 @@ PrefabInstance:
     - target: {fileID: 328633636357994053, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
       propertyPath: m_Name
       value: SpikeFab (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918731525901375287, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -831721947
       objectReference: {fileID: 0}
     - target: {fileID: 2054890818652936847, guid: 94bd9a820e188fa428fe0a2c7195f0d4, type: 3}
       propertyPath: m_RootOrder
