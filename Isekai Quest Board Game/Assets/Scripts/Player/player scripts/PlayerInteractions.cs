@@ -13,6 +13,7 @@ public class PlayerInteractions : MonoBehaviour
 
     private Collider2D nearbySpell;
     public Collider2D nearbyUpgrade;
+    public Collider2D npc;
     public CinemachineVirtualCamera camera;
 
     private bool cameraInitialized = false;
@@ -95,6 +96,10 @@ public class PlayerInteractions : MonoBehaviour
             nearbyUpgrade = other;
         }
 
+        if(other.gameObject.CompareTag("NPC")){
+            npc = other;
+        }
+
         if (other.gameObject.CompareTag("LockedRoom")){
             Debug.Log("HIT THE ROOM");
             other.gameObject.GetComponent<SpawnLockedRoom>().Spawn();
@@ -126,6 +131,10 @@ public class PlayerInteractions : MonoBehaviour
         {
             nearbyUpgrade = null;
         }
+
+        if(other.gameObject.CompareTag("NPC")){
+            npc = null;
+        }
     }
 
     private void OnInteractPerformed(InputAction.CallbackContext context)
@@ -138,6 +147,11 @@ public class PlayerInteractions : MonoBehaviour
         if (nearbyUpgrade != null)
         {
             nearbyUpgrade.GetComponent<UpgradeAcquisition>().Interacted();
+        }
+
+        if (npc != null)
+        {
+            //npc.GetComponent<FOX_SCRIPT_HERE>().Interacted();
         }
     }
 

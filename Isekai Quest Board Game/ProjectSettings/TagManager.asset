@@ -25,6 +25,7 @@ TagManager:
   - Audio
   - uiSpecialImage
   - BGMusic
+  - NPC
   layers:
   - Default
   - TransparentFX

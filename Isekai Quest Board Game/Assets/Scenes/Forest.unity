@@ -818,7 +818,7 @@ GameObject:
   - component: {fileID: 167433881}
   m_Layer: 7
   m_Name: Fox Man
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41678,7 +41678,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -831721947
   m_SortingLayer: 4
-  m_SortingOrder: 1
+  m_SortingOrder: -27
   m_Sprite: {fileID: 21300000, guid: 564ab3dc645ee934194ac0c285e837f6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
