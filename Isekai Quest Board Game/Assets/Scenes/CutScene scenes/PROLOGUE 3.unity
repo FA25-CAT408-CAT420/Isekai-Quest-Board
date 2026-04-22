@@ -245,6 +245,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   continueButton: {fileID: 2114224301}
+  dialogueTrigger: {fileID: 1946653602}
   nameText: {fileID: 1333089078}
   dialogueText: {fileID: 1825479384}
   textSpeed: 0.07
@@ -1242,6 +1243,7 @@ MonoBehaviour:
     - "My life\u2019s dedication, gone in an instant. All of it is too much to bear\u2026\r\r"
     - "\rMaybe my liege should have put me out of my misery.\r"
     - Maybe I can do what he should have done.
+  cutsceneDialogue: 1
 --- !u!114 &1946653603
 MonoBehaviour:
   m_ObjectHideFlags: 0

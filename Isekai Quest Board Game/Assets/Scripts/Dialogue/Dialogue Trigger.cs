@@ -5,6 +5,7 @@ using UnityEngine;
 public class DialogueTrigger : MonoBehaviour
 {
    public Dialogue dialogue;
+   public bool cutsceneDialogue;
 
    void Start()
    {

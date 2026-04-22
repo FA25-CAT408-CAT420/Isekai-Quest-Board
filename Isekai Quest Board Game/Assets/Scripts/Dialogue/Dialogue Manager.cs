@@ -7,7 +7,8 @@ using UnityEngine.SceneManagement;
 public class DialogueManager : MonoBehaviour
 {
     AudioManager audioManager;
-    public GameObject continueButton; 
+    public GameObject continueButton;
+    public DialogueTrigger dialogueTrigger; 
 
     [Header("Dialogue stuff")]
     public Text nameText;
@@ -15,6 +16,7 @@ public class DialogueManager : MonoBehaviour
     public float textSpeed;
     private bool isTyping = false;
     public bool enableSkip = true;
+    public bool IsDialogueActive {get; private set;}
     
     private Queue<string> sentences;
 
@@ -42,6 +44,7 @@ public class DialogueManager : MonoBehaviour
     public void StartDialogue (Dialogue dialogue)
     {
         //Debug.Log("Starting conversation with " + dialogue.name);
+        IsDialogueActive = true;
 
         nameText.text = dialogue.name;
         sentences.Clear();
@@ -95,9 +98,16 @@ public class DialogueManager : MonoBehaviour
     {
         Debug.Log("End of conversation. ");
 
-        await ScreenFader.Instance.FadeOut();
+        if(dialogueTrigger.cutsceneDialogue)
+        {
+            await ScreenFader.Instance.FadeOut();
 
-        SceneManager.LoadScene (SceneManager.GetActiveScene().buildIndex + 1);
+            SceneManager.LoadScene (SceneManager.GetActiveScene().buildIndex + 1);
+        }
+        else
+        {
+            IsDialogueActive = false;
+        }
     }
 
     public void SkipDialogue()

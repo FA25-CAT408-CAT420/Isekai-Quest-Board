@@ -851,6 +851,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   continueButton: {fileID: 237387206}
+  dialogueTrigger: {fileID: 1473898077}
   nameText: {fileID: 104728641}
   dialogueText: {fileID: 1496202551}
   textSpeed: 0.06
@@ -1325,6 +1326,7 @@ MonoBehaviour:
     - From dusk to dawn, I fought and defeated powerful sorcerers to protect the
       City of Eastlyn.
     - "Alas\u2026\r"
+  cutsceneDialogue: 1
 --- !u!1 &1496202550
 GameObject:
   m_ObjectHideFlags: 0

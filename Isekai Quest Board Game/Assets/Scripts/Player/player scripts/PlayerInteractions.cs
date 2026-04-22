@@ -151,7 +151,7 @@ public class PlayerInteractions : MonoBehaviour
 
         if (npc != null)
         {
-            //npc.GetComponent<FOX_SCRIPT_HERE>().Interacted();
+            npc.GetComponent<FoxWizard>().Interacted();
         }
     }
 

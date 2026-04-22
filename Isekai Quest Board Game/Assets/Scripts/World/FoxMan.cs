@@ -28,10 +28,4 @@ public class FoxMan : MonoBehaviour
             aIcon.SetActive(false);
         }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
