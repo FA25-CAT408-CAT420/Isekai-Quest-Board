@@ -19,6 +19,7 @@ public class FoxWizard : MonoBehaviour
 
     public void Interacted()
     {
+        //Debug.Log("TALKIN YO");
         StartCoroutine(HandleDialogue());
     }
 
