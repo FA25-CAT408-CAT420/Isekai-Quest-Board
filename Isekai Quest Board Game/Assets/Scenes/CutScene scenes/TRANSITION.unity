@@ -248,7 +248,7 @@ MonoBehaviour:
   dialogueTrigger: {fileID: 1946653602}
   nameText: {fileID: 1333089078}
   dialogueText: {fileID: 1825479384}
-  textSpeed: 0.07
+  textSpeed: 0.06
   enableSkip: 1
 --- !u!4 &331970404
 Transform:
