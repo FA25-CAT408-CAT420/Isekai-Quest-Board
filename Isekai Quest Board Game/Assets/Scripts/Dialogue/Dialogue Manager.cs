@@ -14,7 +14,7 @@ public class DialogueManager : MonoBehaviour
     public Text nameText;
     public Text dialogueText;
     public float textSpeed;
-    private bool isTyping = false;
+    public bool isTyping = false;
     public bool enableSkip = true;
     public bool IsDialogueActive {get; private set;}
     
@@ -106,8 +106,13 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            IsDialogueActive = false;
+            CloseDialogue();
         }
+    }
+
+    public void CloseDialogue()
+    {
+        IsDialogueActive = false;
     }
 
     public void SkipDialogue()

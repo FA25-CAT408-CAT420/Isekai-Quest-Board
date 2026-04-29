@@ -939,9 +939,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d2e243f56e26ba47a140c2a6aba3a6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aButton: {fileID: 1414431823}
   dialogueBox: {fileID: 1201116489}
   dialogueTrigger: {fileID: 1201116493}
   dialogueManager: {fileID: 1784963538}
+  isTalking: 0
 --- !u!1 &169274765
 GameObject:
   m_ObjectHideFlags: 0
@@ -1001,7 +1003,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 24ae68ad6ebf567428618bd7111b538c, type: 3}
     m_FontSize: 280
     m_FontStyle: 1
     m_BestFit: 0
@@ -43541,7 +43543,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &728862400
 RectTransform:
   m_ObjectHideFlags: 0
@@ -43558,10 +43560,10 @@ RectTransform:
   m_Father: {fileID: 1201116490}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -6.459999, y: 12.87}
+  m_SizeDelta: {x: 4.5, y: 2.25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &728862401
 MonoBehaviour:
@@ -43570,7 +43572,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 728862399}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -43585,7 +43587,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.754717, g: 0.754717, b: 0.754717, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -43606,7 +43608,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 728862402}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1784963538}
+        m_TargetAssemblyTypeName: DialogueManager, Assembly-CSharp
+        m_MethodName: CloseDialogue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &728862402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43614,7 +43628,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 728862399}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -43627,8 +43641,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: -566962913, guid: bee85a8d852bd7f4eac1ff949789729a, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -43636,7 +43650,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 7.7
 --- !u!222 &728862403
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -46257,7 +46271,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1084642827}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
@@ -46270,10 +46284,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Continue
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 36c381b7934acd341910c7024119ff0c, type: 2}
+  m_sharedMaterial: {fileID: -7124066947296418977, guid: 36c381b7934acd341910c7024119ff0c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -46297,8 +46311,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 0.8
+  m_fontSizeBase: 0.8
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -47067,7 +47081,7 @@ MonoBehaviour:
   dialogue:
     name: Cicero
     sentences:
-    - Come Back when you're not broke.
+    - Come back when you have acquired souls
   cutsceneDialogue: 0
 --- !u!1 &1214532100
 GameObject:
@@ -47314,7 +47328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 728862399}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &1250454631
@@ -47796,6 +47810,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aIcon: {fileID: 1548148697}
+  wizard: {fileID: 167433882}
+  canInteract: 0
 --- !u!1 &1429993624
 GameObject:
   m_ObjectHideFlags: 0
@@ -56491,6 +56507,7 @@ MonoBehaviour:
   nameText: {fileID: 1673989911}
   dialogueText: {fileID: 169274767}
   textSpeed: 0.06
+  isTyping: 0
   enableSkip: 1
 --- !u!4 &1784963539
 Transform:
