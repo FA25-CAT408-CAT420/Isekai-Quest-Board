@@ -56506,9 +56506,9 @@ MonoBehaviour:
   dialogueTrigger: {fileID: 1201116493}
   nameText: {fileID: 1673989911}
   dialogueText: {fileID: 169274767}
-  textSpeed: 0.06
+  textSpeed: 0.05
   isTyping: 0
-  enableSkip: 1
+  enableSkip: 0
 --- !u!4 &1784963539
 Transform:
   m_ObjectHideFlags: 0

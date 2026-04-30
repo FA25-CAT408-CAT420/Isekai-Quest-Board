@@ -249,6 +249,7 @@ MonoBehaviour:
   nameText: {fileID: 1333089078}
   dialogueText: {fileID: 1825479384}
   textSpeed: 0.06
+  isTyping: 0
   enableSkip: 1
 --- !u!4 &331970404
 Transform:
@@ -577,8 +578,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: -566962913, guid: bee85a8d852bd7f4eac1ff949789729a, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1031,7 +1032,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!225 &1815737400
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1396,8 +1397,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: -566962913, guid: bee85a8d852bd7f4eac1ff949789729a, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
