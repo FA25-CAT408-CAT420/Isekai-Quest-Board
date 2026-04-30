@@ -44325,6 +44325,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: ac6f30b68d6657a4688fe723c76d8264, type: 3}
+    - target: {fileID: 7642075429138716820, guid: 9b02c34bfacb1dd448d9cd4ac4ef2483, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -312012576, guid: d0ca24b24e13d41408459541120bd332, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 7614355270703402210, guid: 9b02c34bfacb1dd448d9cd4ac4ef2483, type: 3}
@@ -56506,9 +56510,9 @@ MonoBehaviour:
   dialogueTrigger: {fileID: 1201116493}
   nameText: {fileID: 1673989911}
   dialogueText: {fileID: 169274767}
-  textSpeed: 0.06
+  textSpeed: 0.05
   isTyping: 0
-  enableSkip: 1
+  enableSkip: 0
 --- !u!4 &1784963539
 Transform:
   m_ObjectHideFlags: 0
